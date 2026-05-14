@@ -1,0 +1,60 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isBrowserVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isAdmin() {
+      return isBrowserVerified() && (
+        request.auth.token.email == 'fabianofisio@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidId(id) {
+       return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // --- Gallery Rules ---
+    match /gallery/{imageId} {
+      function isValidImage(data) {
+        return data.url is string && data.url.size() < 100000 &&
+               data.title is string && data.title.size() <= 100 &&
+               data.createdAt == request.time;
+      }
+
+      allow list, get: if true; // Public gallery
+
+      allow create: if isAdmin() && 
+                      isValidId(imageId) &&
+                      isValidImage(request.resource.data) &&
+                      request.resource.data.keys().hasAll(['url', 'title', 'createdAt']) &&
+                      request.resource.data.keys().size() == 3;
+
+      allow update: if isAdmin() &&
+                      isValidImage(request.resource.data) &&
+                      request.resource.data.url == resource.data.url && // URL stays same
+                      request.resource.data.createdAt == resource.data.createdAt &&
+                      request.resource.data.diff(resource.data).affectedKeys().hasOnly(['title']);
+
+      allow delete: if isAdmin();
+    }
+
+    // Admins collection - System only
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if false; // Only manual or cloud function updates
+    }
+  }
+}
