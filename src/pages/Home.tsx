@@ -58,7 +58,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-90" />
         </div>
 
-        <div className="container mx-auto relative z-10">
+        <div className="container mx-auto relative z-10 pt-40 md:pt-56">
           <div className="max-w-4xl">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -70,14 +70,14 @@ export default function Home() {
                 <span className="text-[10px] uppercase tracking-[0.4em] text-white/50">Novo Hamburgo, RS</span>
               </div>
               
-              <h1 className="text-white text-7xl md:text-[11rem] font-bold uppercase tracking-tighter mb-4 leading-[0.85]">
+              <h1 className="text-white text-7xl md:text-9xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
                 Cão Meu Amigo<br />
                 <span className="text-highlight">adestramento</span>
               </h1>
-              <p className="text-white text-sm md:text-2xl font-bold uppercase tracking-[0.3em] mb-12">Treinando Cães para o Futuro</p>
+              <p className="text-white text-sm md:text-2xl font-bold uppercase tracking-[0.3em] mb-12">Adestramento de Cães no Vale do Sinos</p>
               
               <p className="text-white/50 text-lg md:text-xl max-w-xl mb-12 font-light leading-relaxed">
-                Transformando a relação entre você e seu cão através de adestramento ético, moderno e carinhoso.
+                Adestramento de cães em Novo Hamburgo, São Leopoldo e toda região metropolitana. Treinando cães para o futuro.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8">

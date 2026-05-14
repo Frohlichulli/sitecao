@@ -35,7 +35,7 @@ export default function Header() {
           <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center transition-transform group-hover:rotate-12">
             <Dog className="text-[#0F0F0F]" size={18} />
           </div>
-          <span className="text-white font-bold text-lg tracking-tighter uppercase whitespace-nowrap">
+          <span className="text-white font-bold text-xl tracking-tighter uppercase whitespace-nowrap">
             Cão Meu Amigo
           </span>
         </Link>
@@ -46,7 +46,7 @@ export default function Header() {
             <Link
               key={link.path}
               to={link.path}
-              className={`text-[10px] font-bold tracking-[0.3em] uppercase transition-all hover:opacity-100 ${
+              className={`text-xs font-bold tracking-[0.3em] uppercase transition-all hover:opacity-100 ${
                 location.pathname === link.path ? 'text-white underline underline-offset-8' : 'text-white/40'
               }`}
             >

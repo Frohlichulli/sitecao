@@ -1,8 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Mail, Phone, MapPin, Dog } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 export default function Footer() {
+  const socialLinks = [
+    { name: 'Instagram', icon: <Instagram size={20} />, href: 'https://instagram.com/caomeuamigo_adestramento' },
+    { name: 'Email', icon: <Mail size={20} />, href: 'mailto:fabianofisio@gmail.com' },
+    { name: 'WhatsApp', icon: <Phone size={20} />, href: 'https://wa.me/5551996566493' },
+  ];
+
+  const [hoveredIcon, setHoveredIcon] = React.useState<string | null>(null);
+
   return (
     <footer className="bg-[#0F0F0F] text-white pt-20 pb-10 border-t border-white/5">
       <div className="container mx-auto px-6">
@@ -20,15 +29,36 @@ export default function Footer() {
               Transformando a relação entre você e seu cão através de adestramento ético, moderno e carinhoso em Novo Hamburgo, RS.
             </p>
             <div className="flex space-x-4">
-              <a href="https://instagram.com/caomeuamigo_adestramento" target="_blank" rel="noopener noreferrer" className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-[#0F0F0F] transition-all">
-                <Instagram size={20} />
-              </a>
-              <a href="mailto:fabianofisio@gmail.com" className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-[#0F0F0F] transition-all">
-                <Mail size={20} />
-              </a>
-              <a href="https://wa.me/5551996566493" target="_blank" rel="noopener noreferrer" className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-[#0F0F0F] transition-all">
-                <Phone size={20} />
-              </a>
+              {socialLinks.map((social) => (
+                <div 
+                  key={social.name} 
+                  className="relative"
+                  onMouseEnter={() => setHoveredIcon(social.name)}
+                  onMouseLeave={() => setHoveredIcon(null)}
+                >
+                  <AnimatePresence>
+                    {hoveredIcon === social.name && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, x: '-50%' }}
+                        animate={{ opacity: 1, y: 0, x: '-50%' }}
+                        exit={{ opacity: 0, y: 10, x: '-50%' }}
+                        className="absolute -top-12 left-1/2 bg-white text-[#0F0F0F] text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-2 rounded pointer-events-none whitespace-nowrap z-50 shadow-xl"
+                      >
+                        {social.name}
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-x-[6px] border-x-transparent border-t-[6px] border-t-white" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  <a 
+                    href={social.href} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-[#0F0F0F] transition-all"
+                  >
+                    {social.icon}
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -43,21 +73,27 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-widest mb-6 text-white/40">Contato</h4>
-            <ul className="space-y-4">
-              <li className="flex items-start space-x-3 text-white/60">
-                <MapPin size={18} className="mt-1 flex-shrink-0" />
-                <span>Novo Hamburgo, RS</span>
-              </li>
-              <li className="flex items-start space-x-3 text-white/60">
-                <Phone size={18} className="mt-1 flex-shrink-0" />
-                <span>(51) 99656.6493</span>
-              </li>
-              <li className="flex items-start space-x-3 text-white/60">
-                <Mail size={18} className="mt-1 flex-shrink-0" />
-                <span>fabianofisio@gmail.com</span>
-              </li>
-            </ul>
+            <h4 className="text-sm font-bold uppercase tracking-widest mb-6 text-white/40">Cidades Atendidas</h4>
+            <div className="grid grid-cols-2 gap-2 text-[9px] uppercase tracking-widest text-white/20">
+              <span>Novo Hamburgo</span>
+              <span>São Leopoldo</span>
+              <span>Porto Alegre</span>
+              <span>Canoas</span>
+              <span>Campo Bom</span>
+              <span>Estância Velha</span>
+              <span>Ivoti</span>
+              <span>Dois Irmãos</span>
+              <span>Sapiranga</span>
+              <span>Vale do Sinos</span>
+            </div>
+            <div className="mt-6 pt-6 border-t border-white/5 space-y-2">
+               <p className="text-[10px] text-white/40 uppercase tracking-widest flex items-center">
+                 <Phone size={12} className="mr-2" /> (51) 99656.6493
+               </p>
+               <p className="text-[10px] text-white/40 uppercase tracking-widest flex items-center">
+                 <Mail size={12} className="mr-2" /> fabianofisio@gmail.com
+               </p>
+            </div>
           </div>
         </div>
 

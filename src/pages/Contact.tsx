@@ -19,13 +19,27 @@ export default function Contact() {
             >
               <div className="mb-6 flex items-center space-x-4">
                 <span className="w-10 h-px bg-white/30"></span>
-                <span className="text-[10px] uppercase tracking-[0.5em] text-white/40">Fale Conosco</span>
+                <span className="text-[10px] uppercase tracking-[0.5em] text-white/40">Onde Atendemos</span>
               </div>
               
-              <h1 className="text-white text-7xl md:text-[8rem] font-bold uppercase tracking-tighter mb-16 leading-[0.85]">
-                Vamos <br /><span className="text-highlight">começar?</span>
-              </h1>
+              <h2 className="text-white text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-10 leading-[0.85]">
+                Cidades atendidas<br /><span className="text-highlight">no RS</span>
+              </h2>
               
+              <div className="grid grid-cols-2 gap-4 mb-20">
+                {[
+                  'Novo Hamburgo', 'Campo Bom', 'Sapiranga', 
+                  'São Leopoldo', 'Porto Alegre', 'Canoas', 
+                  'Ivoti', 'Estância Velha', 'Dois Irmãos', 
+                  'Vale do Sinos'
+                ].map((city) => (
+                  <div key={city} className="flex items-center space-x-2 text-white/60 text-sm">
+                    <span className="w-1.5 h-1.5 bg-white/20 rounded-full"></span>
+                    <span>{city}</span>
+                  </div>
+                ))}
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
                 <div>
                   <p className="text-white/20 text-[9px] uppercase tracking-[0.4em] mb-4">WhatsApp / Celular</p>

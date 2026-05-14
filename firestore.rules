@@ -29,9 +29,9 @@ service cloud.firestore {
     // --- Gallery Rules ---
     match /gallery/{imageId} {
       function isValidImage(data) {
-        return data.url is string && data.url.size() < 100000 &&
+        return data.url is string && data.url.size() < 900000 &&
                data.title is string && data.title.size() <= 100 &&
-               data.createdAt == request.time;
+               data.createdAt != null;
       }
 
       allow list, get: if true; // Public gallery

@@ -63,6 +63,9 @@ export default function Services() {
             <h1 className="text-white text-7xl md:text-[9rem] font-bold uppercase tracking-tighter mb-10 leading-[0.85]">
               Serviços <br /><span className="text-highlight">especializados</span>
             </h1>
+            <p className="text-white/30 text-xs uppercase tracking-[0.3em] max-w-2xl">
+              Soluções completas de adestramento de cães em Novo Hamburgo, São Leopoldo, Porto Alegre e cidades vizinhas. Atendimento personalizado para o bem-estar do seu pet.
+            </p>
           </motion.div>
         </header>
 
