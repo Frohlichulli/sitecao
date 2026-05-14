@@ -9,14 +9,14 @@ interface GalleryImage {
 }
 
 const DEFAULT_IMAGES: GalleryImage[] = [
-  { id: '1', url: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=2671&auto=format&fit=crop", title: "Treino e Foco" },
-  { id: '2', url: "https://images.unsplash.com/photo-1541599540903-216a46ca1ad0?q=80&w=2671&auto=format&fit=crop", title: "Socialização Equilibrada" },
-  { id: '3', url: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=2669&auto=format&fit=crop", title: "Australian Shepherd Style" },
-  { id: '4', url: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?q=80&w=2574&auto=format&fit=crop", title: "Aventura e Companheirismo" },
-  { id: '5', url: "https://images.unsplash.com/photo-1593134257782-e89567b7718a?q=80&w=2635&auto=format&fit=crop", title: "Terapia com Cães" },
-  { id: '6', url: "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?q=80&w=2669&auto=format&fit=crop", title: "Proteção e Obediência" },
-  { id: '7', url: "https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48?q=80&w=2670&auto=format&fit=crop", title: "Cão no Set de Filmagens" },
-  { id: '8', url: "https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=2670&auto=format&fit=crop", title: "Momentos de Descanso" }
+  { id: '1', url: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=2671&auto=format&fit=crop", title: "Pastor Australiano - Estilo" },
+  { id: '2', url: "https://images.unsplash.com/photo-1541599540903-216a46ca1ad0?q=80&w=2671&auto=format&fit=crop", title: "Aventura no Caiaque" },
+  { id: '3', url: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=2669&auto=format&fit=crop", title: "Terapia com Cães" },
+  { id: '4', url: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?q=80&w=2574&auto=format&fit=crop", title: "Treinamento de Proteção" },
+  { id: '5', url: "https://images.unsplash.com/photo-1593134257782-e89567b7718a?q=80&w=2635&auto=format&fit=crop", title: "Cão no Set de Cinema" },
+  { id: '6', url: "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?q=80&w=2669&auto=format&fit=crop", title: "Obediência e Foco" },
+  { id: '7', url: "https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48?q=80&w=2670&auto=format&fit=crop", title: "Socialização no Parque" },
+  { id: '8', url: "https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=2670&auto=format&fit=crop", title: "Conexão e Bem-estar" }
 ];
 
 export default function Gallery() {
