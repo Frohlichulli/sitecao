@@ -308,6 +308,7 @@ export default function Gallery() {
                   <img 
                     src={img.url} 
                     alt={img.title}
+                    loading="lazy"
                     className={`w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-1000 ${isManaging ? 'grayscale-0 brightness-75' : ''}`}
                   />
                   
