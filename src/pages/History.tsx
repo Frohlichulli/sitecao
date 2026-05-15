@@ -76,13 +76,13 @@ export default function History() {
                 </div>
 
                 <div className={`w-full lg:w-[45%] relative z-10 ${idx % 2 === 0 ? 'lg:text-right' : 'lg:text-left'}`}>
-                  <div className={`w-16 h-1 w-full bg-white/10 mb-8 hidden lg:block ${idx % 2 === 0 ? 'ml-auto' : ''}`}></div>
+                  <div className={`w-16 h-1 bg-white/10 mb-8 hidden lg:block ${idx % 2 === 0 ? 'ml-auto' : ''}`}></div>
                   <h3 className="text-white text-4xl font-bold uppercase tracking-tight mb-4">{item.title}</h3>
                   <p className="text-white/40 text-lg leading-relaxed font-light">{item.desc}</p>
                 </div>
-                <div className="lg:w-[10%]" />
-                <div className="w-full lg:w-[45%] mt-10 lg:mt-0 px-6">
-                  <div className="aspect-video bg-[#0A0A0A] border border-white/5 rounded-2xl overflow-hidden group">
+                <div className="lg:w-[15%]" />
+                <div className="w-full lg:w-[40%] mt-10 lg:mt-0 px-6 max-w-lg mx-auto lg:mx-0">
+                  <div className="aspect-[3/2] bg-[#0A0A0A] border border-white/5 rounded-2xl overflow-hidden group">
                     <img 
                       src={item.image} 
                       alt={item.title}
