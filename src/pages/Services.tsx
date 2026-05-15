@@ -60,7 +60,7 @@ export default function Services() {
               <span className="text-[10px] uppercase tracking-[0.5em] text-white/40">Soluções para seu Pet</span>
             </div>
             
-            <h1 className="text-white text-7xl md:text-9xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
+            <h1 className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
               Serviços <br /><span className="text-highlight">especializados</span>
             </h1>
             <p className="text-white/30 text-xs uppercase tracking-[0.3em] max-w-2xl">
@@ -92,7 +92,7 @@ export default function Services() {
               
               <div className="flex items-center justify-end">
                 <Link to="/contato" className="btn-outline group-hover:bg-white group-hover:text-black">
-                  Agendar
+                  Saiba Mais
                 </Link>
               </div>
             </motion.div>

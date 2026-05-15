@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Dog, Heart, Award, Shield } from 'lucide-react';
 
 export default function History() {
   const timeline = [
@@ -8,25 +7,25 @@ export default function History() {
       year: "2008",
       title: "As Primeiras Patas",
       desc: "Nascemos da paixão por cães e da necessidade de um adestramento que respeitasse o animal, unindo técnica e carinho.",
-      icon: <Heart />
+      image: "https://images.unsplash.com/photo-1591160690555-5debfba289f0?q=80&w=2000&auto=format&fit=crop"
     },
     {
       year: "2014",
       title: "Expansão em Novo Hamburgo",
       desc: "Consolidamos nossa presença no Vale do Sinos, atendendo centenas de famílias de forma personalizada.",
-      icon: <Dog />
+      image: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=2000&auto=format&fit=crop"
     },
     {
       year: "2020",
       title: "Inovação e Ciência",
       desc: "Aperfeiçoamos nossa metodologia com as mais modernas técnicas de reforço positivo ao redor do mundo.",
-      icon: <Award />
+      image: "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?q=80&w=2000&auto=format&fit=crop"
     },
     {
       year: "Hoje",
       title: "Referência no Estado",
       desc: "Com 18 anos de trajetória, somos referência absoluta em adestramento comportamental e bem-estar canino.",
-      icon: <Shield />
+      image: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?q=80&w=2000&auto=format&fit=crop"
     }
   ];
 
@@ -48,7 +47,7 @@ export default function History() {
               <span className="text-[10px] uppercase tracking-[0.5em] text-white/40">Nossa Trajetória</span>
             </div>
             
-            <h1 className="text-white text-7xl md:text-9xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
+            <h1 className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
               Uma vida <br /> dedicada <br /><span className="text-highlight">aos cães.</span>
             </h1>
             
@@ -83,8 +82,12 @@ export default function History() {
                 </div>
                 <div className="lg:w-[10%]" />
                 <div className="w-full lg:w-[45%] mt-10 lg:mt-0 px-6">
-                  <div className="aspect-video bg-[#0A0A0A] border border-white/5 rounded-2xl flex items-center justify-center">
-                     {React.cloneElement(item.icon as React.ReactElement, { size: 60, className: "opacity-20" })}
+                  <div className="aspect-video bg-[#0A0A0A] border border-white/5 rounded-2xl overflow-hidden group">
+                    <img 
+                      src={item.image} 
+                      alt={item.title}
+                      className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-700"
+                    />
                   </div>
                 </div>
               </motion.div>

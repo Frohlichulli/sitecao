@@ -52,7 +52,7 @@ export default function Home() {
                 <span className="text-[10px] uppercase tracking-[0.4em] text-white/50">Novo Hamburgo, RS</span>
               </div>
               
-              <h1 className="text-white text-7xl md:text-9xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
+              <h1 className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
                 Cão Meu Amigo<br />
                 <span className="text-highlight">adestramento</span>
               </h1>

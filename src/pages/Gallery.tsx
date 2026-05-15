@@ -229,7 +229,7 @@ export default function Gallery() {
             </div>
             <h1 
               onClick={handleLoginTrigger}
-              className="text-white text-7xl md:text-9xl font-bold uppercase tracking-tighter mb-12 leading-[0.85] cursor-default select-none"
+              className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-12 leading-[0.85] cursor-default select-none"
             >
               Nossa <br /><span className="text-highlight">Galeria</span>
             </h1>
