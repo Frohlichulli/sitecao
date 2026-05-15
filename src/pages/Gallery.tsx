@@ -360,7 +360,7 @@ export default function Gallery() {
             href="https://instagram.com/caomeuamigo_adestramento" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="mt-6 inline-block text-white text-2xl md:text-4xl font-black uppercase tracking-tighter hover:text-white/70 transition-colors"
+            className="mt-6 inline-block text-white text-xl md:text-2xl font-black uppercase tracking-tighter hover:text-white/70 transition-colors"
           >
             @caomeuamigo_adestramento
           </a>
