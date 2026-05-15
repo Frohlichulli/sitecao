@@ -48,7 +48,7 @@ export default function History() {
               <span className="text-[10px] uppercase tracking-[0.5em] text-white/40">Nossa Trajetória</span>
             </div>
             
-            <h1 className="text-white text-6xl md:text-[10rem] font-bold uppercase tracking-tighter mb-10 leading-[0.8]">
+            <h1 className="text-white text-7xl md:text-9xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
               Uma vida <br /> dedicada <br /><span className="text-highlight">aos cães.</span>
             </h1>
             

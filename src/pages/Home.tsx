@@ -22,24 +22,6 @@ export default function Home() {
     }
   ];
 
-  const testimonials = [
-    {
-      name: "Camila R.",
-      pet: "Luna (Golden Retriever)",
-      text: "A transformação foi incrível. O método carinhoso fez toda a diferença para o comportamento da Luna."
-    },
-    {
-      name: "Ricardo S.",
-      pet: "Max (Pastor Alemão)",
-      text: "Profissionalismo de alto nível. O adestramento avançado superou todas as minhas expectativas."
-    },
-    {
-      name: "Mariana T.",
-      pet: "Thor (Bulldog Francês)",
-      text: " Thornton era muito agitado, mas após as aulas de socialização ele se tornou outro cão!"
-    }
-  ];
-
   return (
     <div className="bg-[#0F0F0F]">
       {/* Hero Section */}
@@ -74,7 +56,8 @@ export default function Home() {
                 Cão Meu Amigo<br />
                 <span className="text-highlight">adestramento</span>
               </h1>
-              <p className="text-white text-sm md:text-2xl font-bold uppercase tracking-[0.3em] mb-12">Adestramento de Cães no Vale do Sinos</p>
+              <p className="sr-only">Especialista em adestramento de cães no Vale do Sinos, Novo Hamburgo e São Leopoldo.</p>
+              <p className="text-white text-sm md:text-2xl font-bold uppercase tracking-[0.3em] mb-12">Treinamento de Cães no Vale do Sinos</p>
               
               <p className="text-white/50 text-lg md:text-xl max-w-xl mb-12 font-light leading-relaxed">
                 Adestramento de cães em Novo Hamburgo, São Leopoldo e toda região metropolitana. Treinando cães para o futuro.
@@ -182,31 +165,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-32 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-20">
-            <span className="text-[#0F0F0F]/30 text-sm font-bold uppercase tracking-[0.2em] mb-4 block">Depoimentos</span>
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">O que dizem os tutores.</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t, idx) => (
-              <div key={idx} className="bg-[#f5f5f5] p-10 rounded-[32px]">
-                <div className="flex space-x-1 mb-6">
-                  {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="#0F0F0F" className="text-[#0F0F0F]" />)}
-                </div>
-                <p className="text-xl italic font-serif text-[#0F0F0F]/80 mb-8 leading-relaxed">"{t.text}"</p>
-                <div>
-                  <h4 className="text-lg font-bold uppercase tracking-tight">{t.name}</h4>
-                  <p className="text-sm font-bold text-[#0F0F0F]/40 uppercase tracking-widest">{t.pet}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-32 bg-[#0F0F0F] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -214,7 +172,7 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] border border-white/20 rounded-full" />
         </div>
         <div className="container mx-auto px-6 text-center relative z-10">
-          <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-white mb-12 leading-[0.85]">
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-12 leading-[0.85]">
             Pronto para transformar<br /> seu melhor amigo?
           </h2>
           <motion.div
