@@ -89,7 +89,7 @@ export default function Home() {
       </section>
 
       {/* Services Preview - Dark High End Version */}
-      <section className="py-40 bg-[#0A0A0A] relative border-b border-white/5">
+      <section className="pt-40 pb-12 bg-[#0A0A0A] relative border-b border-white/5">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
             <div className="lg:col-span-5 px-6">
@@ -127,7 +127,7 @@ export default function Home() {
       </section>
 
       {/* History Teaser */}
-      <section className="py-32 bg-[#0F0F0F] text-white">
+      <section className="pt-12 pb-32 bg-[#0F0F0F] text-white">
         <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
           <div className="relative group">
             <div className="aspect-[4/5] rounded-[40px] overflow-hidden">

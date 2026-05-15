@@ -17,11 +17,11 @@ export default function Header() {
   }, []);
 
   const navLinks = [
-    { name: 'Início', path: '/' },
-    { name: 'História', path: '/historia' },
-    { name: 'Serviços', path: '/servicos' },
-    { name: 'Galeria', path: '/galeria' },
-    { name: 'Contato', path: '/contato' },
+    { name: 'INÍCIO', path: '/' },
+    { name: 'HISTÓRIA', path: '/historia' },
+    { name: 'SERVIÇOS', path: '/servicos' },
+    { name: 'GALERIA', path: '/galeria' },
+    { name: 'CONTATO', path: '/contato' },
   ];
 
   return (

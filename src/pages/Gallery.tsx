@@ -293,7 +293,7 @@ export default function Gallery() {
             <div className="w-10 h-10 border-4 border-white/10 border-t-white rounded-full animate-spin"></div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2">
             <AnimatePresence>
               {images.map((img, idx) => (
                 <motion.div 
@@ -312,10 +312,10 @@ export default function Gallery() {
                   />
                   
                   {/* Title Overlay */}
-                  <div className="absolute inset-0 bg-[#0F0F0F]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
+                  <div className="absolute inset-0 bg-[#0F0F0F]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 md:p-8">
                     <div>
                       <p className="text-white text-[10px] font-bold uppercase tracking-[0.4em] mb-2">0{idx + 1}</p>
-                      <h4 className="text-white text-xl font-bold uppercase tracking-tight">{img.title}</h4>
+                      <h4 className="text-white text-sm md:text-xl font-bold uppercase tracking-tight">{img.title}</h4>
                     </div>
                   </div>
 
