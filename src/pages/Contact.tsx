@@ -1,12 +1,33 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Send, Instagram, Phone, Mail, MapPin } from 'lucide-react';
+import { Send, Instagram, Phone, Mail, MapPin, ChevronDown } from 'lucide-react';
 
 export default function Contact() {
+  const [activeFaq, setActiveFaq] = React.useState<number | null>(null);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Logic for form submission
   };
+
+  const faqs = [
+    {
+      q: "Com que idade meu cão pode começar o adestramento?",
+      a: "O adestramento pode começar logo nos primeiros meses de vida, a partir dos 60 dias, quando o filhote já está em fase de socialização. Cães adultos também aprendem perfeitamente, nunca é tarde para começar!"
+    },
+    {
+      q: "Quanto tempo dura uma aula e o processo completo?",
+      a: "As aulas individuais duram em média 50 minutos. O tempo total do processo varia de acordo com os objetivos do tutor e o comportamento do cão, mas resultados significativos são notados já nas primeiras semanas."
+    },
+    {
+      q: "Vocês utilizam métodos punitivos?",
+      a: "Não. Utilizamos metodologias modernas baseadas no reforço positivo e bem-estar animal. O foco é recompensar os comportamentos desejados e criar uma comunicação clara e prazerosa entre cão e tutor."
+    },
+    {
+      q: "Preciso estar presente durante as aulas?",
+      a: "Sim, a participação do tutor é fundamental. O objetivo do adestramento não é apenas ensinar o cão, mas capacitar o tutor a se comunicar corretamente com ele no dia a dia."
+    }
+  ];
 
   return (
     <div className="bg-[#0F0F0F] pt-48 pb-20">
@@ -105,6 +126,40 @@ export default function Contact() {
               </button>
             </form>
           </motion.div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="mt-32 max-w-4xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-white text-3xl font-bold uppercase tracking-tight mb-4">Dúvidas Frequentes</h2>
+            <p className="text-white/40 text-sm tracking-widest uppercase">FAQ Adestramento</p>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, idx) => (
+              <div 
+                key={idx} 
+                className="bg-[#0A0A0A] border border-white/5 rounded-2xl overflow-hidden cursor-pointer group"
+                onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
+              >
+                <div className="p-6 flex items-center justify-between">
+                  <h3 className="text-white font-medium text-lg pr-8">{faq.q}</h3>
+                  <ChevronDown className={`w-5 h-5 text-white/20 group-hover:text-white transition-transform duration-300 ${activeFaq === idx ? 'rotate-180 text-white' : ''}`} />
+                </div>
+                
+                <motion.div
+                  initial={false}
+                  animate={{ height: activeFaq === idx ? 'auto' : 0, opacity: activeFaq === idx ? 1 : 0 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-6 pb-6 text-white/40 leading-relaxed">
+                    {faq.a}
+                  </div>
+                </motion.div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Map Section Placeholder */}
