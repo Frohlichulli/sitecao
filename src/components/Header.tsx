@@ -23,6 +23,7 @@ export default function Header() {
     { name: 'HISTÓRIA', path: '/historia' },
     { name: 'SERVIÇOS', path: '/servicos' },
     { name: 'GALERIA', path: '/galeria' },
+    { name: 'AVALIAÇÃO', path: '/avaliacao' },
     { name: 'CONTATO', path: '/contato' },
   ];
 

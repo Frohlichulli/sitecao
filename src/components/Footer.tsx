@@ -77,6 +77,7 @@ export default function Footer() {
               <li><MotionLink to="/historia" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">História</MotionLink></li>
               <li><MotionLink to="/servicos" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">Serviços</MotionLink></li>
               <li><MotionLink to="/galeria" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">Galeria</MotionLink></li>
+              <li><MotionLink to="/avaliacao" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">Avaliação</MotionLink></li>
               <li><MotionLink to="/contato" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">Contato</MotionLink></li>
             </ul>
           </div>

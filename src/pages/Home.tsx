@@ -195,10 +195,10 @@ export default function Home() {
             whileTap={{ scale: 0.95 }}
           >
             <Link 
-              to="/contato"
+              to="/avaliacao"
               className="inline-block bg-white text-[#0F0F0F] px-16 py-8 rounded-[24px] text-xl font-bold uppercase tracking-[0.2em] shadow-2xl"
             >
-              Agende Agora
+              Começar Avaliação
             </Link>
           </motion.div>
         </div>

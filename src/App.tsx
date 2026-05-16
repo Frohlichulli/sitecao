@@ -12,6 +12,7 @@ import History from './pages/History.tsx';
 import Services from './pages/Services.tsx';
 import Gallery from './pages/Gallery.tsx';
 import Contact from './pages/Contact.tsx';
+import Assessment from './pages/Assessment.tsx';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -36,6 +37,7 @@ export default function App() {
             <Route path="/servicos" element={<Services />} />
             <Route path="/galeria" element={<Gallery />} />
             <Route path="/contato" element={<Contact />} />
+            <Route path="/avaliacao" element={<Assessment />} />
           </Routes>
         </main>
         <Footer />
