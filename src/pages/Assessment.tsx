@@ -116,25 +116,19 @@ export default function Assessment() {
       `Saúde: ${healthIssues}`;
   };
 
-  const handleWhatsAppSubmit = () => {
+  const handleFinalSubmit = () => {
     const text = formatMessageText();
     const whatsappUrl = `https://wa.me/5551996566493?text=${encodeURIComponent(text)}`;
+    
+    // Open WhatsApp in new tab
     window.open(whatsappUrl, '_blank');
-    setIsSubmitted(true);
-  };
-
-  const handleEmailSubmit = () => {
-    const text = formatMessageText();
-    const subject = `Ficha de Avaliação Comportamental - ${formData.tutorName} & ${formData.petName}`;
-    const mailtoUrl = `mailto:fabianofisio@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
-    window.location.href = mailtoUrl;
     setIsSubmitted(true);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (currentStep === steps.length - 1) {
-      handleWhatsAppSubmit();
+      handleFinalSubmit();
     } else {
       nextStep();
     }
@@ -146,28 +140,28 @@ export default function Assessment() {
         <motion.div 
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="max-w-xl w-full bg-[#0A0A0A] border border-white/5 rounded-[48px] p-12 text-center"
+          className="max-w-xl w-full bg-[#0A0A0A] border border-white/10 rounded-[48px] p-12 text-center shadow-2xl"
         >
-          <div className="w-24 h-24 bg-highlight rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
-            <CheckCircle2 size={48} className="text-[#0F0F0F]" />
+          <div className="w-24 h-24 bg-[#25D366] rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
+            <CheckCircle2 size={48} className="text-white" />
           </div>
-          <h2 className="text-white text-4xl font-bold uppercase tracking-tighter mb-6">Ficha Processada!</h2>
-          <p className="text-white/80 text-xl font-light leading-relaxed mb-12">
-            Obrigado por dedicar este tempo. Já preparamos as informações do {formData.petName}. Se você ainda não enviou pela janela que se abriu, use os botões abaixo.
+          <h2 className="text-white text-4xl font-bold uppercase tracking-tighter mb-6">Avaliação Enviada!</h2>
+          <p className="text-white/90 text-xl font-light leading-relaxed mb-12">
+            Sua ficha técnica foi enviada com sucesso para o WhatsApp: <span className="text-white font-bold">5551996566493</span>. Entraremos em contato em breve.
           </p>
           <div className="space-y-4">
             <button 
-              onClick={handleWhatsAppSubmit}
-              className="btn-primary w-full py-6 flex items-center justify-center space-x-3 bg-[#25D366] border-none text-white"
+              onClick={handleFinalSubmit}
+              className="btn-primary w-full py-6 flex items-center justify-center space-x-3 bg-[#25D366] border-none text-white shadow-xl shadow-green-500/20"
             >
               <Send size={18} />
-              <span>Reenviar via WhatsApp</span>
+              <span>Abrir WhatsApp Novamente</span>
             </button>
             <button 
               onClick={() => setIsSubmitted(false)}
-              className="text-white/20 hover:text-white text-xs font-bold uppercase tracking-widest pt-4 block mx-auto"
+              className="text-white/40 hover:text-white text-xs font-bold uppercase tracking-widest pt-4 block mx-auto transition-colors"
             >
-              Começar outro formulário
+              Preencher nova ficha
             </button>
           </div>
         </motion.div>
@@ -187,14 +181,14 @@ export default function Assessment() {
           >
             <div className="flex items-center space-x-4 mb-8">
               <div className="w-12 h-[1px] bg-highlight"></div>
-              <span className="text-white/70 text-[10px] font-bold uppercase tracking-[0.5em]">Etapa {currentStep + 1} de {steps.length}</span>
+              <span className="text-white text-[10px] font-bold uppercase tracking-[0.5em]">Etapa {currentStep + 1} de {steps.length}</span>
             </div>
             
             <h1 className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-8 leading-[0.85]">
               Ficha de <br /><span className="text-highlight">Avaliação</span>
             </h1>
             
-            <p className="text-white/80 text-xl md:text-2xl font-light leading-relaxed max-w-2xl">
+            <p className="text-white text-xl md:text-2xl font-light leading-relaxed max-w-2xl">
               Dedique alguns minutos para nos contar sobre seu melhor amigo. Essas informações são o alicerce de um treinamento de sucesso.
             </p>
           </motion.div>
@@ -233,7 +227,7 @@ export default function Assessment() {
                   <div className="space-y-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-4">
-                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Seu Nome Completo</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-white block">Seu Nome Completo</label>
                         <input 
                           type="text" 
                           name="tutorName"
@@ -241,11 +235,11 @@ export default function Assessment() {
                           value={formData.tutorName}
                           onChange={handleInputChange}
                           placeholder="Ex: Fabiano Silva"
-                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light placeholder:text-white/50"
                         />
                       </div>
                       <div className="space-y-4">
-                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">WhatsApp / Celular</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-white block">WhatsApp / Celular</label>
                         <input 
                           type="tel" 
                           name="tutorPhone"
@@ -253,31 +247,31 @@ export default function Assessment() {
                           value={formData.tutorPhone}
                           onChange={handleInputChange}
                           placeholder="(51) 99999-9999"
-                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light placeholder:text-white/50"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-4">
-                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">E-mail</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-white block">E-mail</label>
                         <input 
                           type="email" 
                           name="tutorEmail"
                           required
                           value={formData.tutorEmail}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
                         />
                       </div>
                       <div className="space-y-4">
-                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Cidade / Bairro</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-white block">Cidade / Bairro</label>
                         <input 
                           type="text" 
                           name="tutorAddress"
                           required
                           value={formData.tutorAddress}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
                         />
                       </div>
                     </div>
@@ -288,48 +282,48 @@ export default function Assessment() {
                   <div className="space-y-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-4">
-                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Nome do Cão</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-white block">Nome do Cão</label>
                         <input 
                           type="text" 
                           name="petName"
                           required
                           value={formData.petName}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
                         />
                       </div>
                       <div className="space-y-4">
-                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Raça</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-white block">Raça</label>
                         <input 
                           type="text" 
                           name="petBreed"
                           value={formData.petBreed}
                           onChange={handleInputChange}
                           placeholder="SRD, Golden, Border..."
-                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light placeholder:text-white/50"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                       <div className="space-y-4">
-                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Idade</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-white block">Idade</label>
                         <input 
                           type="text" 
                           name="petAge"
                           value={formData.petAge}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
                         />
                       </div>
                       <div className="space-y-4">
-                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Sexo</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-white block">Sexo</label>
                         <div className="grid grid-cols-2 gap-4">
                           {['macho', 'fêmea'].map(opt => (
                             <button
                               key={opt}
                               type="button"
                               onClick={() => setFormData({ ...formData, petSex: opt })}
-                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petSex === opt ? 'bg-white text-black' : 'bg-white/10 text-white/40 hover:text-white'}`}
+                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petSex === opt ? 'bg-white text-black' : 'bg-white/10 text-white/60 hover:text-white'}`}
                             >
                               {opt}
                             </button>
@@ -337,14 +331,14 @@ export default function Assessment() {
                         </div>
                       </div>
                       <div className="space-y-4">
-                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Castrado?</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-white block">Castrado?</label>
                         <div className="grid grid-cols-2 gap-4">
                           {['sim', 'não'].map(opt => (
                             <button
                               key={opt}
                               type="button"
                               onClick={() => setFormData({ ...formData, petNeutered: opt })}
-                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petNeutered === opt ? 'bg-white text-black' : 'bg-white/10 text-white/40 hover:text-white'}`}
+                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petNeutered === opt ? 'bg-white text-black' : 'bg-white/10 text-white/60 hover:text-white'}`}
                             >
                               {opt}
                             </button>
@@ -358,7 +352,7 @@ export default function Assessment() {
                 {currentStep === 2 && (
                   <div className="space-y-12">
                      <div className="space-y-4">
-                      <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Descreva as principais dificuldades comportamentais</label>
+                      <label className="text-xs font-bold uppercase tracking-widest text-white block">Descreva as principais dificuldades comportamentais</label>
                       <textarea 
                         name="mainIssues"
                         required
@@ -366,12 +360,12 @@ export default function Assessment() {
                         value={formData.mainIssues}
                         onChange={handleInputChange}
                         placeholder="Ex: Pula excessivamente, reage a outros cães na guia, destrói objetos..."
-                        className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light resize-none placeholder:text-white/30"
+                        className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light resize-none placeholder:text-white/50"
                       />
                     </div>
 
                     <div className="space-y-6">
-                      <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Problemas observados (Selecione todos que se aplicam)</label>
+                      <label className="text-xs font-bold uppercase tracking-widest text-white block">Problemas observados (Selecione todos que se aplicam)</label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         {[
                           'Medo de estranhos', 'Agressão / Rosnados', 'Ansiedade de Separação', 
@@ -382,9 +376,9 @@ export default function Assessment() {
                             key={item}
                             type="button"
                             onClick={() => toggleArrayItem('reactivity', item)}
-                            className={`flex items-center space-x-3 p-4 rounded-xl text-[10px] font-bold uppercase tracking-widest text-left transition-all ${formData.reactivity.includes(item) ? 'bg-highlight/10 text-highlight border border-highlight/50' : 'bg-white/10 text-white/40 hover:text-white border border-transparent'}`}
+                            className={`flex items-center space-x-3 p-4 rounded-xl text-[10px] font-bold uppercase tracking-widest text-left transition-all ${formData.reactivity.includes(item) ? 'bg-highlight/10 text-highlight border border-highlight/50' : 'bg-white/10 text-white/60 hover:text-white border border-transparent'}`}
                           >
-                            <div className={`w-4 h-4 rounded-sm border flex items-center justify-center transition-all ${formData.reactivity.includes(item) ? 'bg-highlight border-highlight' : 'border-white/30'}`}>
+                            <div className={`w-4 h-4 rounded-sm border flex items-center justify-center transition-all ${formData.reactivity.includes(item) ? 'bg-highlight border-highlight' : 'border-white/40'}`}>
                               {formData.reactivity.includes(item) && <Check size={12} className="text-[#0F0F0F]" />}
                             </div>
                             <span>{item}</span>
@@ -394,14 +388,14 @@ export default function Assessment() {
                     </div>
 
                     <div className="space-y-4">
-                      <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Nível de Energia (1: Baixo | 5: Muito Alto)</label>
+                      <label className="text-xs font-bold uppercase tracking-widest text-white block">Nível de Energia (1: Baixo | 5: Muito Alto)</label>
                       <div className="flex justify-between items-center bg-white/10 p-8 rounded-[32px]">
                         {[1, 2, 3, 4, 5].map(val => (
                           <button
                             key={val}
                             type="button"
                             onClick={() => setFormData({ ...formData, energyLevel: val.toString() })}
-                            className={`w-12 h-12 rounded-full font-bold transition-all ${formData.energyLevel === val.toString() ? 'bg-highlight text-[#0F0F0F] scale-125 shadow-xl shadow-highlight/20' : 'bg-white/5 text-white/40 hover:text-white'}`}
+                            className={`w-12 h-12 rounded-full font-bold transition-all ${formData.energyLevel === val.toString() ? 'bg-highlight text-[#0F0F0F] scale-125 shadow-xl shadow-highlight/20' : 'bg-white/10 text-white/60 hover:text-white'}`}
                           >
                             {val}
                           </button>
@@ -409,34 +403,36 @@ export default function Assessment() {
                       </div>
                     </div>
                   </div>
-                )}                   {currentStep === 3 && (
+                )}
+
+                {currentStep === 3 && (
                   <div className="space-y-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                        <div className="space-y-4">
-                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Passeios por dia / Duração</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-white block">Passeios por dia / Duração</label>
                         <input 
                           type="text" 
                           name="walksPerDay"
                           value={formData.walksPerDay}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
                         />
                       </div>
                       <div className="space-y-4">
-                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Problemas de Saúde / Medicamentos</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-white block">Problemas de Saúde / Medicamentos</label>
                         <input 
                           type="text" 
                           name="healthIssues"
                           value={formData.healthIssues}
                           onChange={handleInputChange}
                           placeholder="Caso possua alguma restrição biológica"
-                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light placeholder:text-white/50"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-4">
-                      <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">O que você mais deseja alcançar com ele?</label>
+                      <label className="text-xs font-bold uppercase tracking-widest text-white block">O que você mais deseja alcançar com ele?</label>
                       <textarea 
                         name="goals"
                         required
@@ -444,31 +440,23 @@ export default function Assessment() {
                         value={formData.goals}
                         onChange={handleInputChange}
                         placeholder="Ex: Poder passear no parque com tranquilidade e receber visitas..."
-                        className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light resize-none placeholder:text-white/30"
+                        className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light resize-none placeholder:text-white/50"
                       />
                     </div>
 
                      <div className="p-8 bg-highlight/5 border border-highlight/10 rounded-[32px]">
-                       <p className="text-highlight text-[10px] font-bold uppercase tracking-[0.4em] mb-4">Escolha como enviar os dados</p>
-                       <p className="text-white/70 text-sm leading-relaxed mb-8">
-                         Os dados preenchidos serão formatados e enviados diretamente para nossa equipe técnica para análise.
+                       <p className="text-highlight text-[10px] font-bold uppercase tracking-[0.4em] mb-4">Finalizar Avaliação</p>
+                       <p className="text-white text-sm leading-relaxed mb-8">
+                         Ao clicar abaixo, sua ficha será formatada e enviada diretamente para o WhatsApp da nossa equipe técnica para análise imediata.
                        </p>
-                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                       <div className="grid grid-cols-1 gap-4">
                           <button 
                             type="button" 
-                            onClick={handleWhatsAppSubmit}
-                            className="bg-[#25D366] text-white py-6 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center space-x-3 hover:scale-[1.02] transition-all"
+                            onClick={handleFinalSubmit}
+                            className="bg-[#25D366] text-white py-6 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center space-x-3 hover:scale-[1.02] transition-all shadow-xl shadow-green-500/20"
                           >
                             <Send size={16} />
-                            <span>Enviar WhatsApp</span>
-                          </button>
-                          <button 
-                            type="button" 
-                            onClick={handleEmailSubmit}
-                            className="bg-white text-black py-6 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center space-x-3 hover:scale-[1.02] transition-all"
-                          >
-                            <Mail size={16} />
-                            <span>Enviar por E-mail</span>
+                            <span>Finalizar e Enviar via WhatsApp</span>
                           </button>
                        </div>
                     </div>
@@ -481,7 +469,7 @@ export default function Assessment() {
                     type="button"
                     onClick={prevStep}
                     disabled={currentStep === 0}
-                    className={`flex items-center space-x-3 font-bold uppercase tracking-widest text-xs transition-all ${currentStep === 0 ? 'opacity-0 pointer-events-none' : 'text-white/70 hover:text-white'}`}
+                    className={`flex items-center space-x-3 font-bold uppercase tracking-widest text-xs transition-all ${currentStep === 0 ? 'opacity-0 pointer-events-none' : 'text-white hover:text-highlight'}`}
                   >
                     <ArrowLeft size={16} />
                     <span>Voltar</span>
