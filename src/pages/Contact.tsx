@@ -43,15 +43,33 @@ export default function Contact() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12">
                 <div>
                   <p className="text-white/20 text-[9px] uppercase tracking-[0.4em] mb-4">WhatsApp / Celular</p>
-                  <a href="https://wa.me/5551996566493" className="text-xl font-medium tracking-tight text-white hover:opacity-70 transition-opacity">(51) 99656.6493</a>
+                  <motion.a 
+                    href="https://wa.me/5551996566493" 
+                    whileHover={{ x: 10, opacity: 1, color: '#fff' }}
+                    className="text-xl font-medium tracking-tight text-white/70 transition-all block"
+                  >
+                    (51) 99656.6493
+                  </motion.a>
                 </div>
                 <div>
                   <p className="text-white/20 text-[9px] uppercase tracking-[0.4em] mb-4">Email</p>
-                  <a href="mailto:fabianofisio@gmail.com" className="text-xl font-medium tracking-tight text-white hover:opacity-70 transition-opacity">fabianofisio@gmail.com</a>
+                  <motion.a 
+                    href="mailto:fabianofisio@gmail.com" 
+                    whileHover={{ x: 10, opacity: 1, color: '#fff' }}
+                    className="text-xl font-medium tracking-tight text-white/70 transition-all block"
+                  >
+                    fabianofisio@gmail.com
+                  </motion.a>
                 </div>
                 <div>
                   <p className="text-white/20 text-[9px] uppercase tracking-[0.4em] mb-4">Insta</p>
-                  <a href="https://instagram.com/caomeuamigo_adestramento" className="text-xl font-medium tracking-tight text-white hover:opacity-70 transition-opacity">@caomeuamigo_adestramento</a>
+                  <motion.a 
+                    href="https://instagram.com/caomeuamigo_adestramento" 
+                    whileHover={{ x: 10, opacity: 1, color: '#fff' }}
+                    className="text-xl font-medium tracking-tight text-white/70 transition-all block"
+                  >
+                    @caomeuamigo_adestramento
+                  </motion.a>
                 </div>
                 <div>
                   <p className="text-white/20 text-[9px] uppercase tracking-[0.4em] mb-4">Endereço</p>
@@ -97,12 +115,14 @@ export default function Contact() {
                   ></textarea>
                 </div>
               </div>
-              <button 
+              <motion.button 
                 type="submit"
+                whileHover={{ scale: 1.02, backgroundColor: '#f0f0f0' }}
+                whileTap={{ scale: 0.98 }}
                 className="btn-primary w-full py-6 text-sm"
               >
                 Enviar Solicitação
-              </button>
+              </motion.button>
             </form>
           </motion.div>
         </div>

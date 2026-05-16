@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Dog } from 'lucide-react';
 
+const MotionLink = motion(Link);
+
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -31,43 +33,54 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2 group">
+        <MotionLink 
+          to="/" 
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="flex items-center space-x-2 group"
+        >
           <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center transition-transform group-hover:rotate-12">
             <Dog className="text-[#0F0F0F]" size={18} />
           </div>
           <span className="text-white font-bold text-xl tracking-tighter uppercase whitespace-nowrap">
             Cão Meu Amigo
           </span>
-        </Link>
+        </MotionLink>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-10">
           {navLinks.map((link) => (
-            <Link
+            <MotionLink
               key={link.path}
               to={link.path}
+              whileHover={{ scale: 1.1, x: 2 }}
+              whileTap={{ scale: 0.95 }}
               className={`text-xs font-bold tracking-[0.3em] uppercase transition-all hover:opacity-100 ${
                 location.pathname === link.path ? 'text-white underline underline-offset-8' : 'text-white/40'
               }`}
             >
               {link.name}
-            </Link>
+            </MotionLink>
           ))}
-          <Link
+          <MotionLink
             to="/contato"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className="btn-primary"
           >
             Agende já
-          </Link>
+          </MotionLink>
         </nav>
 
         {/* Mobile Menu Toggle */}
-        <button 
+        <motion.button 
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
           className="md:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
-        </button>
+        </motion.button>
       </div>
 
         {/* Mobile Navigation */}
@@ -80,24 +93,28 @@ export default function Header() {
             className="absolute top-full left-0 right-0 bg-[#0F0F0F] border-t border-white/5 p-12 md:hidden flex flex-col space-y-10 min-h-[calc(100vh-80px)] items-center justify-center text-center"
           >
             {navLinks.map((link) => (
-              <Link
+              <MotionLink
                 key={link.path}
                 to={link.path}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`text-4xl font-bold uppercase tracking-tighter transition-all ${
                   location.pathname === link.path ? 'text-white' : 'text-white/20'
                 }`}
               >
                 {link.name}
-              </Link>
+              </MotionLink>
             ))}
-            <Link
+            <MotionLink
               to="/contato"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="btn-primary w-full max-w-xs py-6"
+              className="btn-primary w-full max-w-xs py-6 text-center"
             >
               Agende uma Avaliação
-            </Link>
+            </MotionLink>
           </motion.div>
         )}
       </AnimatePresence>

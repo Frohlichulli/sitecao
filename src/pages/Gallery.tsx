@@ -240,20 +240,24 @@ export default function Gallery() {
               {user && (
                 <>
                   {isAdmin && (
-                    <button 
+                    <motion.button 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       onClick={() => setIsManaging(!isManaging)}
                       className={`btn-outline flex items-center space-x-2 ${isManaging ? 'bg-white text-black' : 'border-white/10'}`}
                     >
                       {isManaging ? 'Sair do Gerenciamento' : 'Gerenciar Fotos'}
-                    </button>
+                    </motion.button>
                   )}
-                  <button 
+                  <motion.button 
+                    whileHover={{ scale: 1.2, color: '#fff' }}
+                    whileTap={{ scale: 0.8 }}
                     onClick={handleLogout}
-                    className="p-3 text-white/40 hover:text-white transition-colors"
+                    className="p-3 text-white/40 transition-all"
                     title="Sair"
                   >
                     <LogOut size={20} />
-                  </button>
+                  </motion.button>
                 </>
               )}
             </div>
@@ -261,20 +265,24 @@ export default function Gallery() {
             {isManaging && isAdmin && (
               <div className="flex items-center space-x-4">
                 {images.length === 0 && (
-                  <button 
+                  <motion.button 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={seedGallery}
                     className="btn-outline border-white/20 text-white/60 hover:text-white"
                   >
                     Restaurar Padrão
-                  </button>
+                  </motion.button>
                 )}
-                <button 
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => fileInputRef.current?.click()}
                   className="btn-primary flex items-center space-x-2"
                 >
                   <Plus size={16} />
                   <span>Carregar Foto</span>
-                </button>
+                </motion.button>
                 <input 
                   type="file" 
                   ref={fileInputRef} 
@@ -356,14 +364,16 @@ export default function Gallery() {
 
         <div className="mt-16 md:mt-32 text-center">
           <p className="text-white/40 text-lg uppercase tracking-widest font-bold">Acompanhe mais em nosso Instagram</p>
-          <a 
+          <motion.a 
             href="https://instagram.com/caomeuamigo_adestramento" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="mt-6 inline-block text-white text-xl md:text-2xl font-black uppercase tracking-tighter hover:text-white/70 transition-colors"
+            whileHover={{ scale: 1.1, color: '#fff' }}
+            whileTap={{ scale: 0.9 }}
+            className="mt-6 inline-block text-white/70 text-xl md:text-2xl font-black uppercase tracking-tighter transition-all"
           >
             @caomeuamigo_adestramento
-          </a>
+          </motion.a>
         </div>
       </div>
     </div>

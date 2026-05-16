@@ -3,6 +3,8 @@ import { motion } from 'motion/react';
 import { ArrowDown, Dog, Star, Heart, Award, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const MotionLink = motion(Link);
+
 export default function Home() {
   const services = [
     {
@@ -64,18 +66,22 @@ export default function Home() {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8">
-                <Link 
+                <MotionLink 
                   to="/contato"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   className="btn-primary w-full sm:w-auto text-center"
                 >
                   Quero Adestrar Meu Cão
-                </Link>
-                <Link 
+                </MotionLink>
+                <MotionLink 
                   to="/servicos"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   className="btn-outline w-full sm:w-auto text-center"
                 >
                   Ver Serviços
-                </Link>
+                </MotionLink>
               </div>
             </motion.div>
           </div>
@@ -100,17 +106,24 @@ export default function Home() {
               <p className="text-white/40 text-lg leading-relaxed mb-12 font-light">
                 Metodologias modernas que respeitam a individualidade biológica e comportamental de cada animal.
               </p>
-              <Link to="/servicos" className="inline-flex items-center text-white text-xs font-bold uppercase tracking-[0.3em] group">
+              <MotionLink 
+                to="/servicos" 
+                whileHover={{ scale: 1.05, x: 10 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center text-white text-xs font-bold uppercase tracking-[0.3em] group"
+              >
                 Explorar todos <div className="ml-4 w-12 h-px bg-white group-hover:w-20 transition-all"></div>
-              </Link>
+              </MotionLink>
             </div>
             
             <div className="lg:col-span-7 px-6 space-y-px">
               {services.map((service, idx) => (
-                <Link 
+                <MotionLink 
                   key={idx}
                   to="/servicos"
-                  className="group block py-10 border-b border-white/5 transition-all hover:bg-white/5 hover:px-8"
+                  whileHover={{ x: 10, backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group block py-10 border-b border-white/5 transition-all hover:px-8"
                 >
                   <div className="flex justify-between items-center">
                     <div className="flex items-center space-x-8">
@@ -119,7 +132,7 @@ export default function Home() {
                     </div>
                     <span className="text-white/20 group-hover:text-white transition-colors">→</span>
                   </div>
-                </Link>
+                </MotionLink>
               ))}
             </div>
           </div>
@@ -152,15 +165,17 @@ export default function Home() {
             <p className="text-white/60 text-lg md:text-xl leading-relaxed mb-10 font-light">
               Fundado com a missão de modernizar o adestramento canino no Vale do Sinos, o Cão Meu Amigo foca no bem-estar animal e na comunicação efetiva entre tutor e pet.
             </p>
-            <Link 
+            <MotionLink 
               to="/historia"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               className="inline-flex items-center space-x-4 group"
             >
               <div className="w-16 h-16 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-[#0F0F0F] transition-all">
                 <ChevronRight size={24} />
               </div>
               <span className="text-lg font-bold uppercase tracking-widest">Descubra nossa trajetória</span>
-            </Link>
+            </MotionLink>
           </div>
         </div>
       </section>

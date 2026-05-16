@@ -3,6 +3,8 @@ import { motion } from 'motion/react';
 import { Dog, Star, Heart, Users, ShieldCheck, Home as HomeIcon, Droplets, Film } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const MotionLink = motion(Link);
+
 export default function Services() {
   const services = [
     {
@@ -91,9 +93,14 @@ export default function Services() {
               </p>
               
               <div className="flex items-center justify-end">
-                <Link to="/contato" className="btn-outline group-hover:bg-white group-hover:text-black">
+                <MotionLink 
+                  to="/contato" 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="btn-outline group-hover:bg-white group-hover:text-black"
+                >
                   Saiba Mais
-                </Link>
+                </MotionLink>
               </div>
             </motion.div>
           ))}
@@ -103,7 +110,14 @@ export default function Services() {
         <div className="mt-16 md:mt-32 p-8 md:p-20 bg-[#0F0F0F] rounded-[48px] text-center">
           <h2 className="text-white text-3xl md:text-5xl font-black uppercase tracking-tighter mb-8">Não sabe por onde começar?</h2>
           <p className="text-white/50 text-lg md:text-xl max-w-2xl mx-auto mb-12">Oferecemos uma avaliação gratuita para diagnosticar o comportamento do seu pet e sugerir o melhor plano.</p>
-          <Link to="/contato" className="inline-block bg-white text-[#0F0F0F] px-12 py-6 rounded-[16px] font-bold uppercase tracking-widest hover:scale-105 transition-all">Solicite sua Avaliação</Link>
+          <MotionLink 
+            to="/contato" 
+            whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(255,255,255,0.1)' }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block bg-white text-[#0F0F0F] px-12 py-6 rounded-[16px] font-bold uppercase tracking-widest transition-all"
+          >
+            Solicite sua Avaliação
+          </MotionLink>
         </div>
       </div>
     </div>

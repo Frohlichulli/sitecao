@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Instagram, Mail, Phone, MapPin, Dog } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+const MotionLink = motion(Link);
+
 export default function Footer() {
   const socialLinks = [
     { name: 'Instagram', icon: <Instagram size={20} />, href: 'https://instagram.com/caomeuamigo_adestramento' },
@@ -17,14 +19,19 @@ export default function Footer() {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
           <div className="col-span-1 md:col-span-2">
-            <Link to="/" className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+            <MotionLink 
+              to="/" 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center space-x-3 mb-6"
+            >
+              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-transform group-hover:rotate-12">
                 <Dog className="text-[#0F0F0F]" size={28} />
               </div>
               <span className="text-white font-bold text-2xl tracking-tighter uppercase">
                 Cão Meu Amigo
               </span>
-            </Link>
+            </MotionLink>
             <p className="text-white/50 max-w-sm text-lg leading-relaxed mb-8">
               Transformando a relação entre você e seu cão através de adestramento ético, moderno e carinhoso em Novo Hamburgo, RS.
             </p>
@@ -49,14 +56,16 @@ export default function Footer() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                  <a 
+                  <motion.a 
                     href={social.href} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center hover:bg-white hover:text-[#0F0F0F] transition-all"
+                    whileHover={{ scale: 1.1, backgroundColor: '#fff', color: '#0F0F0F' }}
+                    whileTap={{ scale: 0.9 }}
+                    className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center transition-all"
                   >
                     {social.icon}
-                  </a>
+                  </motion.a>
                 </div>
               ))}
             </div>
@@ -65,10 +74,10 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-bold uppercase tracking-widest mb-6 text-white/40">Menu</h4>
             <ul className="space-y-4">
-              <li><Link to="/historia" className="text-white/60 hover:text-white transition-colors">História</Link></li>
-              <li><Link to="/servicos" className="text-white/60 hover:text-white transition-colors">Serviços</Link></li>
-              <li><Link to="/galeria" className="text-white/60 hover:text-white transition-colors">Galeria</Link></li>
-              <li><Link to="/contato" className="text-white/60 hover:text-white transition-colors">Contato</Link></li>
+              <li><MotionLink to="/historia" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">História</MotionLink></li>
+              <li><MotionLink to="/servicos" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">Serviços</MotionLink></li>
+              <li><MotionLink to="/galeria" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">Galeria</MotionLink></li>
+              <li><MotionLink to="/contato" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">Contato</MotionLink></li>
             </ul>
           </div>
 
