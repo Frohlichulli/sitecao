@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Plus, X, Upload, Image as ImageIcon, LogOut, Video, Play, Smartphone, Trash2 } from 'lucide-react';
+import { Plus, X, Upload, Image as ImageIcon, LogOut, Video, Play, Smartphone, Trash2, Share2, Download } from 'lucide-react';
 import { 
   collection, 
   onSnapshot, 
@@ -231,6 +231,55 @@ export default function Gallery() {
     }
   };
 
+  const handleShare = async (img: GalleryImage) => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: img.title,
+          text: 'Confira este registro do Cão Meu Amigo Adestramento!',
+          url: window.location.href,
+        });
+      } catch (error) {
+        // Share cancelled or failed
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        alert('Link da galeria copiado!');
+      } catch (err) {
+        console.error('Failed to copy: ', err);
+      }
+    }
+  };
+
+  const handleDownload = async (url: string, title: string) => {
+    try {
+      // If it's a data URL, we can download it directly
+      if (url.startsWith('data:')) {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${title.replace(/\s+/g, '_').toLowerCase()}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        return;
+      }
+
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `${title.replace(/\s+/g, '_').toLowerCase()}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      window.open(url, '_blank');
+    }
+  };
+
   const addVideo = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isAdmin || !videoForm.url || !videoForm.title) return;
@@ -415,8 +464,34 @@ export default function Gallery() {
                     className={`w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-1000 ${isManaging ? 'grayscale-0 brightness-75' : ''}`}
                   />
                   
-                  {/* Title Overlay */}
-                  <div className="absolute inset-0 bg-[#0F0F0F]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 md:p-8">
+                  {/* Title & Actions Overlay */}
+                  <div className="absolute inset-0 bg-[#0F0F0F]/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-6 md:p-8">
+                    <div className="flex justify-end space-x-3">
+                      <motion.button 
+                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,1)', color: '#000' }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleShare(img);
+                        }}
+                        className="w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors"
+                        title="Compartilhar"
+                      >
+                        <Share2 size={16} />
+                      </motion.button>
+                      <motion.button 
+                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,1)', color: '#000' }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDownload(img.url, img.title);
+                        }}
+                        className="w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors"
+                        title="Baixar"
+                      >
+                        <Download size={16} />
+                      </motion.button>
+                    </div>
                     <div>
                       <p className="text-white text-[10px] font-bold uppercase tracking-[0.4em] mb-2">0{idx + 1}</p>
                       <h4 className="text-white text-sm md:text-xl font-bold uppercase tracking-tight">{img.title}</h4>
