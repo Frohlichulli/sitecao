@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
 
 export default function History() {
+  useEffect(() => {
+    document.title = "Nossa História | Cão Meu Amigo Adestramento";
+  }, []);
+
   const timeline = [
     {
       year: "2008",

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Send, Instagram, Phone, Mail, MapPin } from 'lucide-react';
 
 export default function Contact() {
+  useEffect(() => {
+    document.title = "Contato | Cão Meu Amigo Adestrador de Cães";
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Logic for form submission

@@ -1,12 +1,184 @@
-import React from 'react';
-import { motion } from 'motion/react';
-import { ClipboardCheck, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { 
+  User, 
+  Dog, 
+  Activity, 
+  Calendar, 
+  ArrowRight, 
+  ArrowLeft, 
+  Send, 
+  CheckCircle2,
+  Check,
+  Mail
+} from 'lucide-react';
+
+const steps = [
+  { id: 'tutor', title: 'Sobre Você', icon: <User size={20} /> },
+  { id: 'pet', title: 'Sobre o Pet', icon: <Dog size={20} /> },
+  { id: 'behavior', title: 'Comportamento', icon: <Activity size={20} /> },
+  { id: 'routine', title: 'Rotina e Saúde', icon: <Calendar size={20} /> },
+];
 
 export default function Assessment() {
+  useEffect(() => {
+    document.title = "Ficha de Avaliação | Cão Meu Amigo";
+  }, []);
+
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState({
+    // Tutor
+    tutorName: '',
+    tutorPhone: '',
+    tutorEmail: '',
+    tutorAddress: '',
+    // Pet
+    petName: '',
+    petBreed: '',
+    petAge: '',
+    petSex: 'macho',
+    petNeutered: 'sim',
+    // Behavior
+    energyLevel: '3',
+    socialization: [] as string[],
+    mainIssues: '',
+    goals: '',
+    reactivity: [] as string[],
+    // Routine
+    walksPerDay: '',
+    timeAlone: '',
+    diet: '',
+    healthIssues: '',
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const toggleArrayItem = (field: 'socialization' | 'reactivity', item: string) => {
+    setFormData(prev => {
+      const arr = prev[field];
+      if (arr.includes(item)) {
+        return { ...prev, [field]: arr.filter(i => i !== item) };
+      }
+      return { ...prev, [field]: [...arr, item] };
+    });
+  };
+
+  const nextStep = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+      window.scrollTo(0, 0);
+    }
+  };
+
+  const prevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+      window.scrollTo(0, 0);
+    }
+  };
+
+  const formatMessageText = () => {
+    const { 
+      tutorName, tutorPhone, tutorEmail, tutorAddress,
+      petName, petBreed, petAge, petSex, petNeutered,
+      energyLevel, socialization, mainIssues, goals, reactivity,
+      walksPerDay, timeAlone, diet, healthIssues
+    } = formData;
+
+    return `*FICHA DE AVALIAÇÃO - CÃO MEU AMIGO*\n\n` +
+      `*DADOS DO TUTOR*\n` +
+      `Nome: ${tutorName}\n` +
+      `Telefone: ${tutorPhone}\n` +
+      `Email: ${tutorEmail}\n` +
+      `Endereço: ${tutorAddress}\n\n` +
+      `*DADOS DO PET*\n` +
+      `Nome: ${petName}\n` +
+      `Raça: ${petBreed}\n` +
+      `Idade: ${petAge}\n` +
+      `Sexo: ${petSex}\n` +
+      `Castrado: ${petNeutered}\n\n` +
+      `*COMPORTAMENTO*\n` +
+      `Nível de Energia: ${energyLevel}/5\n` +
+      `Socialização: ${socialization.join(', ') || 'Nenhuma'}\n` +
+      `Reatividade/Desafios: ${reactivity.join(', ') || 'Nenhuma'}\n` +
+      `Resumo das Queixas: ${mainIssues}\n` +
+      `Objetivos: ${goals}\n\n` +
+      `*ROTINA E SAÚDE*\n` +
+      `Passeios/dia: ${walksPerDay}\n` +
+      `Tempo sozinho: ${timeAlone}\n` +
+      `Dieta: ${diet}\n` +
+      `Saúde: ${healthIssues}`;
+  };
+
+  const handleWhatsAppSubmit = () => {
+    const text = formatMessageText();
+    const whatsappUrl = `https://wa.me/5551996566493?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank');
+    setIsSubmitted(true);
+  };
+
+  const handleEmailSubmit = () => {
+    const text = formatMessageText();
+    const subject = `Ficha de Avaliação Comportamental - ${formData.tutorName} & ${formData.petName}`;
+    const mailtoUrl = `mailto:fabianofisio@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    window.location.href = mailtoUrl;
+    setIsSubmitted(true);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (currentStep === steps.length - 1) {
+      handleWhatsAppSubmit();
+    } else {
+      nextStep();
+    }
+  };
+
+  if (isSubmitted) {
+    return (
+      <div className="bg-[#0F0F0F] min-h-screen flex items-center justify-center p-6">
+        <motion.div 
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="max-w-xl w-full bg-[#0A0A0A] border border-white/5 rounded-[48px] p-12 text-center"
+        >
+          <div className="w-24 h-24 bg-highlight rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
+            <CheckCircle2 size={48} className="text-[#0F0F0F]" />
+          </div>
+          <h2 className="text-white text-4xl font-bold uppercase tracking-tighter mb-6">Ficha Processada!</h2>
+          <p className="text-white/80 text-xl font-light leading-relaxed mb-12">
+            Obrigado por dedicar este tempo. Já preparamos as informações do {formData.petName}. Se você ainda não enviou pela janela que se abriu, use os botões abaixo.
+          </p>
+          <div className="space-y-4">
+            <button 
+              onClick={handleWhatsAppSubmit}
+              className="btn-primary w-full py-6 flex items-center justify-center space-x-3 bg-[#25D366] border-none text-white"
+            >
+              <Send size={18} />
+              <span>Reenviar via WhatsApp</span>
+            </button>
+            <button 
+              onClick={() => setIsSubmitted(false)}
+              className="text-white/20 hover:text-white text-xs font-bold uppercase tracking-widest pt-4 block mx-auto"
+            >
+              Começar outro formulário
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-[#0F0F0F] pt-24 md:pt-48 pb-10 md:pb-20 min-h-screen">
+    <div className="bg-[#0F0F0F] pt-24 md:pt-48 pb-24 min-h-screen">
       <div className="container mx-auto px-6">
-        <header className="mb-16 md:mb-32">
+        <header className="mb-16 md:mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -15,61 +187,318 @@ export default function Assessment() {
           >
             <div className="flex items-center space-x-4 mb-8">
               <div className="w-12 h-[1px] bg-highlight"></div>
-              <span className="text-white/40 text-[10px] font-bold uppercase tracking-[0.5em]">Perfil de Comportamento</span>
+              <span className="text-white/70 text-[10px] font-bold uppercase tracking-[0.5em]">Etapa {currentStep + 1} de {steps.length}</span>
             </div>
             
-            <h1 className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
+            <h1 className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-8 leading-[0.85]">
               Ficha de <br /><span className="text-highlight">Avaliação</span>
             </h1>
             
-            <p className="text-white/50 text-xl md:text-2xl font-light leading-relaxed max-w-2xl">
-              Para entendermos melhor as necessidades do seu cão e traçarmos o melhor plano de treinamento, preencha nossa ficha de perfil comportamental abaixo.
+            <p className="text-white/80 text-xl md:text-2xl font-light leading-relaxed max-w-2xl">
+              Dedique alguns minutos para nos contar sobre seu melhor amigo. Essas informações são o alicerce de um treinamento de sucesso.
             </p>
           </motion.div>
         </header>
 
-        {/* Assessment Form Container */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full h-[800px] bg-[#0A0A0A] rounded-[48px] overflow-hidden border border-white/5 relative group"
-        >
-          <iframe 
-            src="https://paw-print-profile-builder.lovable.app/" 
-            className="w-full h-full border-none"
-            title="Ficha de Avaliação Comportamental"
-          />
-          
-          {/* Overlay link for external access if needed */}
-          <div className="absolute bottom-8 right-8 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
-            <a 
-              href="https://paw-print-profile-builder.lovable.app/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="pointer-events-auto flex items-center space-x-2 bg-white/10 backdrop-blur-md text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest border border-white/10 hover:bg-white hover:text-black transition-all"
-            >
-              <span>Abrir em aba cheia</span>
-              <ExternalLink size={14} />
-            </a>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Sidebar Progress */}
+          <div className="lg:col-span-3 space-y-4">
+            {steps.map((step, idx) => (
+              <div 
+                key={step.id}
+                onClick={() => idx < currentStep && setCurrentStep(idx)}
+                className={`flex items-center space-x-4 p-6 rounded-[24px] cursor-pointer transition-all ${idx === currentStep ? 'bg-white text-[#0F0F0F]' : idx < currentStep ? 'bg-white/5 text-highlight' : 'bg-transparent text-white/10'}`}
+              >
+                <div className="w-10 h-10 rounded-full border border-current flex items-center justify-center">
+                  {idx < currentStep ? <Check size={18} /> : step.icon}
+                </div>
+                <div className="hidden lg:block">
+                  <p className="text-[10px] font-bold uppercase tracking-widest leading-none mb-1">Passo 0{idx + 1}</p>
+                  <p className="text-sm font-bold uppercase tracking-tighter">{step.title}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        </motion.div>
 
-        {/* Additional Info Box */}
-        <div className="mt-16 md:mt-32 p-8 md:p-20 bg-[#0F0F0F] rounded-[48px] text-center border border-white/5">
-          <ClipboardCheck className="text-highlight mx-auto mb-8" size={48} />
-          <h2 className="text-white text-3xl md:text-5xl font-black uppercase tracking-tighter mb-8">O que acontece após o preenchimento?</h2>
-          <p className="text-white/50 text-lg md:text-xl max-w-2xl mx-auto mb-12">
-            Nossa equipe analisará as informações enviadas e entrará em contato em até 24 horas úteis para agendar a primeira visita técnica ou aula experimental.
-          </p>
-          <div className="flex justify-center">
-            <div className="flex items-center space-x-6 text-white/40 text-xs font-bold uppercase tracking-[0.2em]">
-              <span>Análise Técnica</span>
-              <span className="w-1 h-1 bg-white/20 rounded-full"></span>
-              <span>Contato Rápido</span>
-              <span className="w-1 h-1 bg-white/20 rounded-full"></span>
-              <span>Plano Personalizado</span>
-            </div>
+          {/* Form Area */}
+          <div className="lg:col-span-9">
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="bg-[#0A0A0A] border border-white/5 rounded-[48px] p-8 md:p-16 lg:p-20"
+            >
+              <form onSubmit={handleSubmit}>
+                {currentStep === 0 && (
+                  <div className="space-y-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="space-y-4">
+                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Seu Nome Completo</label>
+                        <input 
+                          type="text" 
+                          name="tutorName"
+                          required
+                          value={formData.tutorName}
+                          onChange={handleInputChange}
+                          placeholder="Ex: Fabiano Silva"
+                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                        />
+                      </div>
+                      <div className="space-y-4">
+                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">WhatsApp / Celular</label>
+                        <input 
+                          type="tel" 
+                          name="tutorPhone"
+                          required
+                          value={formData.tutorPhone}
+                          onChange={handleInputChange}
+                          placeholder="(51) 99999-9999"
+                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="space-y-4">
+                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">E-mail</label>
+                        <input 
+                          type="email" 
+                          name="tutorEmail"
+                          required
+                          value={formData.tutorEmail}
+                          onChange={handleInputChange}
+                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                        />
+                      </div>
+                      <div className="space-y-4">
+                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Cidade / Bairro</label>
+                        <input 
+                          type="text" 
+                          name="tutorAddress"
+                          required
+                          value={formData.tutorAddress}
+                          onChange={handleInputChange}
+                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {currentStep === 1 && (
+                  <div className="space-y-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="space-y-4">
+                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Nome do Cão</label>
+                        <input 
+                          type="text" 
+                          name="petName"
+                          required
+                          value={formData.petName}
+                          onChange={handleInputChange}
+                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                        />
+                      </div>
+                      <div className="space-y-4">
+                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Raça</label>
+                        <input 
+                          type="text" 
+                          name="petBreed"
+                          value={formData.petBreed}
+                          onChange={handleInputChange}
+                          placeholder="SRD, Golden, Border..."
+                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                      <div className="space-y-4">
+                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Idade</label>
+                        <input 
+                          type="text" 
+                          name="petAge"
+                          value={formData.petAge}
+                          onChange={handleInputChange}
+                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                        />
+                      </div>
+                      <div className="space-y-4">
+                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Sexo</label>
+                        <div className="grid grid-cols-2 gap-4">
+                          {['macho', 'fêmea'].map(opt => (
+                            <button
+                              key={opt}
+                              type="button"
+                              onClick={() => setFormData({ ...formData, petSex: opt })}
+                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petSex === opt ? 'bg-white text-black' : 'bg-white/10 text-white/40 hover:text-white'}`}
+                            >
+                              {opt}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="space-y-4">
+                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Castrado?</label>
+                        <div className="grid grid-cols-2 gap-4">
+                          {['sim', 'não'].map(opt => (
+                            <button
+                              key={opt}
+                              type="button"
+                              onClick={() => setFormData({ ...formData, petNeutered: opt })}
+                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petNeutered === opt ? 'bg-white text-black' : 'bg-white/10 text-white/40 hover:text-white'}`}
+                            >
+                              {opt}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {currentStep === 2 && (
+                  <div className="space-y-12">
+                     <div className="space-y-4">
+                      <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Descreva as principais dificuldades comportamentais</label>
+                      <textarea 
+                        name="mainIssues"
+                        required
+                        rows={4}
+                        value={formData.mainIssues}
+                        onChange={handleInputChange}
+                        placeholder="Ex: Pula excessivamente, reage a outros cães na guia, destrói objetos..."
+                        className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light resize-none placeholder:text-white/30"
+                      />
+                    </div>
+
+                    <div className="space-y-6">
+                      <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Problemas observados (Selecione todos que se aplicam)</label>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        {[
+                          'Medo de estranhos', 'Agressão / Rosnados', 'Ansiedade de Separação', 
+                          'Puxa muito a guia', 'Pula nas pessoas', 'Muito Latido', 
+                          'Guarda de recursos', 'Reatividade a cães', 'Fobia de barulho'
+                        ].map(item => (
+                          <button
+                            key={item}
+                            type="button"
+                            onClick={() => toggleArrayItem('reactivity', item)}
+                            className={`flex items-center space-x-3 p-4 rounded-xl text-[10px] font-bold uppercase tracking-widest text-left transition-all ${formData.reactivity.includes(item) ? 'bg-highlight/10 text-highlight border border-highlight/50' : 'bg-white/10 text-white/40 hover:text-white border border-transparent'}`}
+                          >
+                            <div className={`w-4 h-4 rounded-sm border flex items-center justify-center transition-all ${formData.reactivity.includes(item) ? 'bg-highlight border-highlight' : 'border-white/30'}`}>
+                              {formData.reactivity.includes(item) && <Check size={12} className="text-[#0F0F0F]" />}
+                            </div>
+                            <span>{item}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Nível de Energia (1: Baixo | 5: Muito Alto)</label>
+                      <div className="flex justify-between items-center bg-white/10 p-8 rounded-[32px]">
+                        {[1, 2, 3, 4, 5].map(val => (
+                          <button
+                            key={val}
+                            type="button"
+                            onClick={() => setFormData({ ...formData, energyLevel: val.toString() })}
+                            className={`w-12 h-12 rounded-full font-bold transition-all ${formData.energyLevel === val.toString() ? 'bg-highlight text-[#0F0F0F] scale-125 shadow-xl shadow-highlight/20' : 'bg-white/5 text-white/40 hover:text-white'}`}
+                          >
+                            {val}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}                   {currentStep === 3 && (
+                  <div className="space-y-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                       <div className="space-y-4">
+                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Passeios por dia / Duração</label>
+                        <input 
+                          type="text" 
+                          name="walksPerDay"
+                          value={formData.walksPerDay}
+                          onChange={handleInputChange}
+                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                        />
+                      </div>
+                      <div className="space-y-4">
+                        <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">Problemas de Saúde / Medicamentos</label>
+                        <input 
+                          type="text" 
+                          name="healthIssues"
+                          value={formData.healthIssues}
+                          onChange={handleInputChange}
+                          placeholder="Caso possua alguma restrição biológica"
+                          className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <label className="text-xs font-bold uppercase tracking-widest text-white/70 block">O que você mais deseja alcançar com ele?</label>
+                      <textarea 
+                        name="goals"
+                        required
+                        rows={4}
+                        value={formData.goals}
+                        onChange={handleInputChange}
+                        placeholder="Ex: Poder passear no parque com tranquilidade e receber visitas..."
+                        className="w-full bg-[#111] border border-white/20 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light resize-none placeholder:text-white/30"
+                      />
+                    </div>
+
+                     <div className="p-8 bg-highlight/5 border border-highlight/10 rounded-[32px]">
+                       <p className="text-highlight text-[10px] font-bold uppercase tracking-[0.4em] mb-4">Escolha como enviar os dados</p>
+                       <p className="text-white/70 text-sm leading-relaxed mb-8">
+                         Os dados preenchidos serão formatados e enviados diretamente para nossa equipe técnica para análise.
+                       </p>
+                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <button 
+                            type="button" 
+                            onClick={handleWhatsAppSubmit}
+                            className="bg-[#25D366] text-white py-6 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center space-x-3 hover:scale-[1.02] transition-all"
+                          >
+                            <Send size={16} />
+                            <span>Enviar WhatsApp</span>
+                          </button>
+                          <button 
+                            type="button" 
+                            onClick={handleEmailSubmit}
+                            className="bg-white text-black py-6 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center space-x-3 hover:scale-[1.02] transition-all"
+                          >
+                            <Mail size={16} />
+                            <span>Enviar por E-mail</span>
+                          </button>
+                       </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Footer Buttons */}
+                <div className="mt-16 pt-12 border-t border-white/5 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={prevStep}
+                    disabled={currentStep === 0}
+                    className={`flex items-center space-x-3 font-bold uppercase tracking-widest text-xs transition-all ${currentStep === 0 ? 'opacity-0 pointer-events-none' : 'text-white/70 hover:text-white'}`}
+                  >
+                    <ArrowLeft size={16} />
+                    <span>Voltar</span>
+                  </button>
+
+                  {currentStep < steps.length - 1 && (
+                    <button
+                      type="submit"
+                      className="btn-primary flex items-center space-x-6"
+                    >
+                      <span>Continuar</span>
+                      <ArrowRight size={16} />
+                    </button>
+                  )}
+                </div>
+              </form>
+            </motion.div>
           </div>
         </div>
       </div>

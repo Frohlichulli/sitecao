@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ArrowDown, Dog, Star, Heart, Award, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom';
 const MotionLink = motion(Link);
 
 export default function Home() {
+  useEffect(() => {
+    document.title = "Cão Meu Amigo | Adestramento de Cães Profissional";
+  }, []);
+
   const services = [
     {
       title: "Adestramento Básico",

@@ -94,6 +94,8 @@ export default function Gallery() {
   const [loginClicks, setLoginClicks] = useState(0);
 
   useEffect(() => {
+    document.title = "Galeria de Treinos | Cão Meu Amigo";
+    
     const unsubscribeAuth = onAuthStateChanged(auth, (currUser) => {
       setUser(currUser);
       // Auto-enable management if admin
