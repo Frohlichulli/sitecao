@@ -48,9 +48,9 @@ export default function Services() {
   ];
 
   return (
-    <div className="bg-[#0F0F0F] pt-48 pb-20">
+    <div className="bg-[#0F0F0F] pt-24 md:pt-48 pb-10 md:pb-20">
       <div className="container mx-auto">
-        <header className="mb-40">
+        <header className="mb-20 md:mb-40">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -76,9 +76,9 @@ export default function Services() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="p-16 bg-[#0F0F0F] group hover:bg-[#0A0A0A] transition-all duration-700"
+              className="p-8 md:p-16 bg-[#0F0F0F] group hover:bg-[#0A0A0A] transition-all duration-700"
             >
-              <div className="flex justify-between items-start mb-16">
+              <div className="flex justify-between items-start mb-10 md:mb-16">
                 <div className="text-white/10 text-6xl font-black tracking-tighter">0{idx + 1}</div>
                 <div className="w-16 h-16 border border-white/10 rounded-full flex items-center justify-center text-white/40 group-hover:text-white group-hover:border-white group-hover:rotate-12 transition-all">
                    {React.cloneElement(service.icon as React.ReactElement, { size: 24 })}
@@ -100,7 +100,7 @@ export default function Services() {
         </div>
 
         {/* Info Box */}
-        <div className="mt-32 p-12 md:p-20 bg-[#0F0F0F] rounded-[48px] text-center">
+        <div className="mt-16 md:mt-32 p-8 md:p-20 bg-[#0F0F0F] rounded-[48px] text-center">
           <h2 className="text-white text-3xl md:text-5xl font-black uppercase tracking-tighter mb-8">Não sabe por onde começar?</h2>
           <p className="text-white/50 text-lg md:text-xl max-w-2xl mx-auto mb-12">Oferecemos uma avaliação gratuita para diagnosticar o comportamento do seu pet e sugerir o melhor plano.</p>
           <Link to="/contato" className="inline-block bg-white text-[#0F0F0F] px-12 py-6 rounded-[16px] font-bold uppercase tracking-widest hover:scale-105 transition-all">Solicite sua Avaliação</Link>

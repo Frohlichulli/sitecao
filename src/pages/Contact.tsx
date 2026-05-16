@@ -9,9 +9,9 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-[#0F0F0F] pt-48 pb-20">
+    <div className="bg-[#0F0F0F] pt-24 md:pt-48 pb-10 md:pb-20">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20">
           <div>
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -22,11 +22,11 @@ export default function Contact() {
                 <span className="text-[10px] uppercase tracking-[0.5em] text-white/40">Onde Atendemos</span>
               </div>
               
-              <h2 className="text-white text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-10 leading-[0.85]">
+              <h2 className="text-white text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-6 md:mb-10 leading-[0.85]">
                 Cidades atendidas<br /><span className="text-highlight">no RS</span>
               </h2>
               
-              <div className="grid grid-cols-2 gap-4 mb-20">
+              <div className="grid grid-cols-2 gap-4 mb-10 md:mb-20">
                 {[
                   'Novo Hamburgo', 'Campo Bom', 'Sapiranga', 
                   'São Leopoldo', 'Porto Alegre', 'Canoas', 
@@ -40,7 +40,7 @@ export default function Contact() {
                 ))}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12">
                 <div>
                   <p className="text-white/20 text-[9px] uppercase tracking-[0.4em] mb-4">WhatsApp / Celular</p>
                   <a href="https://wa.me/5551996566493" className="text-xl font-medium tracking-tight text-white hover:opacity-70 transition-opacity">(51) 99656.6493</a>
@@ -64,7 +64,7 @@ export default function Contact() {
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-[#0A0A0A] p-10 md:p-16 rounded-2xl border border-white/5"
+            className="bg-[#0A0A0A] p-6 md:p-16 rounded-2xl border border-white/5"
           >
             <form onSubmit={handleSubmit} className="space-y-10">
               <div className="space-y-8">
@@ -108,7 +108,7 @@ export default function Contact() {
         </div>
 
         {/* Map Section Placeholder */}
-        <div className="mt-32 w-full h-[400px] bg-[#f5f5f5] rounded-[48px] overflow-hidden relative">
+        <div className="mt-16 md:mt-32 w-full h-[400px] bg-[#f5f5f5] rounded-[48px] overflow-hidden relative">
           <div className="absolute inset-0 flex items-center justify-center text-[#0F0F0F]/20 font-black uppercase text-xl text-center px-6">
             Mapa Interativo de Novo Hamburgo<br />
             <span className="text-sm font-bold opacity-50 tracking-widest mt-2">[Integrável com Google Maps]</span>

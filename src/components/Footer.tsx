@@ -13,9 +13,9 @@ export default function Footer() {
   const [hoveredIcon, setHoveredIcon] = React.useState<string | null>(null);
 
   return (
-    <footer className="bg-[#0F0F0F] text-white pt-20 pb-10 border-t border-white/5">
+    <footer className="bg-[#0F0F0F] text-white pt-10 md:pt-20 pb-6 md:pb-10 border-t border-white/5">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="flex items-center space-x-3 mb-6">
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">

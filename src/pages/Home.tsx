@@ -40,7 +40,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-90" />
         </div>
 
-        <div className="container mx-auto relative z-10 pt-40 md:pt-56">
+        <div className="container mx-auto relative z-10 pt-24 md:pt-56">
           <div className="max-w-4xl">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -89,9 +89,9 @@ export default function Home() {
       </section>
 
       {/* Services Preview - Dark High End Version */}
-      <section className="pt-40 pb-12 bg-[#0A0A0A] relative border-b border-white/5">
+      <section className="pt-20 md:pt-40 pb-12 bg-[#0A0A0A] relative border-b border-white/5">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20">
             <div className="lg:col-span-5 px-6">
               <span className="text-white/20 text-[10px] font-bold uppercase tracking-[0.5em] mb-6 block">Especialidades</span>
               <h2 className="text-white text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-none mb-10">
@@ -127,8 +127,8 @@ export default function Home() {
       </section>
 
       {/* History Teaser */}
-      <section className="pt-12 pb-32 bg-[#0F0F0F] text-white">
-        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+      <section className="pt-8 md:pt-12 pb-16 md:pb-32 bg-[#0F0F0F] text-white">
+        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
           <div className="relative group">
             <div className="aspect-[4/5] rounded-[40px] overflow-hidden">
               <img 
@@ -166,7 +166,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 bg-[#0F0F0F] relative overflow-hidden">
+      <section className="py-16 md:py-32 bg-[#0F0F0F] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-white/20 rounded-full" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] border border-white/20 rounded-full" />

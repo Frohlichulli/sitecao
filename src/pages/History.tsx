@@ -30,9 +30,9 @@ export default function History() {
   ];
 
   return (
-    <div className="bg-[#0F0F0F] pt-48 pb-20 overflow-hidden">
+    <div className="bg-[#0F0F0F] pt-24 md:pt-48 pb-10 md:pb-20 overflow-hidden">
       <div className="container mx-auto">
-        <header className="max-w-5xl mb-40 relative">
+        <header className="max-w-5xl mb-20 md:mb-40 relative">
           <div className="absolute -left-20 top-0 opacity-5 pointer-events-none select-none hidden md:block">
             <span className="text-[200px] font-black uppercase tracking-tighter">OUR STORY</span>
           </div>
@@ -58,10 +58,10 @@ export default function History() {
         </header>
 
         {/* Timeline - Split View */}
-        <section className="relative py-20">
+        <section className="relative py-10 md:py-20">
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/5 hidden lg:block" />
           
-          <div className="space-y-40">
+          <div className="space-y-20 md:space-y-40">
             {timeline.map((item, idx) => (
               <motion.div 
                 key={idx}
@@ -81,7 +81,7 @@ export default function History() {
                   <p className="text-white/40 text-lg leading-relaxed font-light">{item.desc}</p>
                 </div>
                 <div className="lg:w-[15%]" />
-                <div className="w-full lg:w-[40%] mt-10 lg:mt-0 px-6 max-w-lg mx-auto lg:mx-0">
+                <div className="w-full lg:w-[40%] mt-6 md:mt-0 px-6 max-w-lg mx-auto lg:mx-0">
                   <div className="aspect-[3/2] bg-[#0A0A0A] border border-white/5 rounded-2xl overflow-hidden group">
                     <img 
                       src={item.image} 
@@ -96,8 +96,8 @@ export default function History() {
         </section>
 
         {/* Values */}
-        <section className="pt-40">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-20">
+        <section className="pt-20 md:pt-40">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
             <div className="p-12 border border-white/10 rounded-[40px] hover:bg-white/5 transition-colors">
               <h4 className="text-white text-2xl font-bold uppercase tracking-widest mb-6">Nossa Missão</h4>
               <p className="text-white/40 leading-relaxed italic">"Educar tutores e cães para que vivam em harmonia, priorizando sempre o bem-estar e a comunicação clara."</p>

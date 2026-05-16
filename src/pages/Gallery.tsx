@@ -215,9 +215,9 @@ export default function Gallery() {
   const isAdmin = user?.email === 'fabianofisio@gmail.com';
 
   return (
-    <div className="bg-[#0F0F0F] pt-48 pb-20">
+    <div className="bg-[#0F0F0F] pt-24 md:pt-48 pb-10 md:pb-20">
       <div className="container mx-auto px-6">
-        <header className="mb-32 flex flex-col md:flex-row md:items-end justify-between gap-8">
+        <header className="mb-16 md:mb-32 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -229,7 +229,7 @@ export default function Gallery() {
             </div>
             <h1 
               onClick={handleLoginTrigger}
-              className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-12 leading-[0.85] cursor-default select-none"
+              className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-8 md:mb-12 leading-[0.85] cursor-default select-none"
             >
               Nossa <br /><span className="text-highlight">Galeria</span>
             </h1>
@@ -289,7 +289,7 @@ export default function Gallery() {
         </header>
 
         {loading ? (
-          <div className="py-40 flex justify-center">
+          <div className="py-20 md:py-40 flex justify-center">
             <div className="w-10 h-10 border-4 border-white/10 border-t-white rounded-full animate-spin"></div>
           </div>
         ) : (
@@ -354,7 +354,7 @@ export default function Gallery() {
           </div>
         )}
 
-        <div className="mt-32 text-center">
+        <div className="mt-16 md:mt-32 text-center">
           <p className="text-white/40 text-lg uppercase tracking-widest font-bold">Acompanhe mais em nosso Instagram</p>
           <a 
             href="https://instagram.com/caomeuamigo_adestramento" 
