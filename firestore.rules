@@ -51,6 +51,31 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
+    // --- Video Rules ---
+    match /videos/{videoId} {
+      function isValidVideo(data) {
+        return data.url is string && data.url.size() <= 300 &&
+               data.type in ['backstage', 'before-after'] &&
+               data.title is string && data.title.size() <= 100 &&
+               data.createdAt != null;
+      }
+
+      allow list, get: if true;
+
+      allow create: if isAdmin() && 
+                      isValidId(videoId) &&
+                      isValidVideo(request.resource.data) &&
+                      request.resource.data.keys().hasAll(['url', 'type', 'title', 'createdAt']) &&
+                      request.resource.data.keys().size() == 4;
+
+      allow update: if isAdmin() &&
+                      isValidVideo(request.resource.data) &&
+                      request.resource.data.createdAt == resource.data.createdAt &&
+                      request.resource.data.diff(resource.data).affectedKeys().hasOnly(['title', 'url', 'type']);
+
+      allow delete: if isAdmin();
+    }
+
     // Admins collection - System only
     match /admins/{adminId} {
       allow read: if isSignedIn();

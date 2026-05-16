@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Plus, X, Upload, Image as ImageIcon, LogOut } from 'lucide-react';
+import { Plus, X, Upload, Image as ImageIcon, LogOut, Video, Play, Smartphone, Trash2 } from 'lucide-react';
 import { 
   collection, 
   onSnapshot, 
@@ -19,6 +19,14 @@ import { db, auth, signInWithGoogle } from '../lib/firebase';
 interface GalleryImage {
   id: string;
   url: string;
+  title: string;
+  createdAt?: any;
+}
+
+interface TrainingVideo {
+  id: string;
+  url: string;
+  type: 'backstage' | 'before-after';
   title: string;
   createdAt?: any;
 }
@@ -72,11 +80,16 @@ const DEFAULT_IMAGES: Partial<GalleryImage>[] = [
 ];
 
 export default function Gallery() {
+  const [activeTab, setActiveTab] = useState<'images' | 'videos'>('images');
   const [images, setImages] = useState<GalleryImage[]>([]);
+  const [videos, setVideos] = useState<TrainingVideo[]>([]);
   const [isManaging, setIsManaging] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const [videoForm, setVideoForm] = useState({ url: '', title: '', type: 'backstage' as const });
 
   const [loginClicks, setLoginClicks] = useState(0);
 
@@ -91,16 +104,12 @@ export default function Gallery() {
       }
     });
 
-    const q = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
-    const unsubscribeGallery = onSnapshot(q, (snapshot) => {
+    const qImages = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
+    const unsubscribeGallery = onSnapshot(qImages, (snapshot) => {
       const galleryData = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       })) as GalleryImage[];
-      
-      // If Firestore is empty, we could show default images, 
-      // but the user wants to make sure uploaded ones are saved.
-      // We will show Firestore data if it exists.
       setImages(galleryData);
       setLoading(false);
     }, (error) => {
@@ -108,9 +117,19 @@ export default function Gallery() {
       setLoading(false);
     });
 
+    const qVideos = query(collection(db, 'videos'), orderBy('createdAt', 'desc'));
+    const unsubscribeVideos = onSnapshot(qVideos, (snapshot) => {
+      const videoData = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as TrainingVideo[];
+      setVideos(videoData);
+    });
+
     return () => {
       unsubscribeAuth();
       unsubscribeGallery();
+      unsubscribeVideos();
     };
   }, []);
 
@@ -212,6 +231,52 @@ export default function Gallery() {
     }
   };
 
+  const addVideo = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isAdmin || !videoForm.url || !videoForm.title) return;
+
+    try {
+      const tempId = `vid_${Date.now()}`;
+      await setDoc(doc(db, 'videos', tempId), {
+        ...videoForm,
+        createdAt: serverTimestamp()
+      });
+      setVideoForm({ url: '', title: '', type: 'backstage' });
+      setShowVideoModal(false);
+    } catch (error) {
+      handleFirestoreError(error, OperationType.CREATE, 'videos');
+    }
+  };
+
+  const deleteVideo = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, 'videos', id));
+    } catch (error) {
+      handleFirestoreError(error, OperationType.DELETE, `videos/${id}`);
+    }
+  };
+
+  const getEmbedUrl = (url: string) => {
+    if (url.includes('youtube.com/watch?v=')) {
+      return url.replace('watch?v=', 'embed/').split('&')[0];
+    }
+    if (url.includes('youtu.be/')) {
+      const id = url.split('/').pop()?.split('?')[0];
+      return `https://www.youtube.com/embed/${id}`;
+    }
+    if (url.includes('vimeo.com/')) {
+      const id = url.split('/').pop();
+      return `https://player.vimeo.com/video/${id}`;
+    }
+    if (url.includes('instagram.com/reels/') || url.includes('instagram.com/p/')) {
+      // Basic instagram embed support
+      let parts = url.split('/');
+      let id = parts[parts.indexOf('reels') + 1] || parts[parts.indexOf('p') + 1];
+      return `https://www.instagram.com/reels/${id}/embed`;
+    }
+    return url;
+  };
+
   const isAdmin = user?.email === 'fabianofisio@gmail.com';
 
   return (
@@ -233,6 +298,22 @@ export default function Gallery() {
             >
               Nossa <br /><span className="text-highlight">Galeria</span>
             </h1>
+
+            {/* Tabs */}
+            <div className="flex items-center space-x-12">
+              <button 
+                onClick={() => setActiveTab('images')}
+                className={`text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'images' ? 'text-white border-b-2 border-white pb-2' : 'text-white/20 hover:text-white/40'}`}
+              >
+                Fotos
+              </button>
+              <button 
+                onClick={() => setActiveTab('videos')}
+                className={`text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'videos' ? 'text-white border-b-2 border-white pb-2' : 'text-white/20 hover:text-white/40'}`}
+              >
+                Vídeos de Treino
+              </button>
+            </div>
           </motion.div>
 
           <div className="flex flex-col items-end space-y-4">
@@ -264,33 +345,47 @@ export default function Gallery() {
 
             {isManaging && isAdmin && (
               <div className="flex items-center space-x-4">
-                {images.length === 0 && (
+                {activeTab === 'images' ? (
+                  <>
+                    {images.length === 0 && (
+                      <motion.button 
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={seedGallery}
+                        className="btn-outline border-white/20 text-white/60 hover:text-white"
+                      >
+                        Restaurar Padrão
+                      </motion.button>
+                    )}
+                    <motion.button 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => fileInputRef.current?.click()}
+                      className="btn-primary flex items-center space-x-2"
+                    >
+                      <Plus size={16} />
+                      <span>Carregar Foto</span>
+                    </motion.button>
+                    <input 
+                      type="file" 
+                      ref={fileInputRef} 
+                      onChange={handleFileUpload} 
+                      className="hidden" 
+                      accept="image/*" 
+                      multiple 
+                    />
+                  </>
+                ) : (
                   <motion.button 
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={seedGallery}
-                    className="btn-outline border-white/20 text-white/60 hover:text-white"
+                    onClick={() => setShowVideoModal(true)}
+                    className="btn-primary flex items-center space-x-2"
                   >
-                    Restaurar Padrão
+                    <Video size={16} />
+                    <span>Adicionar Vídeo</span>
                   </motion.button>
                 )}
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => fileInputRef.current?.click()}
-                  className="btn-primary flex items-center space-x-2"
-                >
-                  <Plus size={16} />
-                  <span>Carregar Foto</span>
-                </motion.button>
-                <input 
-                  type="file" 
-                  ref={fileInputRef} 
-                  onChange={handleFileUpload} 
-                  className="hidden" 
-                  accept="image/*" 
-                  multiple 
-                />
               </div>
             )}
           </div>
@@ -300,7 +395,7 @@ export default function Gallery() {
           <div className="py-20 md:py-40 flex justify-center">
             <div className="w-10 h-10 border-4 border-white/10 border-t-white rounded-full animate-spin"></div>
           </div>
-        ) : (
+        ) : activeTab === 'images' ? (
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2">
             <AnimatePresence>
               {images.map((img, idx) => (
@@ -360,7 +455,172 @@ export default function Gallery() {
               </div>
             )}
           </div>
+        ) : (
+          <div className="space-y-32">
+            {/* Before After Section */}
+            <div>
+              <div className="flex items-center space-x-4 mb-12">
+                <Smartphone className="text-white/20" size={24} />
+                <h2 className="text-white text-2xl font-bold uppercase tracking-tighter">Antes & Depois</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {videos.filter(v => v.type === 'before-after').map((vid, idx) => (
+                  <motion.div 
+                    key={vid.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="group"
+                  >
+                    <div className="aspect-video bg-[#0A0A0A] border border-white/5 rounded-3xl overflow-hidden relative mb-6">
+                      <iframe 
+                        src={getEmbedUrl(vid.url)}
+                        className="w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                      {isManaging && isAdmin && (
+                        <button 
+                          onClick={() => deleteVideo(vid.id)}
+                          className="absolute top-4 right-4 p-2 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <X size={16} />
+                        </button>
+                      )}
+                    </div>
+                    <div className="px-2">
+                       <span className="text-highlight text-[10px] font-bold uppercase tracking-widest mb-2 block">Transformação 0{idx + 1}</span>
+                       <h3 className="text-white text-xl font-bold uppercase tracking-tight">{vid.title}</h3>
+                    </div>
+                  </motion.div>
+                ))}
+                {videos.filter(v => v.type === 'before-after').length === 0 && (
+                  <div className="col-span-full py-20 border border-dashed border-white/5 rounded-[40px] flex flex-col items-center justify-center text-white/20">
+                    <p className="uppercase tracking-widest text-xs">Nenhum vídeo de antes e depois ainda.</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Backstage Section */}
+            <div>
+              <div className="flex items-center space-x-4 mb-12">
+                <Play className="text-white/20" size={24} />
+                <h2 className="text-white text-2xl font-bold uppercase tracking-tighter">Bastidores de Treino</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                {videos.filter(v => v.type === 'backstage').map((vid) => (
+                  <motion.div 
+                    key={vid.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="group flex flex-col md:flex-row gap-8 items-center"
+                  >
+                    <div className="w-full md:w-2/3 aspect-video bg-[#0A0A0A] border border-white/5 rounded-[40px] overflow-hidden relative">
+                      <iframe 
+                        src={getEmbedUrl(vid.url)}
+                        className="w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                      {isManaging && isAdmin && (
+                        <button 
+                          onClick={() => deleteVideo(vid.id)}
+                          className="absolute top-4 right-4 p-2 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <X size={16} />
+                        </button>
+                      )}
+                    </div>
+                    <div className="w-full md:w-1/3">
+                       <span className="text-white/20 text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">Day in Life</span>
+                       <h3 className="text-white text-2xl font-bold uppercase tracking-tighter mb-4 leading-tight">{vid.title}</h3>
+                       <div className="w-12 h-px bg-white/20"></div>
+                    </div>
+                  </motion.div>
+                ))}
+                {videos.filter(v => v.type === 'backstage').length === 0 && (
+                  <div className="col-span-full py-20 border border-dashed border-white/5 rounded-[40px] flex flex-col items-center justify-center text-white/20">
+                    <p className="uppercase tracking-widest text-xs">Nenhum vídeo de bastidores gravado ainda.</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         )}
+
+        {/* Video Upload Modal */}
+        <AnimatePresence>
+          {showVideoModal && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-[#0F0F0F]/95 backdrop-blur-xl"
+            >
+              <div className="w-full max-w-xl bg-[#0A0A0A] border border-white/10 rounded-[48px] p-12 relative">
+                <button 
+                  onClick={() => setShowVideoModal(false)}
+                  className="absolute top-8 right-8 text-white/40 hover:text-white"
+                >
+                  <X size={24} />
+                </button>
+
+                <h2 className="text-white text-3xl font-black uppercase tracking-tighter mb-8">Novo Vídeo</h2>
+                
+                <form onSubmit={addVideo} className="space-y-8">
+                  <div className="space-y-6">
+                    <div>
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3 block">Tipo de Conteúdo</label>
+                      <div className="grid grid-cols-2 gap-4">
+                        <button 
+                          type="button"
+                          onClick={() => setVideoForm({ ...videoForm, type: 'backstage' })}
+                          className={`py-4 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${videoForm.type === 'backstage' ? 'bg-white text-black' : 'border border-white/5 text-white/20'}`}
+                        >
+                          Bastidores
+                        </button>
+                        <button 
+                          type="button"
+                          onClick={() => setVideoForm({ ...videoForm, type: 'before-after' })}
+                          className={`py-4 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${videoForm.type === 'before-after' ? 'bg-white text-black' : 'border border-white/5 text-white/20'}`}
+                        >
+                          Antes & Depois
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3 block">Título do Vídeo</label>
+                      <input 
+                        type="text" 
+                        required
+                        value={videoForm.title}
+                        onChange={(e) => setVideoForm({ ...videoForm, title: e.target.value })}
+                        className="w-full bg-[#151515] border border-white/5 rounded-xl px-6 py-4 text-white outline-none focus:border-white/20 transition-all"
+                        placeholder="Ex: Treino da Nina - 1ª Semana"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3 block">Link (YouTube, Vimeo, Reels)</label>
+                      <input 
+                        type="url" 
+                        required
+                        value={videoForm.url}
+                        onChange={(e) => setVideoForm({ ...videoForm, url: e.target.value })}
+                        className="w-full bg-[#151515] border border-white/5 rounded-xl px-6 py-4 text-white outline-none focus:border-white/20 transition-all"
+                        placeholder="https://youtube.com/..."
+                      />
+                      <p className="text-[9px] text-white/20 mt-3 italic">* Aceitamos links do YouTube, Vimeo e Reels do Instagram.</p>
+                    </div>
+                  </div>
+
+                  <button type="submit" className="btn-primary w-full py-6">Publicar Agora</button>
+                </form>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="mt-16 md:mt-32 text-center">
           <p className="text-white/40 text-lg uppercase tracking-widest font-bold">Acompanhe mais em nosso Instagram</p>

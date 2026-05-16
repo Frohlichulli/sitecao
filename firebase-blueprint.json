@@ -20,12 +20,42 @@
         }
       },
       "required": ["url", "title", "createdAt"]
+    },
+    "TrainingVideo": {
+      "title": "Training Video",
+      "description": "A video of training backstage or before/after",
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The URL of the video (YouTube, Vimeo, etc.)"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["backstage", "before-after"],
+          "description": "Category of the video"
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the video"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the video was added"
+        }
+      },
+      "required": ["url", "type", "title", "createdAt"]
     }
   },
   "firestore": {
     "gallery": {
       "schema": "GalleryImage",
       "description": "Collection of gallery images"
+    },
+    "videos": {
+      "schema": "TrainingVideo",
+      "description": "Collection of training videos"
     }
   }
 }
