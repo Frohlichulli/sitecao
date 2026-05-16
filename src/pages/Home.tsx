@@ -55,7 +55,7 @@ export default function Home() {
             >
               <div className="mb-8 flex items-center space-x-4">
                 <span className="w-12 h-px bg-white/30"></span>
-                <span className="text-[10px] uppercase tracking-[0.4em] text-white/50">Novo Hamburgo, RS</span>
+                <span className="text-[10px] uppercase tracking-[0.4em] text-white/80">Novo Hamburgo, RS</span>
               </div>
               
               <h1 className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
@@ -65,7 +65,7 @@ export default function Home() {
               <p className="sr-only">Especialista em adestramento de cães no Vale do Sinos, Novo Hamburgo e São Leopoldo.</p>
               <p className="text-white text-sm md:text-2xl font-bold uppercase tracking-[0.3em] mb-12">Treinamento de Cães no Vale do Sinos</p>
               
-              <p className="text-white/50 text-lg md:text-xl max-w-xl mb-12 font-light leading-relaxed">
+              <p className="text-white/80 text-lg md:text-xl max-w-xl mb-12 font-light leading-relaxed">
                 Adestramento de cães em Novo Hamburgo, São Leopoldo e toda região metropolitana. Treinando cães para o futuro.
               </p>
               
@@ -92,8 +92,8 @@ export default function Home() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-4 opacity-20">
-          <span className="text-[9px] uppercase tracking-[0.4em]">Scroll</span>
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-4 opacity-50">
+          <span className="text-[9px] uppercase tracking-[0.4em] text-white">Scroll</span>
           <div className="w-px h-16 bg-gradient-to-b from-white to-transparent"></div>
         </div>
       </section>
@@ -103,11 +103,11 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20">
             <div className="lg:col-span-5 px-6">
-              <span className="text-white/20 text-[10px] font-bold uppercase tracking-[0.5em] mb-6 block">Especialidades</span>
+              <span className="text-white/60 text-[10px] font-bold uppercase tracking-[0.5em] mb-6 block">Especialidades</span>
               <h2 className="text-white text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-none mb-10">
                 O que <br />fazemos <br /><span className="text-highlight text-4xl md:text-6xl">por eles.</span>
               </h2>
-              <p className="text-white/40 text-lg leading-relaxed mb-12 font-light">
+              <p className="text-white/70 text-lg leading-relaxed mb-12 font-light">
                 Metodologias modernas que respeitam a individualidade biológica e comportamental de cada animal.
               </p>
               <MotionLink 
@@ -131,10 +131,10 @@ export default function Home() {
                 >
                   <div className="flex justify-between items-center">
                     <div className="flex items-center space-x-8">
-                      <span className="text-white/10 text-xl font-mono">0{idx + 1}</span>
+                      <span className="text-white/60 text-xl font-mono">0{idx + 1}</span>
                       <h3 className="text-2xl md:text-4xl font-medium tracking-tight text-white group-hover:translate-x-4 transition-transform">{service.title}</h3>
                     </div>
-                    <span className="text-white/20 group-hover:text-white transition-colors">→</span>
+                    <span className="text-white/60 group-hover:text-white transition-colors">→</span>
                   </div>
                 </MotionLink>
               ))}
@@ -162,11 +162,11 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <span className="text-white/30 text-sm font-bold uppercase tracking-[0.2em] mb-4 block">Nossa História</span>
+            <span className="text-white/70 text-sm font-bold uppercase tracking-[0.2em] mb-4 block">Nossa História</span>
             <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-8 leading-none">
               Amor e ética em cada treino.
             </h2>
-            <p className="text-white/60 text-lg md:text-xl leading-relaxed mb-10 font-light">
+            <p className="text-white/80 text-lg md:text-xl leading-relaxed mb-10 font-light">
               Fundado com a missão de modernizar o adestramento canino no Vale do Sinos, o Cão Meu Amigo foca no bem-estar animal e na comunicação efetiva entre tutor e pet.
             </p>
             <MotionLink 

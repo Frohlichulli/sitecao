@@ -57,7 +57,7 @@ export default function Header() {
               whileHover={{ scale: 1.1, x: 2 }}
               whileTap={{ scale: 0.95 }}
               className={`text-xs font-bold tracking-[0.3em] uppercase transition-all hover:opacity-100 ${
-                location.pathname === link.path ? 'text-white underline underline-offset-8' : 'text-white/40'
+                location.pathname === link.path ? 'text-white underline underline-offset-8' : 'text-white/70'
               }`}
             >
               {link.name}
@@ -101,7 +101,7 @@ export default function Header() {
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`text-4xl font-bold uppercase tracking-tighter transition-all ${
-                  location.pathname === link.path ? 'text-white' : 'text-white/20'
+                  location.pathname === link.path ? 'text-white' : 'text-white/40'
                 }`}
               >
                 {link.name}

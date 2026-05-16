@@ -32,7 +32,7 @@ export default function Footer() {
                 Cão Meu Amigo
               </span>
             </MotionLink>
-            <p className="text-white/50 max-w-sm text-lg leading-relaxed mb-8">
+            <p className="text-white/80 max-w-sm text-lg leading-relaxed mb-8">
               Transformando a relação entre você e seu cão através de adestramento ético, moderno e carinhoso em Novo Hamburgo, RS.
             </p>
             <div className="flex space-x-4">
@@ -72,19 +72,19 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-widest mb-6 text-white/40">Menu</h4>
+            <h4 className="text-sm font-bold uppercase tracking-widest mb-6 text-white/70">Menu</h4>
             <ul className="space-y-4">
-              <li><MotionLink to="/historia" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">História</MotionLink></li>
-              <li><MotionLink to="/servicos" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">Serviços</MotionLink></li>
-              <li><MotionLink to="/galeria" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">Galeria</MotionLink></li>
-              <li><MotionLink to="/avaliacao" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">Avaliação</MotionLink></li>
-              <li><MotionLink to="/contato" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 transition-all block">Contato</MotionLink></li>
+              <li><MotionLink to="/historia" whileHover={{ x: 10, color: '#fff' }} className="text-white/80 transition-all block">História</MotionLink></li>
+              <li><MotionLink to="/servicos" whileHover={{ x: 10, color: '#fff' }} className="text-white/80 transition-all block">Serviços</MotionLink></li>
+              <li><MotionLink to="/galeria" whileHover={{ x: 10, color: '#fff' }} className="text-white/80 transition-all block">Galeria</MotionLink></li>
+              <li><MotionLink to="/avaliacao" whileHover={{ x: 10, color: '#fff' }} className="text-white/80 transition-all block">Avaliação</MotionLink></li>
+              <li><MotionLink to="/contato" whileHover={{ x: 10, color: '#fff' }} className="text-white/80 transition-all block">Contato</MotionLink></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-widest mb-6 text-white/40">Cidades Atendidas</h4>
-            <div className="grid grid-cols-2 gap-2 text-[9px] uppercase tracking-widest text-white/20">
+            <h4 className="text-sm font-bold uppercase tracking-widest mb-6 text-white/70">Cidades Atendidas</h4>
+            <div className="grid grid-cols-2 gap-2 text-[9px] uppercase tracking-widest text-white/60">
               <span>Novo Hamburgo</span>
               <span>São Leopoldo</span>
               <span>Porto Alegre</span>
@@ -97,17 +97,17 @@ export default function Footer() {
               <span>Vale do Sinos</span>
             </div>
             <div className="mt-6 pt-6 border-t border-white/5 space-y-2">
-               <p className="text-[10px] text-white/40 uppercase tracking-widest flex items-center">
+               <p className="text-[10px] text-white/70 uppercase tracking-widest flex items-center">
                  <Phone size={12} className="mr-2" /> (51) 99656.6493
                </p>
-               <p className="text-[10px] text-white/40 uppercase tracking-widest flex items-center">
+               <p className="text-[10px] text-white/70 uppercase tracking-widest flex items-center">
                  <Mail size={12} className="mr-2" /> fabianofisio@gmail.com
                </p>
             </div>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/10 flex flex-col md:row justify-between items-center text-white/30 text-xs tracking-widest uppercase">
+        <div className="pt-8 border-t border-white/10 flex flex-col md:row justify-between items-center text-white/60 text-xs tracking-widest uppercase">
           <p>© {new Date().getFullYear()} Cão Meu Amigo Adestramento. Todos os direitos reservados.</p>
           <p className="mt-2 md:mt-0">Desenvolvido com carinho para os pets.</p>
         </div>

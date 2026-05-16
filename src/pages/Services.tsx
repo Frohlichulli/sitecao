@@ -63,13 +63,13 @@ export default function Services() {
           >
             <div className="mb-6 flex items-center space-x-4">
               <span className="w-10 h-px bg-white/30"></span>
-              <span className="text-[10px] uppercase tracking-[0.5em] text-white/40">Soluções para seu Pet</span>
+              <span className="text-[10px] uppercase tracking-[0.5em] text-white/70">Soluções para seu Pet</span>
             </div>
             
             <h1 className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
               Serviços <br /><span className="text-highlight">especializados</span>
             </h1>
-            <p className="text-white/30 text-xs uppercase tracking-[0.3em] max-w-2xl">
+            <p className="text-white/60 text-xs uppercase tracking-[0.3em] max-w-2xl">
               Soluções completas de adestramento de cães em Novo Hamburgo, São Leopoldo, Porto Alegre e cidades vizinhas. Atendimento personalizado para o bem-estar do seu pet.
             </p>
           </motion.div>
@@ -85,14 +85,14 @@ export default function Services() {
               className="p-8 md:p-16 bg-[#0F0F0F] group hover:bg-[#0A0A0A] transition-all duration-700"
             >
               <div className="flex justify-between items-start mb-10 md:mb-16">
-                <div className="text-white/10 text-6xl font-black tracking-tighter">0{idx + 1}</div>
-                <div className="w-16 h-16 border border-white/10 rounded-full flex items-center justify-center text-white/40 group-hover:text-white group-hover:border-white group-hover:rotate-12 transition-all">
+                <div className="text-white/30 text-6xl font-black tracking-tighter">0{idx + 1}</div>
+                <div className="w-16 h-16 border border-white/20 rounded-full flex items-center justify-center text-white/70 group-hover:text-white group-hover:border-white group-hover:rotate-12 transition-all">
                    {React.cloneElement(service.icon as React.ReactElement, { size: 24 })}
                 </div>
               </div>
               
               <h3 className="text-3xl font-bold uppercase tracking-tight text-white mb-6 underline underline-offset-[12px] decoration-white/10">{service.title}</h3>
-              <p className="text-white/40 text-lg leading-relaxed mb-12 font-light">
+              <p className="text-white/80 text-lg leading-relaxed mb-12 font-light">
                 {service.desc}
               </p>
               
@@ -113,7 +113,7 @@ export default function Services() {
         {/* Info Box */}
         <div className="mt-16 md:mt-32 p-8 md:p-20 bg-[#0F0F0F] rounded-[48px] text-center">
           <h2 className="text-white text-3xl md:text-5xl font-black uppercase tracking-tighter mb-8">Não sabe por onde começar?</h2>
-          <p className="text-white/50 text-lg md:text-xl max-w-2xl mx-auto mb-12">Oferecemos uma avaliação gratuita para diagnosticar o comportamento do seu pet e sugerir o melhor plano.</p>
+          <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-12">Oferecemos uma avaliação gratuita para diagnosticar o comportamento do seu pet e sugerir o melhor plano.</p>
           <MotionLink 
             to="/avaliacao" 
             whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(255,255,255,0.1)' }}

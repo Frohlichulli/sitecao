@@ -341,7 +341,7 @@ export default function Gallery() {
           >
             <div className="mb-6 flex items-center space-x-4">
               <span className="w-10 h-px bg-white/30"></span>
-              <span className="text-[10px] uppercase tracking-[0.5em] text-white/40">Visão Geral</span>
+              <span className="text-[10px] uppercase tracking-[0.5em] text-white/70">Visão Geral</span>
             </div>
             <h1 
               onClick={handleLoginTrigger}
@@ -354,13 +354,13 @@ export default function Gallery() {
             <div className="flex items-center space-x-12">
               <button 
                 onClick={() => setActiveTab('images')}
-                className={`text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'images' ? 'text-white border-b-2 border-white pb-2' : 'text-white/20 hover:text-white/40'}`}
+                className={`text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'images' ? 'text-white border-b-2 border-white pb-2' : 'text-white/40 hover:text-white/60'}`}
               >
                 Fotos
               </button>
               <button 
                 onClick={() => setActiveTab('videos')}
-                className={`text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'videos' ? 'text-white border-b-2 border-white pb-2' : 'text-white/20 hover:text-white/40'}`}
+                className={`text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'videos' ? 'text-white border-b-2 border-white pb-2' : 'text-white/40 hover:text-white/60'}`}
               >
                 Vídeos de Treino
               </button>
@@ -571,7 +571,7 @@ export default function Gallery() {
                   </motion.div>
                 ))}
                 {videos.filter(v => v.type === 'before-after').length === 0 && (
-                  <div className="col-span-full py-20 border border-dashed border-white/5 rounded-[40px] flex flex-col items-center justify-center text-white/20">
+                  <div className="col-span-full py-20 border border-dashed border-white/5 rounded-[40px] flex flex-col items-center justify-center text-white/40">
                     <p className="uppercase tracking-widest text-xs">Nenhum vídeo de antes e depois ainda.</p>
                   </div>
                 )}
@@ -609,14 +609,14 @@ export default function Gallery() {
                       )}
                     </div>
                     <div className="w-full md:w-1/3">
-                       <span className="text-white/20 text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">Day in Life</span>
+                       <span className="text-white/50 text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">Day in Life</span>
                        <h3 className="text-white text-2xl font-bold uppercase tracking-tighter mb-4 leading-tight">{vid.title}</h3>
                        <div className="w-12 h-px bg-white/20"></div>
                     </div>
                   </motion.div>
                 ))}
                 {videos.filter(v => v.type === 'backstage').length === 0 && (
-                  <div className="col-span-full py-20 border border-dashed border-white/5 rounded-[40px] flex flex-col items-center justify-center text-white/20">
+                  <div className="col-span-full py-20 border border-dashed border-white/5 rounded-[40px] flex flex-col items-center justify-center text-white/40">
                     <p className="uppercase tracking-widest text-xs">Nenhum vídeo de bastidores gravado ainda.</p>
                   </div>
                 )}
@@ -700,7 +700,7 @@ export default function Gallery() {
         </AnimatePresence>
 
         <div className="mt-16 md:mt-32 text-center">
-          <p className="text-white/40 text-lg uppercase tracking-widest font-bold">Acompanhe mais em nosso Instagram</p>
+          <p className="text-white/70 text-lg uppercase tracking-widest font-bold">Acompanhe mais em nosso Instagram</p>
           <motion.a 
             href="https://instagram.com/caomeuamigo_adestramento" 
             target="_blank" 

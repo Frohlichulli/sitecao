@@ -48,14 +48,14 @@ export default function History() {
           >
             <div className="mb-10 flex items-center space-x-4">
               <span className="w-10 h-px bg-white/20"></span>
-              <span className="text-[10px] uppercase tracking-[0.5em] text-white/40">Nossa Trajetória</span>
+              <span className="text-[10px] uppercase tracking-[0.5em] text-white/70">Nossa Trajetória</span>
             </div>
             
             <h1 className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
               Uma vida <br /> dedicada <br /><span className="text-highlight">aos cães.</span>
             </h1>
             
-            <p className="text-white/40 text-xl font-light leading-relaxed max-w-2xl">
+            <p className="text-white/80 text-xl font-light leading-relaxed max-w-2xl">
               O Cão Meu Amigo nasceu de uma necessidade real: adestrar com ética, paciência e embasamento científico, sem nunca perder o carinho.
             </p>
           </motion.div>
@@ -82,7 +82,7 @@ export default function History() {
                 <div className={`w-full lg:w-[45%] relative z-10 ${idx % 2 === 0 ? 'lg:text-right' : 'lg:text-left'}`}>
                   <div className={`w-16 h-1 bg-white/10 mb-8 hidden lg:block ${idx % 2 === 0 ? 'ml-auto' : ''}`}></div>
                   <h3 className="text-white text-4xl font-bold uppercase tracking-tight mb-4">{item.title}</h3>
-                  <p className="text-white/40 text-lg leading-relaxed font-light">{item.desc}</p>
+                  <p className="text-white/80 text-lg leading-relaxed font-light">{item.desc}</p>
                 </div>
                 <div className="lg:w-[15%]" />
                 <div className="w-full lg:w-[40%] mt-6 md:mt-0 px-6 max-w-lg mx-auto lg:mx-0">
@@ -104,15 +104,15 @@ export default function History() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
             <div className="p-12 border border-white/10 rounded-[40px] hover:bg-white/5 transition-colors">
               <h4 className="text-white text-2xl font-bold uppercase tracking-widest mb-6">Nossa Missão</h4>
-              <p className="text-white/40 leading-relaxed italic">"Educar tutores e cães para que vivam em harmonia, priorizando sempre o bem-estar e a comunicação clara."</p>
+              <p className="text-white/80 leading-relaxed italic">"Educar tutores e cães para que vivam em harmonia, priorizando sempre o bem-estar e a comunicação clara."</p>
             </div>
             <div className="p-12 border border-white/10 rounded-[40px] hover:bg-white/5 transition-colors">
               <h4 className="text-white text-2xl font-bold uppercase tracking-widest mb-6">Nossos Valores</h4>
-              <p className="text-white/40 leading-relaxed italic">"Ética inegociável, respeito à individualidade de cada cão, paciência infinita e inovação constante."</p>
+              <p className="text-white/80 leading-relaxed italic">"Ética inegociável, respeito à individualidade de cada cão, paciência infinita e inovação constante."</p>
             </div>
             <div className="p-12 border border-white/10 rounded-[40px] hover:bg-white/5 transition-colors">
               <h4 className="text-white text-2xl font-bold uppercase tracking-widest mb-6">Nosso Futuro</h4>
-              <p className="text-white/40 leading-relaxed italic">"Ser a maior referência em adestramento positivo do Sul do Brasil, impactando milhares de vidas."</p>
+              <p className="text-white/80 leading-relaxed italic">"Ser a maior referência em adestramento positivo do Sul do Brasil, impactando milhares de vidas."</p>
             </div>
           </div>
         </section>

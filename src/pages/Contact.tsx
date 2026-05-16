@@ -23,7 +23,7 @@ export default function Contact() {
             >
               <div className="mb-6 flex items-center space-x-4">
                 <span className="w-10 h-px bg-white/30"></span>
-                <span className="text-[10px] uppercase tracking-[0.5em] text-white/40">Onde Atendemos</span>
+                <span className="text-[10px] uppercase tracking-[0.5em] text-white/70">Onde Atendemos</span>
               </div>
               
               <h2 className="text-white text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-6 md:mb-10 leading-[0.85]">
@@ -37,7 +37,7 @@ export default function Contact() {
                   'Ivoti', 'Estância Velha', 'Dois Irmãos', 
                   'Vale do Sinos'
                 ].map((city) => (
-                  <div key={city} className="flex items-center space-x-2 text-white/60 text-sm">
+                  <div key={city} className="flex items-center space-x-2 text-white text-sm">
                     <span className="w-1.5 h-1.5 bg-white/20 rounded-full"></span>
                     <span>{city}</span>
                   </div>
@@ -46,37 +46,37 @@ export default function Contact() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12">
                 <div>
-                  <p className="text-white/20 text-[9px] uppercase tracking-[0.4em] mb-4">WhatsApp / Celular</p>
+                  <p className="text-white/50 text-[9px] uppercase tracking-[0.4em] mb-4">WhatsApp / Celular</p>
                   <motion.a 
                     href="https://wa.me/5551996566493" 
                     whileHover={{ x: 10, opacity: 1, color: '#fff' }}
-                    className="text-xl font-medium tracking-tight text-white/70 transition-all block"
+                    className="text-xl font-medium tracking-tight text-white transition-all block"
                   >
                     (51) 99656.6493
                   </motion.a>
                 </div>
                 <div>
-                  <p className="text-white/20 text-[9px] uppercase tracking-[0.4em] mb-4">Email</p>
+                  <p className="text-white/50 text-[9px] uppercase tracking-[0.4em] mb-4">Email</p>
                   <motion.a 
                     href="mailto:fabianofisio@gmail.com" 
                     whileHover={{ x: 10, opacity: 1, color: '#fff' }}
-                    className="text-xl font-medium tracking-tight text-white/70 transition-all block"
+                    className="text-xl font-medium tracking-tight text-white transition-all block"
                   >
                     fabianofisio@gmail.com
                   </motion.a>
                 </div>
                 <div>
-                  <p className="text-white/20 text-[9px] uppercase tracking-[0.4em] mb-4">Insta</p>
+                  <p className="text-white/50 text-[9px] uppercase tracking-[0.4em] mb-4">Insta</p>
                   <motion.a 
                     href="https://instagram.com/caomeuamigo_adestramento" 
                     whileHover={{ x: 10, opacity: 1, color: '#fff' }}
-                    className="text-xl font-medium tracking-tight text-white/70 transition-all block"
+                    className="text-xl font-medium tracking-tight text-white transition-all block"
                   >
                     @caomeuamigo_adestramento
                   </motion.a>
                 </div>
                 <div>
-                  <p className="text-white/20 text-[9px] uppercase tracking-[0.4em] mb-4">Endereço</p>
+                  <p className="text-white/50 text-[9px] uppercase tracking-[0.4em] mb-4">Endereço</p>
                   <p className="text-xl font-medium tracking-tight text-white">Novo Hamburgo, RS</p>
                 </div>
               </div>

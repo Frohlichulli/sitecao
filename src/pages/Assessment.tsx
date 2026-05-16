@@ -159,7 +159,7 @@ export default function Assessment() {
             </button>
             <button 
               onClick={() => setIsSubmitted(false)}
-              className="text-white/40 hover:text-white text-xs font-bold uppercase tracking-widest pt-4 block mx-auto transition-colors"
+              className="text-white/60 hover:text-white text-xs font-bold uppercase tracking-widest pt-4 block mx-auto transition-colors"
             >
               Preencher nova ficha
             </button>
@@ -205,15 +205,15 @@ export default function Assessment() {
                   idx === currentStep 
                     ? 'bg-white text-[#0F0F0F] shadow-xl shadow-white/10 ring-2 ring-white/20 lg:ring-0' 
                     : idx < currentStep 
-                      ? 'bg-white/20 text-highlight' 
-                      : 'bg-white/5 text-white/40 hover:text-white/60'
+                      ? 'bg-white/30 text-highlight' 
+                      : 'bg-white/5 text-white/60 hover:text-white'
                 }`}
               >
                 <div className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors flex-shrink-0 ${idx === currentStep ? 'border-black' : idx < currentStep ? 'border-highlight' : 'border-white/20'}`}>
                   {idx < currentStep ? <Check size={18} /> : step.icon}
                 </div>
                 <div className="hidden sm:block lg:block">
-                  <p className={`text-[10px] font-bold uppercase tracking-widest leading-none mb-1 ${idx === currentStep ? 'text-black/60' : 'text-white/40'}`}>Passo 0{idx + 1}</p>
+                  <p className={`text-[10px] font-bold uppercase tracking-widest leading-none mb-1 ${idx === currentStep ? 'text-black/60' : 'text-white/60'}`}>Passo 0{idx + 1}</p>
                   <p className="text-sm font-bold uppercase tracking-tighter truncate max-w-[120px]">{step.title}</p>
                 </div>
               </div>
@@ -329,7 +329,7 @@ export default function Assessment() {
                               key={opt}
                               type="button"
                               onClick={() => setFormData({ ...formData, petSex: opt })}
-                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petSex === opt ? 'bg-white text-black' : 'bg-white/10 text-white/80 hover:text-white border border-white/10'}`}
+                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petSex === opt ? 'bg-white text-black' : 'bg-white/10 text-white hover:text-white border border-white/20'}`}
                             >
                               {opt}
                             </button>
@@ -344,7 +344,7 @@ export default function Assessment() {
                               key={opt}
                               type="button"
                               onClick={() => setFormData({ ...formData, petNeutered: opt })}
-                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petNeutered === opt ? 'bg-white text-black' : 'bg-white/10 text-white/80 hover:text-white border border-white/10'}`}
+                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petNeutered === opt ? 'bg-white text-black' : 'bg-white/10 text-white hover:text-white border border-white/20'}`}
                             >
                               {opt}
                             </button>
