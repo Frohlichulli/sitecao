@@ -201,13 +201,13 @@ export default function Assessment() {
               <div 
                 key={step.id}
                 onClick={() => idx < currentStep && setCurrentStep(idx)}
-                className={`flex items-center space-x-4 p-6 rounded-[24px] cursor-pointer transition-all ${idx === currentStep ? 'bg-white text-[#0F0F0F]' : idx < currentStep ? 'bg-white/5 text-highlight' : 'bg-transparent text-white/10'}`}
+                className={`flex items-center space-x-4 p-6 rounded-[24px] cursor-pointer transition-all ${idx === currentStep ? 'bg-white text-[#0F0F0F] shadow-xl shadow-white/10' : idx < currentStep ? 'bg-white/10 text-highlight' : 'bg-white/5 text-white/40 hover:text-white/60'}`}
               >
-                <div className="w-10 h-10 rounded-full border border-current flex items-center justify-center">
+                <div className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors ${idx === currentStep ? 'border-black' : idx < currentStep ? 'border-highlight' : 'border-white/20'}`}>
                   {idx < currentStep ? <Check size={18} /> : step.icon}
                 </div>
                 <div className="hidden lg:block">
-                  <p className="text-[10px] font-bold uppercase tracking-widest leading-none mb-1">Passo 0{idx + 1}</p>
+                  <p className={`text-[10px] font-bold uppercase tracking-widest leading-none mb-1 ${idx === currentStep ? 'text-black/60' : 'text-white/40'}`}>Passo 0{idx + 1}</p>
                   <p className="text-sm font-bold uppercase tracking-tighter">{step.title}</p>
                 </div>
               </div>
@@ -235,7 +235,7 @@ export default function Assessment() {
                           value={formData.tutorName}
                           onChange={handleInputChange}
                           placeholder="Ex: Fabiano Silva"
-                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light placeholder:text-white/50"
+                          className="w-full bg-[#111] border border-white/50 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light placeholder:text-white/50"
                         />
                       </div>
                       <div className="space-y-4">
@@ -247,7 +247,7 @@ export default function Assessment() {
                           value={formData.tutorPhone}
                           onChange={handleInputChange}
                           placeholder="(51) 99999-9999"
-                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light placeholder:text-white/50"
+                          className="w-full bg-[#111] border border-white/50 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light placeholder:text-white/50"
                         />
                       </div>
                     </div>
@@ -260,7 +260,7 @@ export default function Assessment() {
                           required
                           value={formData.tutorEmail}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/50 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
                         />
                       </div>
                       <div className="space-y-4">
@@ -271,7 +271,7 @@ export default function Assessment() {
                           required
                           value={formData.tutorAddress}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/50 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
                         />
                       </div>
                     </div>
@@ -289,7 +289,7 @@ export default function Assessment() {
                           required
                           value={formData.petName}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/50 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
                         />
                       </div>
                       <div className="space-y-4">
@@ -300,7 +300,7 @@ export default function Assessment() {
                           value={formData.petBreed}
                           onChange={handleInputChange}
                           placeholder="SRD, Golden, Border..."
-                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light placeholder:text-white/50"
+                          className="w-full bg-[#111] border border-white/50 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light placeholder:text-white/50"
                         />
                       </div>
                     </div>
@@ -312,7 +312,7 @@ export default function Assessment() {
                           name="petAge"
                           value={formData.petAge}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/50 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
                         />
                       </div>
                       <div className="space-y-4">
@@ -323,7 +323,7 @@ export default function Assessment() {
                               key={opt}
                               type="button"
                               onClick={() => setFormData({ ...formData, petSex: opt })}
-                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petSex === opt ? 'bg-white text-black' : 'bg-white/10 text-white/60 hover:text-white'}`}
+                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petSex === opt ? 'bg-white text-black' : 'bg-white/10 text-white/80 hover:text-white border border-white/10'}`}
                             >
                               {opt}
                             </button>
@@ -338,7 +338,7 @@ export default function Assessment() {
                               key={opt}
                               type="button"
                               onClick={() => setFormData({ ...formData, petNeutered: opt })}
-                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petNeutered === opt ? 'bg-white text-black' : 'bg-white/10 text-white/60 hover:text-white'}`}
+                              className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${formData.petNeutered === opt ? 'bg-white text-black' : 'bg-white/10 text-white/80 hover:text-white border border-white/10'}`}
                             >
                               {opt}
                             </button>
@@ -360,7 +360,7 @@ export default function Assessment() {
                         value={formData.mainIssues}
                         onChange={handleInputChange}
                         placeholder="Ex: Pula excessivamente, reage a outros cães na guia, destrói objetos..."
-                        className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light resize-none placeholder:text-white/50"
+                        className="w-full bg-[#111] border border-white/50 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light resize-none placeholder:text-white/50"
                       />
                     </div>
 
@@ -376,9 +376,9 @@ export default function Assessment() {
                             key={item}
                             type="button"
                             onClick={() => toggleArrayItem('reactivity', item)}
-                            className={`flex items-center space-x-3 p-4 rounded-xl text-[10px] font-bold uppercase tracking-widest text-left transition-all ${formData.reactivity.includes(item) ? 'bg-highlight/10 text-highlight border border-highlight/50' : 'bg-white/10 text-white/60 hover:text-white border border-transparent'}`}
+                            className={`flex items-center space-x-3 p-4 rounded-xl text-[10px] font-bold uppercase tracking-widest text-left transition-all ${formData.reactivity.includes(item) ? 'bg-highlight/10 text-highlight border border-highlight/50' : 'bg-white/10 text-white/80 hover:text-white border border-white/10'}`}
                           >
-                            <div className={`w-4 h-4 rounded-sm border flex items-center justify-center transition-all ${formData.reactivity.includes(item) ? 'bg-highlight border-highlight' : 'border-white/40'}`}>
+                            <div className={`w-4 h-4 rounded-sm border flex items-center justify-center transition-all ${formData.reactivity.includes(item) ? 'bg-highlight border-highlight' : 'border-white/50'}`}>
                               {formData.reactivity.includes(item) && <Check size={12} className="text-[#0F0F0F]" />}
                             </div>
                             <span>{item}</span>
@@ -389,13 +389,13 @@ export default function Assessment() {
 
                     <div className="space-y-4">
                       <label className="text-xs font-bold uppercase tracking-widest text-white block">Nível de Energia (1: Baixo | 5: Muito Alto)</label>
-                      <div className="flex justify-between items-center bg-white/10 p-8 rounded-[32px]">
+                      <div className="flex justify-between items-center bg-white/5 border border-white/10 p-8 rounded-[32px]">
                         {[1, 2, 3, 4, 5].map(val => (
                           <button
                             key={val}
                             type="button"
                             onClick={() => setFormData({ ...formData, energyLevel: val.toString() })}
-                            className={`w-12 h-12 rounded-full font-bold transition-all ${formData.energyLevel === val.toString() ? 'bg-highlight text-[#0F0F0F] scale-125 shadow-xl shadow-highlight/20' : 'bg-white/10 text-white/60 hover:text-white'}`}
+                            className={`w-12 h-12 rounded-full font-bold transition-all ${formData.energyLevel === val.toString() ? 'bg-highlight text-[#0F0F0F] scale-125 shadow-xl shadow-highlight/20' : 'bg-white/10 text-white/80 hover:text-white'}`}
                           >
                             {val}
                           </button>
@@ -415,7 +415,7 @@ export default function Assessment() {
                           name="walksPerDay"
                           value={formData.walksPerDay}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
+                          className="w-full bg-[#111] border border-white/50 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light"
                         />
                       </div>
                       <div className="space-y-4">
@@ -426,7 +426,7 @@ export default function Assessment() {
                           value={formData.healthIssues}
                           onChange={handleInputChange}
                           placeholder="Caso possua alguma restrição biológica"
-                          className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light placeholder:text-white/50"
+                          className="w-full bg-[#111] border border-white/50 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light placeholder:text-white/50"
                         />
                       </div>
                     </div>
@@ -440,7 +440,7 @@ export default function Assessment() {
                         value={formData.goals}
                         onChange={handleInputChange}
                         placeholder="Ex: Poder passear no parque com tranquilidade e receber visitas..."
-                        className="w-full bg-[#111] border border-white/30 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light resize-none placeholder:text-white/50"
+                        className="w-full bg-[#111] border border-white/50 rounded-2xl p-6 text-white outline-none focus:border-highlight transition-all font-light resize-none placeholder:text-white/50"
                       />
                     </div>
 
