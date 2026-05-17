@@ -34,11 +34,11 @@ export default function History() {
   ];
 
   return (
-    <div className="bg-[#0F0F0F] pt-24 md:pt-48 pb-10 md:pb-20 overflow-hidden">
+    <div className="bg-[#0F0F0F] pt-20 md:pt-48 pb-10 md:pb-20 overflow-hidden">
       <div className="container mx-auto">
-        <header className="max-w-5xl mb-20 md:mb-40 relative">
-          <div className="absolute -left-20 top-0 opacity-5 pointer-events-none select-none hidden md:block">
-            <span className="text-[200px] font-black uppercase tracking-tighter">OUR STORY</span>
+        <header className="max-w-5xl mb-20 md:mb-40 relative px-6 md:px-0">
+          <div className="absolute -left-10 md:-left-20 top-0 opacity-5 pointer-events-none select-none">
+            <span className="text-[100px] md:text-[200px] font-black uppercase tracking-tighter">STORY</span>
           </div>
           
           <motion.div
@@ -46,23 +46,23 @@ export default function History() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <div className="mb-10 flex items-center space-x-4">
-              <span className="w-10 h-px bg-white/20"></span>
+            <div className="mb-6 md:mb-10 flex items-center space-x-4">
+              <span className="w-8 md:w-10 h-px bg-white/20"></span>
               <span className="text-[10px] uppercase tracking-[0.5em] text-white/70">Nossa Trajetória</span>
             </div>
             
-            <h1 className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-12 leading-[0.85]">
+            <h1 className="text-white text-4xl md:text-8xl font-bold uppercase tracking-tighter mb-8 md:mb-12 leading-[0.85]">
               Uma vida <br /> dedicada <br /><span className="text-highlight">aos cães.</span>
             </h1>
             
-            <p className="text-white/80 text-xl font-light leading-relaxed max-w-2xl">
+            <p className="text-white/80 text-base md:text-xl font-light leading-relaxed max-w-2xl px-0">
               O Cão Meu Amigo nasceu de uma necessidade real: adestrar com ética, paciência e embasamento científico, sem nunca perder o carinho.
             </p>
           </motion.div>
         </header>
 
         {/* Timeline - Split View */}
-        <section className="relative py-10 md:py-20">
+        <section className="relative py-10 md:py-20 px-6 md:px-0">
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/5 hidden lg:block" />
           
           <div className="space-y-20 md:space-y-40">
@@ -78,15 +78,19 @@ export default function History() {
                 <div className="absolute left-1/2 -translate-x-1/2 opacity-10 hidden lg:block text-[80px] font-black tracking-tighter text-white z-0">
                   {item.year === "Hoje" ? "∞" : item.year}
                 </div>
-
-                <div className={`w-full lg:w-[45%] relative z-10 ${idx % 2 === 0 ? 'lg:text-right' : 'lg:text-left'}`}>
+ 
+                <div className={`w-full lg:w-[45%] relative z-10 ${idx % 2 === 0 ? 'lg:text-right' : 'lg:text-left'} text-left`}>
                   <div className={`w-16 h-1 bg-white/10 mb-8 hidden lg:block ${idx % 2 === 0 ? 'ml-auto' : ''}`}></div>
-                  <h3 className="text-white text-4xl font-bold uppercase tracking-tight mb-4">{item.title}</h3>
-                  <p className="text-white/80 text-lg leading-relaxed font-light">{item.desc}</p>
+                  <div className="flex items-center space-x-4 mb-4 lg:hidden">
+                    <span className="text-highlight font-bold text-xl tabular-nums">{item.year}</span>
+                    <div className="h-px flex-grow bg-white/10"></div>
+                  </div>
+                  <h3 className="text-white text-2xl md:text-4xl font-bold uppercase tracking-tight mb-4">{item.title}</h3>
+                  <p className="text-white/80 text-base md:text-lg leading-relaxed font-light">{item.desc}</p>
                 </div>
                 <div className="lg:w-[15%]" />
-                <div className="w-full lg:w-[40%] mt-6 md:mt-0 px-6 max-w-lg mx-auto lg:mx-0">
-                  <div className="aspect-[3/2] bg-[#0A0A0A] border border-white/5 rounded-2xl overflow-hidden group">
+                <div className="w-full lg:w-[40%] mt-8 lg:mt-0">
+                  <div className="aspect-[3/2] bg-[#0A0A0A] border border-white/5 rounded-[24px] md:rounded-2xl overflow-hidden group">
                     <img 
                       src={item.image} 
                       alt={item.title}
@@ -100,19 +104,19 @@ export default function History() {
         </section>
 
         {/* Values */}
-        <section className="pt-20 md:pt-40">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
-            <div className="p-12 border border-white/10 rounded-[40px] hover:bg-white/5 transition-colors">
-              <h4 className="text-white text-2xl font-bold uppercase tracking-widest mb-6">Nossa Missão</h4>
-              <p className="text-white/80 leading-relaxed italic">"Educar tutores e cães para que vivam em harmonia, priorizando sempre o bem-estar e a comunicação clara."</p>
+        <section className="pt-20 md:pt-40 px-6 md:px-0 pb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-20">
+            <div className="p-10 md:p-12 border border-white/10 rounded-[32px] md:rounded-[40px] hover:bg-white/5 transition-colors">
+              <h4 className="text-white text-xl md:text-2xl font-bold uppercase tracking-widest mb-6">Nossa Missão</h4>
+              <p className="text-white/80 text-sm md:text-base leading-relaxed italic">"Educar tutores e cães para que vivam em harmonia, priorizando sempre o bem-estar e a comunicação clara."</p>
             </div>
-            <div className="p-12 border border-white/10 rounded-[40px] hover:bg-white/5 transition-colors">
-              <h4 className="text-white text-2xl font-bold uppercase tracking-widest mb-6">Nossos Valores</h4>
-              <p className="text-white/80 leading-relaxed italic">"Ética inegociável, respeito à individualidade de cada cão, paciência infinita e inovação constante."</p>
+            <div className="p-10 md:p-12 border border-white/10 rounded-[32px] md:rounded-[40px] hover:bg-white/5 transition-colors">
+              <h4 className="text-white text-xl md:text-2xl font-bold uppercase tracking-widest mb-6">Nossos Valores</h4>
+              <p className="text-white/80 text-sm md:text-base leading-relaxed italic">"Ética inegociável, respeito à individualidade de cada cão, paciência infinita e inovação constante."</p>
             </div>
-            <div className="p-12 border border-white/10 rounded-[40px] hover:bg-white/5 transition-colors">
-              <h4 className="text-white text-2xl font-bold uppercase tracking-widest mb-6">Nosso Futuro</h4>
-              <p className="text-white/80 leading-relaxed italic">"Ser a maior referência em adestramento positivo do Sul do Brasil, impactando milhares de vidas."</p>
+            <div className="p-10 md:p-12 border border-white/10 rounded-[32px] md:rounded-[40px] hover:bg-white/5 transition-colors">
+              <h4 className="text-white text-xl md:text-2xl font-bold uppercase tracking-widest mb-6">Nosso Futuro</h4>
+              <p className="text-white/80 text-sm md:text-base leading-relaxed italic">"Ser a maior referência em adestramento positivo do Sul do Brasil, impactando milhares de vidas."</p>
             </div>
           </div>
         </section>

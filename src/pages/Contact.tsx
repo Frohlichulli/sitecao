@@ -13,38 +13,38 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-[#0F0F0F] pt-24 md:pt-48 pb-10 md:pb-20">
-      <div className="container mx-auto">
+    <div className="bg-[#0F0F0F] pt-20 md:pt-48 pb-10 md:pb-20">
+      <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20">
           <div>
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              <div className="mb-6 flex items-center space-x-4">
-                <span className="w-10 h-px bg-white/30"></span>
+              <div className="mb-4 md:mb-6 flex items-center space-x-4">
+                <span className="w-8 md:w-10 h-px bg-white/30"></span>
                 <span className="text-[10px] uppercase tracking-[0.5em] text-white/70">Onde Atendemos</span>
               </div>
               
-              <h2 className="text-white text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-6 md:mb-10 leading-[0.85]">
+              <h2 className="text-white text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-8 md:mb-10 leading-[0.85]">
                 Cidades atendidas<br /><span className="text-highlight">no RS</span>
               </h2>
               
-              <div className="grid grid-cols-2 gap-4 mb-10 md:mb-20">
+              <div className="grid grid-cols-2 gap-x-2 md:gap-4 mb-12 md:mb-20">
                 {[
                   'Novo Hamburgo', 'Campo Bom', 'Sapiranga', 
                   'São Leopoldo', 'Porto Alegre', 'Canoas', 
                   'Ivoti', 'Estância Velha', 'Dois Irmãos', 
                   'Vale do Sinos'
                 ].map((city) => (
-                  <div key={city} className="flex items-center space-x-2 text-white text-sm">
-                    <span className="w-1.5 h-1.5 bg-white/20 rounded-full"></span>
+                  <div key={city} className="flex items-center space-x-2 text-white text-xs md:text-sm uppercase tracking-wider font-light">
+                    <span className="w-1 md:w-1.5 h-1 md:h-1.5 bg-highlight/40 rounded-full"></span>
                     <span>{city}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <div>
                   <p className="text-white/50 text-[9px] uppercase tracking-[0.4em] mb-4">WhatsApp / Celular</p>
                   <motion.a 
@@ -86,36 +86,36 @@ export default function Contact() {
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-[#0A0A0A] p-6 md:p-16 rounded-2xl border border-white/5"
+            className="bg-[#0A0A0A] p-8 md:p-16 rounded-2xl border border-white/5"
           >
-            <form onSubmit={handleSubmit} className="space-y-10">
-              <div className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
+              <div className="space-y-6 md:space-y-8">
                 <div className="relative">
                   <input 
                     type="text" 
                     placeholder="Seu Nome" 
-                    className="w-full bg-transparent border-b border-white/10 py-4 focus:border-white transition-all outline-none text-white font-light"
+                    className="w-full bg-transparent border-b border-white/10 py-3 md:py-4 focus:border-white transition-all outline-none text-white text-sm md:text-base font-light"
                   />
                 </div>
                 <div className="relative">
                   <input 
                     type="text" 
                     placeholder="E-mail ou WhatsApp" 
-                    className="w-full bg-transparent border-b border-white/10 py-4 focus:border-white transition-all outline-none text-white font-light"
+                    className="w-full bg-transparent border-b border-white/10 py-3 md:py-4 focus:border-white transition-all outline-none text-white text-sm md:text-base font-light"
                   />
                 </div>
                 <div className="relative">
                   <input 
                     type="text" 
                     placeholder="Nome e Raça do Cão" 
-                    className="w-full bg-transparent border-b border-white/10 py-4 focus:border-white transition-all outline-none text-white font-light"
+                    className="w-full bg-transparent border-b border-white/10 py-3 md:py-4 focus:border-white transition-all outline-none text-white text-sm md:text-base font-light"
                   />
                 </div>
                 <div className="relative">
                   <textarea 
                     rows={3} 
                     placeholder="Como podemos ajudar?" 
-                    className="w-full bg-transparent border-b border-white/10 py-4 focus:border-white transition-all outline-none text-white font-light resize-none"
+                    className="w-full bg-transparent border-b border-white/10 py-3 md:py-4 focus:border-white transition-all outline-none text-white text-sm md:text-base font-light resize-none"
                   ></textarea>
                 </div>
               </div>
@@ -123,16 +123,16 @@ export default function Contact() {
                 type="submit"
                 whileHover={{ scale: 1.02, backgroundColor: '#f0f0f0' }}
                 whileTap={{ scale: 0.98 }}
-                className="btn-primary w-full py-6 text-sm"
+                className="btn-primary w-full py-5 md:py-6 text-xs md:text-sm"
               >
                 Enviar Solicitação
               </motion.button>
             </form>
           </motion.div>
         </div>
-
+ 
         {/* Map Section Placeholder */}
-        <div className="mt-16 md:mt-32 w-full h-[400px] bg-[#f5f5f5] rounded-[48px] overflow-hidden relative">
+        <div className="mt-16 md:mt-32 w-full h-[300px] md:h-[400px] rounded-[32px] md:rounded-[48px] overflow-hidden relative border border-white/5">
           <div className="absolute inset-0 flex items-center justify-center text-[#0F0F0F]/20 font-black uppercase text-xl text-center px-6">
             Mapa Interativo de Novo Hamburgo<br />
             <span className="text-sm font-bold opacity-50 tracking-widest mt-2">[Integrável com Google Maps]</span>

@@ -331,7 +331,7 @@ export default function Gallery() {
   const isAdmin = user?.email === 'fabianofisio@gmail.com';
 
   return (
-    <div className="bg-[#0F0F0F] pt-24 md:pt-48 pb-10 md:pb-20">
+    <div className="bg-[#0F0F0F] pt-20 md:pt-48 pb-10 md:pb-20">
       <div className="container mx-auto px-6">
         <header className="mb-16 md:mb-32 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <motion.div
@@ -339,28 +339,28 @@ export default function Gallery() {
             animate={{ opacity: 1, y: 0 }}
             className="flex-1"
           >
-            <div className="mb-6 flex items-center space-x-4">
-              <span className="w-10 h-px bg-white/30"></span>
+            <div className="mb-4 md:mb-6 flex items-center space-x-4">
+              <span className="w-8 md:w-10 h-px bg-white/30"></span>
               <span className="text-[10px] uppercase tracking-[0.5em] text-white/70">Visão Geral</span>
             </div>
             <h1 
               onClick={handleLoginTrigger}
-              className="text-white text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-8 md:mb-12 leading-[0.85] cursor-default select-none"
+              className="text-white text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-8 md:mb-12 leading-[0.85] cursor-default select-none"
             >
               Nossa <br /><span className="text-highlight">Galeria</span>
             </h1>
 
             {/* Tabs */}
-            <div className="flex items-center space-x-12">
+            <div className="flex items-center space-x-8 md:space-x-12 overflow-x-auto scrollbar-hide pb-2">
               <button 
                 onClick={() => setActiveTab('images')}
-                className={`text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'images' ? 'text-white border-b-2 border-white pb-2' : 'text-white/40 hover:text-white/60'}`}
+                className={`text-xs md:text-sm font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeTab === 'images' ? 'text-white border-b-2 border-white pb-2' : 'text-white/40 hover:text-white/60'}`}
               >
                 Fotos
               </button>
               <button 
                 onClick={() => setActiveTab('videos')}
-                className={`text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'videos' ? 'text-white border-b-2 border-white pb-2' : 'text-white/40 hover:text-white/60'}`}
+                className={`text-xs md:text-sm font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeTab === 'videos' ? 'text-white border-b-2 border-white pb-2' : 'text-white/40 hover:text-white/60'}`}
               >
                 Vídeos de Treino
               </button>
@@ -443,11 +443,11 @@ export default function Gallery() {
         </header>
 
         {loading ? (
-          <div className="py-20 md:py-40 flex justify-center">
+          <div className="py-40 flex justify-center">
             <div className="w-10 h-10 border-4 border-white/10 border-t-white rounded-full animate-spin"></div>
           </div>
         ) : activeTab === 'images' ? (
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
             <AnimatePresence>
               {images.map((img, idx) => (
                 <motion.div 
@@ -467,8 +467,8 @@ export default function Gallery() {
                   />
                   
                   {/* Title & Actions Overlay */}
-                  <div className="absolute inset-0 bg-[#0F0F0F]/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-6 md:p-8">
-                    <div className="flex justify-end space-x-3">
+                  <div className="absolute inset-0 bg-[#0F0F0F]/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-4 md:p-8">
+                    <div className="flex justify-end space-x-2 md:space-x-3">
                       <motion.button 
                         whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,1)', color: '#000' }}
                         whileTap={{ scale: 0.9 }}
@@ -476,10 +476,10 @@ export default function Gallery() {
                           e.stopPropagation();
                           handleShare(img);
                         }}
-                        className="w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors"
+                        className="w-8 h-8 md:w-10 md:h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors"
                         title="Compartilhar"
                       >
-                        <Share2 size={16} />
+                        <Share2 size={14} className="md:w-4 md:h-4" />
                       </motion.button>
                       <motion.button 
                         whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,1)', color: '#000' }}
@@ -488,15 +488,15 @@ export default function Gallery() {
                           e.stopPropagation();
                           handleDownload(img.url, img.title);
                         }}
-                        className="w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors"
+                        className="w-8 h-8 md:w-10 md:h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors"
                         title="Baixar"
                       >
-                        <Download size={16} />
+                        <Download size={14} className="md:w-4 md:h-4" />
                       </motion.button>
                     </div>
                     <div>
-                      <p className="text-white text-[10px] font-bold uppercase tracking-[0.4em] mb-2">0{idx + 1}</p>
-                      <h4 className="text-white text-sm md:text-xl font-bold uppercase tracking-tight">{img.title}</h4>
+                      <p className="text-white text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em] mb-1 md:mb-2">0{idx + 1}</p>
+                      <h4 className="text-white text-sm md:text-xl font-bold uppercase tracking-tight truncate">{img.title}</h4>
                     </div>
                   </div>
 
@@ -540,7 +540,7 @@ export default function Gallery() {
                 <Smartphone className="text-white/20" size={24} />
                 <h2 className="text-white text-2xl font-bold uppercase tracking-tighter">Antes & Depois</h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {videos.filter(v => v.type === 'before-after').map((vid, idx) => (
                   <motion.div 
                     key={vid.id}
@@ -558,7 +558,7 @@ export default function Gallery() {
                       {isManaging && isAdmin && (
                         <button 
                           onClick={() => deleteVideo(vid.id)}
-                          className="absolute top-4 right-4 p-2 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="absolute top-4 right-4 p-2 bg-red-500 text-white rounded-full opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity"
                         >
                           <X size={16} />
                         </button>
@@ -584,7 +584,7 @@ export default function Gallery() {
                 <Play className="text-white/20" size={24} />
                 <h2 className="text-white text-2xl font-bold uppercase tracking-tighter">Bastidores de Treino</h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 gap-12">
                 {videos.filter(v => v.type === 'backstage').map((vid) => (
                   <motion.div 
                     key={vid.id}
@@ -602,13 +602,13 @@ export default function Gallery() {
                       {isManaging && isAdmin && (
                         <button 
                           onClick={() => deleteVideo(vid.id)}
-                          className="absolute top-4 right-4 p-2 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="absolute top-4 right-4 p-2 bg-red-500 text-white rounded-full opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity"
                         >
                           <X size={16} />
                         </button>
                       )}
                     </div>
-                    <div className="w-full md:w-1/3">
+                    <div className="w-full md:w-1/3 text-left">
                        <span className="text-white/50 text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">Day in Life</span>
                        <h3 className="text-white text-2xl font-bold uppercase tracking-tighter mb-4 leading-tight">{vid.title}</h3>
                        <div className="w-12 h-px bg-white/20"></div>
@@ -625,81 +625,7 @@ export default function Gallery() {
           </div>
         )}
 
-        {/* Video Upload Modal */}
-        <AnimatePresence>
-          {showVideoModal && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-[#0F0F0F]/95 backdrop-blur-xl"
-            >
-              <div className="w-full max-w-xl bg-[#0A0A0A] border border-white/10 rounded-[48px] p-12 relative">
-                <button 
-                  onClick={() => setShowVideoModal(false)}
-                  className="absolute top-8 right-8 text-white/40 hover:text-white"
-                >
-                  <X size={24} />
-                </button>
-
-                <h2 className="text-white text-3xl font-black uppercase tracking-tighter mb-8">Novo Vídeo</h2>
-                
-                <form onSubmit={addVideo} className="space-y-8">
-                  <div className="space-y-6">
-                    <div>
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3 block">Tipo de Conteúdo</label>
-                      <div className="grid grid-cols-2 gap-4">
-                        <button 
-                          type="button"
-                          onClick={() => setVideoForm({ ...videoForm, type: 'backstage' })}
-                          className={`py-4 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${videoForm.type === 'backstage' ? 'bg-white text-black' : 'border border-white/5 text-white/20'}`}
-                        >
-                          Bastidores
-                        </button>
-                        <button 
-                          type="button"
-                          onClick={() => setVideoForm({ ...videoForm, type: 'before-after' })}
-                          className={`py-4 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${videoForm.type === 'before-after' ? 'bg-white text-black' : 'border border-white/5 text-white/20'}`}
-                        >
-                          Antes & Depois
-                        </button>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3 block">Título do Vídeo</label>
-                      <input 
-                        type="text" 
-                        required
-                        value={videoForm.title}
-                        onChange={(e) => setVideoForm({ ...videoForm, title: e.target.value })}
-                        className="w-full bg-[#151515] border border-white/5 rounded-xl px-6 py-4 text-white outline-none focus:border-white/20 transition-all"
-                        placeholder="Ex: Treino da Nina - 1ª Semana"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3 block">Link (YouTube, Vimeo, Reels)</label>
-                      <input 
-                        type="url" 
-                        required
-                        value={videoForm.url}
-                        onChange={(e) => setVideoForm({ ...videoForm, url: e.target.value })}
-                        className="w-full bg-[#151515] border border-white/5 rounded-xl px-6 py-4 text-white outline-none focus:border-white/20 transition-all"
-                        placeholder="https://youtube.com/..."
-                      />
-                      <p className="text-[9px] text-white/20 mt-3 italic">* Aceitamos links do YouTube, Vimeo e Reels do Instagram.</p>
-                    </div>
-                  </div>
-
-                  <button type="submit" className="btn-primary w-full py-6">Publicar Agora</button>
-                </form>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <div className="mt-16 md:mt-32 text-center">
+        <div className="mt-32 text-center">
           <p className="text-white/70 text-lg uppercase tracking-widest font-bold">Acompanhe mais em nosso Instagram</p>
           <motion.a 
             href="https://instagram.com/caomeuamigo_adestramento" 
@@ -707,7 +633,7 @@ export default function Gallery() {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.1, color: '#fff' }}
             whileTap={{ scale: 0.9 }}
-            className="mt-6 inline-block text-white/70 text-xl md:text-2xl font-black uppercase tracking-tighter transition-all"
+            className="mt-6 inline-block text-white/70 text-2xl font-black uppercase tracking-tighter transition-all"
           >
             @caomeuamigo_adestramento
           </motion.a>

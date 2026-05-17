@@ -30,18 +30,18 @@ export default function Header() {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
-        isScrolled ? 'bg-[#0F0F0F]/80 backdrop-blur-md py-4 border-white/10 shadow-2xl' : 'bg-transparent py-8 border-transparent'
+        isScrolled ? 'bg-[#0F0F0F]/80 backdrop-blur-md py-3 md:py-4 border-white/10 shadow-2xl' : 'bg-transparent py-6 md:py-8 border-transparent'
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="container mx-auto px-6 flex items-center justify-between">
         <MotionLink 
           to="/" 
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className="flex items-center space-x-2 group"
         >
-          <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center transition-transform group-hover:rotate-12">
-            <Dog className="text-[#0F0F0F]" size={18} />
+          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center transition-transform group-hover:rotate-12 outline outline-4 outline-white/5">
+            <Dog className="text-[#0F0F0F]" size={20} />
           </div>
           <span className="text-white font-bold text-xl tracking-tighter uppercase whitespace-nowrap">
             Cão Meu Amigo
@@ -77,10 +77,10 @@ export default function Header() {
         <motion.button 
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="md:hidden text-white"
+          className="md:hidden text-white p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
+          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </motion.button>
       </div>
 
@@ -91,7 +91,7 @@ export default function Header() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="absolute top-full left-0 right-0 bg-[#0F0F0F] border-t border-white/5 p-12 md:hidden flex flex-col space-y-10 min-h-[calc(100vh-80px)] items-center justify-center text-center"
+            className="absolute top-full left-0 right-0 bg-[#0F0F0F] border-t border-white/5 p-6 md:hidden flex flex-col space-y-6 min-h-[calc(100vh-60px)] items-center justify-center text-center backdrop-blur-3xl bg-[#0F0F0F]/95"
           >
             {navLinks.map((link) => (
               <MotionLink
@@ -100,7 +100,7 @@ export default function Header() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`text-4xl font-bold uppercase tracking-tighter transition-all ${
+                className={`text-3xl font-bold uppercase tracking-tighter transition-all ${
                   location.pathname === link.path ? 'text-white' : 'text-white/40'
                 }`}
               >
@@ -112,7 +112,7 @@ export default function Header() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="btn-primary w-full max-w-xs py-6 text-center"
+              className="btn-primary w-full max-w-xs py-4 text-center mt-6"
             >
               Agende uma Avaliação
             </MotionLink>
