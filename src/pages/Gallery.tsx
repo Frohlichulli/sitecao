@@ -331,7 +331,7 @@ export default function Gallery() {
   const isAdmin = user?.email === 'fabianofisio@gmail.com';
 
   return (
-    <div className="bg-[#0F0F0F] pt-20 md:pt-48 pb-10 md:pb-20">
+    <div className="bg-white pt-20 md:pt-48 pb-10 md:pb-20">
       <div className="container mx-auto px-6">
         <header className="mb-16 md:mb-32 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <motion.div
@@ -340,12 +340,12 @@ export default function Gallery() {
             className="flex-1"
           >
             <div className="mb-4 md:mb-6 flex items-center space-x-4">
-              <span className="w-8 md:w-10 h-px bg-white/30"></span>
-              <span className="text-[10px] uppercase tracking-[0.5em] text-white/70">Visão Geral</span>
+              <span className="w-8 md:w-10 h-px bg-brand-vibrant/30"></span>
+              <span className="text-[10px] uppercase tracking-[0.5em] text-brand-dark/70">Visão Geral</span>
             </div>
             <h1 
               onClick={handleLoginTrigger}
-              className="text-white text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-8 md:mb-12 leading-[0.85] cursor-default select-none"
+              className="text-brand-dark text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-8 md:mb-12 leading-[0.85] cursor-default select-none"
             >
               Nossa <br /><span className="text-highlight">Galeria</span>
             </h1>
@@ -354,13 +354,13 @@ export default function Gallery() {
             <div className="flex items-center space-x-8 md:space-x-12 overflow-x-auto scrollbar-hide pb-2">
               <button 
                 onClick={() => setActiveTab('images')}
-                className={`text-xs md:text-sm font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeTab === 'images' ? 'text-white border-b-2 border-white pb-2' : 'text-white/40 hover:text-white/60'}`}
+                className={`text-xs md:text-sm font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeTab === 'images' ? 'text-brand-vibrant border-b-2 border-brand-vibrant pb-2' : 'text-brand-dark/40 hover:text-brand-dark/60'}`}
               >
                 Fotos
               </button>
               <button 
                 onClick={() => setActiveTab('videos')}
-                className={`text-xs md:text-sm font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeTab === 'videos' ? 'text-white border-b-2 border-white pb-2' : 'text-white/40 hover:text-white/60'}`}
+                className={`text-xs md:text-sm font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeTab === 'videos' ? 'text-brand-vibrant border-b-2 border-brand-vibrant pb-2' : 'text-brand-dark/40 hover:text-brand-dark/60'}`}
               >
                 Vídeos de Treino
               </button>
@@ -376,16 +376,16 @@ export default function Gallery() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setIsManaging(!isManaging)}
-                      className={`btn-outline flex items-center space-x-2 ${isManaging ? 'bg-white text-black' : 'border-white/10'}`}
+                      className={`btn-outline flex items-center space-x-2 ${isManaging ? 'bg-brand-vibrant text-white' : 'border-brand-soft'}`}
                     >
                       {isManaging ? 'Sair do Gerenciamento' : 'Gerenciar Fotos'}
                     </motion.button>
                   )}
                   <motion.button 
-                    whileHover={{ scale: 1.2, color: '#fff' }}
+                    whileHover={{ scale: 1.2, color: '#0076FF' }}
                     whileTap={{ scale: 0.8 }}
                     onClick={handleLogout}
-                    className="p-3 text-white/40 transition-all"
+                    className="p-3 text-brand-dark/40 transition-all"
                     title="Sair"
                   >
                     <LogOut size={20} />
@@ -403,7 +403,7 @@ export default function Gallery() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={seedGallery}
-                        className="btn-outline border-white/20 text-white/60 hover:text-white"
+                        className="btn-outline border-brand-soft text-brand-dark/60 hover:text-brand-dark"
                       >
                         Restaurar Padrão
                       </motion.button>
@@ -444,10 +444,10 @@ export default function Gallery() {
 
         {loading ? (
           <div className="py-40 flex justify-center">
-            <div className="w-10 h-10 border-4 border-white/10 border-t-white rounded-full animate-spin"></div>
+            <div className="w-10 h-10 border-4 border-brand-soft border-t-brand-vibrant rounded-full animate-spin"></div>
           </div>
         ) : activeTab === 'images' ? (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <AnimatePresence>
               {images.map((img, idx) => (
                 <motion.div 
@@ -457,58 +457,58 @@ export default function Gallery() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   viewport={{ once: true }}
-                  className="relative group cursor-pointer aspect-[3/4] overflow-hidden"
+                  className="relative group cursor-pointer aspect-[3/4] overflow-hidden rounded-[24px] shadow-sm hover:shadow-xl transition-shadow border border-brand-soft"
                 >
                   <img 
                     src={img.url} 
                     alt={img.title}
                     loading="lazy"
-                    className={`w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-1000 ${isManaging ? 'grayscale-0 brightness-75' : ''}`}
+                    className={`w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-1000 ${isManaging ? 'grayscale-0 brightness-75' : ''}`}
                   />
                   
                   {/* Title & Actions Overlay */}
-                  <div className="absolute inset-0 bg-[#0F0F0F]/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-4 md:p-8">
+                  <div className="absolute inset-0 bg-brand-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-4 md:p-8">
                     <div className="flex justify-end space-x-2 md:space-x-3">
                       <motion.button 
-                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,1)', color: '#000' }}
+                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,1)', color: '#002D5F' }}
                         whileTap={{ scale: 0.9 }}
                         onClick={(e) => {
                           e.stopPropagation();
                           handleShare(img);
                         }}
-                        className="w-8 h-8 md:w-10 md:h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors"
+                        className="w-8 h-8 md:w-10 md:h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors"
                         title="Compartilhar"
                       >
                         <Share2 size={14} className="md:w-4 md:h-4" />
                       </motion.button>
                       <motion.button 
-                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,1)', color: '#000' }}
+                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,1)', color: '#002D5F' }}
                         whileTap={{ scale: 0.9 }}
                         onClick={(e) => {
                           e.stopPropagation();
                           handleDownload(img.url, img.title);
                         }}
-                        className="w-8 h-8 md:w-10 md:h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors"
+                        className="w-8 h-8 md:w-10 md:h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors"
                         title="Baixar"
                       >
                         <Download size={14} className="md:w-4 md:h-4" />
                       </motion.button>
                     </div>
                     <div>
-                      <p className="text-white text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em] mb-1 md:mb-2">0{idx + 1}</p>
+                      <p className="text-white text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em] mb-1 md:mb-2 opacity-80">0{idx + 1}</p>
                       <h4 className="text-white text-sm md:text-xl font-bold uppercase tracking-tight truncate">{img.title}</h4>
                     </div>
                   </div>
 
                   {/* Management Controls */}
                   {isManaging && isAdmin && (
-                    <div className="absolute inset-x-0 bottom-0 bg-white p-4 z-20 flex flex-col space-y-2">
+                    <div className="absolute inset-x-0 bottom-0 bg-white p-4 z-20 flex flex-col space-y-2 border-t border-brand-soft">
                       <input 
                         type="text" 
                         value={img.title} 
                         onChange={(e) => updateImageTitle(img.id, e.target.value)}
                         placeholder="Editar legenda..."
-                        className="w-full bg-[#f5f5f5] text-[#0F0F0F] text-xs font-bold uppercase tracking-widest p-2 rounded outline-none border-b-2 border-transparent focus:border-[#0F0F0F] transition-all"
+                        className="w-full bg-brand-soft text-brand-dark text-xs font-bold uppercase tracking-widest p-2 rounded outline-none border-b-2 border-transparent focus:border-brand-vibrant transition-all"
                       />
                       <button 
                         onClick={(e) => {
@@ -526,7 +526,7 @@ export default function Gallery() {
             </AnimatePresence>
 
             {images.length === 0 && (
-              <div className="col-span-full py-40 border border-dashed border-white/10 flex flex-col items-center justify-center text-white/30">
+              <div className="col-span-full py-40 border border-dashed border-brand-soft flex flex-col items-center justify-center text-brand-dark/20 bg-brand-soft/20 rounded-[40px]">
                 <ImageIcon size={48} className="mb-4 opacity-20" />
                 <p className="uppercase tracking-[0.3em] text-xs font-bold">Nenhuma foto carregada na nuvem</p>
               </div>
@@ -537,8 +537,8 @@ export default function Gallery() {
             {/* Before After Section */}
             <div>
               <div className="flex items-center space-x-4 mb-12">
-                <Smartphone className="text-white/20" size={24} />
-                <h2 className="text-white text-2xl font-bold uppercase tracking-tighter">Antes & Depois</h2>
+                <Smartphone className="text-brand-vibrant/20" size={24} />
+                <h2 className="text-brand-dark text-2xl font-bold uppercase tracking-tighter">Antes & Depois</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {videos.filter(v => v.type === 'before-after').map((vid, idx) => (
@@ -548,7 +548,7 @@ export default function Gallery() {
                     animate={{ opacity: 1, y: 0 }}
                     className="group"
                   >
-                    <div className="aspect-video bg-[#0A0A0A] border border-white/5 rounded-3xl overflow-hidden relative mb-6">
+                    <div className="aspect-video bg-brand-soft border border-brand-soft rounded-3xl overflow-hidden relative mb-6 shadow-lg">
                       <iframe 
                         src={getEmbedUrl(vid.url)}
                         className="w-full h-full"
@@ -565,13 +565,13 @@ export default function Gallery() {
                       )}
                     </div>
                     <div className="px-2">
-                       <span className="text-highlight text-[10px] font-bold uppercase tracking-widest mb-2 block">Transformação 0{idx + 1}</span>
-                       <h3 className="text-white text-xl font-bold uppercase tracking-tight">{vid.title}</h3>
+                       <span className="text-brand-vibrant text-[10px] font-bold uppercase tracking-widest mb-2 block">Transformação 0{idx + 1}</span>
+                       <h3 className="text-brand-dark text-xl font-bold uppercase tracking-tight">{vid.title}</h3>
                     </div>
                   </motion.div>
                 ))}
                 {videos.filter(v => v.type === 'before-after').length === 0 && (
-                  <div className="col-span-full py-20 border border-dashed border-white/5 rounded-[40px] flex flex-col items-center justify-center text-white/40">
+                  <div className="col-span-full py-20 border border-dashed border-brand-soft rounded-[40px] flex flex-col items-center justify-center text-brand-dark/40 bg-brand-soft/20">
                     <p className="uppercase tracking-widest text-xs">Nenhum vídeo de antes e depois ainda.</p>
                   </div>
                 )}
@@ -581,8 +581,8 @@ export default function Gallery() {
             {/* Backstage Section */}
             <div>
               <div className="flex items-center space-x-4 mb-12">
-                <Play className="text-white/20" size={24} />
-                <h2 className="text-white text-2xl font-bold uppercase tracking-tighter">Bastidores de Treino</h2>
+                <Play className="text-brand-vibrant/20" size={24} />
+                <h2 className="text-brand-dark text-2xl font-bold uppercase tracking-tighter">Bastidores de Treino</h2>
               </div>
               <div className="grid grid-cols-1 gap-12">
                 {videos.filter(v => v.type === 'backstage').map((vid) => (
@@ -592,7 +592,7 @@ export default function Gallery() {
                     animate={{ opacity: 1, y: 0 }}
                     className="group flex flex-col md:flex-row gap-8 items-center"
                   >
-                    <div className="w-full md:w-2/3 aspect-video bg-[#0A0A0A] border border-white/5 rounded-[40px] overflow-hidden relative">
+                    <div className="w-full md:w-2/3 aspect-video bg-brand-soft border border-brand-soft rounded-[40px] overflow-hidden relative shadow-xl">
                       <iframe 
                         src={getEmbedUrl(vid.url)}
                         className="w-full h-full"
@@ -609,14 +609,14 @@ export default function Gallery() {
                       )}
                     </div>
                     <div className="w-full md:w-1/3 text-left">
-                       <span className="text-white/50 text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">Day in Life</span>
-                       <h3 className="text-white text-2xl font-bold uppercase tracking-tighter mb-4 leading-tight">{vid.title}</h3>
-                       <div className="w-12 h-px bg-white/20"></div>
+                       <span className="text-brand-vibrant text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">Day in Life</span>
+                       <h3 className="text-brand-dark text-2xl font-bold uppercase tracking-tighter mb-4 leading-tight">{vid.title}</h3>
+                       <div className="w-12 h-px bg-brand-vibrant/20"></div>
                     </div>
                   </motion.div>
                 ))}
                 {videos.filter(v => v.type === 'backstage').length === 0 && (
-                  <div className="col-span-full py-20 border border-dashed border-white/5 rounded-[40px] flex flex-col items-center justify-center text-white/40">
+                  <div className="col-span-full py-20 border border-dashed border-brand-soft rounded-[40px] flex flex-col items-center justify-center text-brand-dark/40 bg-brand-soft/20">
                     <p className="uppercase tracking-widest text-xs">Nenhum vídeo de bastidores gravado ainda.</p>
                   </div>
                 )}
@@ -625,15 +625,15 @@ export default function Gallery() {
           </div>
         )}
 
-        <div className="mt-32 text-center">
-          <p className="text-white/70 text-lg uppercase tracking-widest font-bold">Acompanhe mais em nosso Instagram</p>
+        <div className="mt-32 text-center bg-brand-soft/30 py-20 rounded-[48px] border border-brand-soft">
+          <p className="text-brand-dark/70 text-lg uppercase tracking-widest font-bold">Acompanhe mais em nosso Instagram</p>
           <motion.a 
             href="https://instagram.com/caomeuamigo_adestramento" 
             target="_blank" 
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.1, color: '#fff' }}
+            whileHover={{ scale: 1.1, color: '#0076FF' }}
             whileTap={{ scale: 0.9 }}
-            className="mt-6 inline-block text-white/70 text-2xl font-black uppercase tracking-tighter transition-all"
+            className="mt-6 inline-block text-brand-vibrant text-xl font-black uppercase tracking-tighter transition-all"
           >
             @caomeuamigo_adestramento
           </motion.a>

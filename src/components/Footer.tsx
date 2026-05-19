@@ -15,7 +15,7 @@ export default function Footer() {
   const [hoveredIcon, setHoveredIcon] = React.useState<string | null>(null);
 
   return (
-    <footer className="bg-[#0F0F0F] text-white pt-20 pb-10 border-t border-white/5">
+    <footer className="bg-brand-dark text-white pt-20 pb-10 border-t border-brand-vibrant/20">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-2">
@@ -26,13 +26,13 @@ export default function Footer() {
               className="flex items-center space-x-3 mb-6"
             >
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center transition-transform group-hover:rotate-12">
-                <Dog className="text-[#0F0F0F] md:w-7 md:h-7" />
+                <Dog className="text-brand-dark md:w-7 md:h-7" />
               </div>
               <span className="text-white font-bold text-2xl tracking-tighter uppercase whitespace-nowrap">
                 Cão Meu Amigo
               </span>
             </MotionLink>
-            <p className="text-white/80 max-w-sm text-lg leading-relaxed mb-8 font-light">
+            <p className="text-white/70 max-w-sm text-lg leading-relaxed mb-8 font-light">
               Transformando a relação entre você e seu cão através de adestramento ético, moderno e carinhoso em Novo Hamburgo, RS.
             </p>
             <div className="flex space-x-4">
@@ -49,7 +49,7 @@ export default function Footer() {
                         initial={{ opacity: 0, y: 10, x: '-50%' }}
                         animate={{ opacity: 1, y: 0, x: '-50%' }}
                         exit={{ opacity: 0, y: 10, x: '-50%' }}
-                        className="absolute -top-10 left-1/2 bg-white text-[#0F0F0F] text-[8px] font-bold uppercase tracking-[0.2em] px-2 py-1 rounded pointer-events-none whitespace-nowrap z-50 shadow-xl"
+                        className="absolute -top-10 left-1/2 bg-white text-brand-dark text-[8px] font-bold uppercase tracking-[0.2em] px-2 py-1 rounded pointer-events-none whitespace-nowrap z-50 shadow-xl"
                       >
                         {social.name}
                         <div className="absolute top-full left-1/2 -translate-x-1/2 border-x-[4px] border-x-transparent border-t-[4px] border-t-white" />
@@ -60,7 +60,7 @@ export default function Footer() {
                     href={social.href} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    whileHover={{ scale: 1.1, backgroundColor: '#fff', color: '#0F0F0F' }}
+                    whileHover={{ scale: 1.1, backgroundColor: '#fff', color: '#002D5F' }}
                     whileTap={{ scale: 0.9 }}
                     className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center transition-all"
                   >
@@ -107,7 +107,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[#444] text-[10px] tracking-[0.3em] uppercase">
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-white/30 text-[10px] tracking-[0.3em] uppercase">
           <p>© {new Date().getFullYear()} Cão Meu Amigo. Todos os direitos reservados.</p>
           <p>Transformando vidas através do adestramento.</p>
         </div>

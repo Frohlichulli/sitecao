@@ -4,11 +4,19 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Playfair Display", serif;
+  --color-brand-blue: #0056b3;
+  --color-brand-vibrant: #0076FF;
+  --color-brand-soft: #EBF5FF;
+  --color-brand-dark: #002D5F;
 }
 
 @layer base {
   body {
-    @apply bg-[#0F0F0F] text-white antialiased selection:bg-white selection:text-[#0F0F0F];
+    @apply bg-white text-[#002D5F] antialiased selection:bg-brand-blue selection:text-white;
+  }
+
+  h1, h2, h3, h4 {
+    text-shadow: 0.02em 0.02em 0.02em rgba(0, 45, 95, 0.15);
   }
 }
 
@@ -18,14 +26,15 @@
   }
   
   .btn-primary {
-    @apply bg-white text-[#0F0F0F] px-8 py-3.5 rounded-[12px] text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-all;
+    @apply bg-brand-vibrant text-white px-8 py-3.5 rounded-[12px] text-xs font-bold uppercase tracking-widest hover:bg-brand-blue transition-all shadow-lg shadow-brand-vibrant/20;
   }
   
   .btn-outline {
-    @apply border border-white/20 text-white px-8 py-3.5 rounded-[12px] text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-[#0F0F0F] transition-all;
+    @apply border-2 border-brand-vibrant text-brand-vibrant px-8 py-3.5 rounded-[12px] text-xs font-bold uppercase tracking-widest hover:bg-brand-vibrant hover:text-white transition-all;
   }
 
   .text-highlight {
-    @apply text-white/40 italic font-serif lowercase;
+    @apply text-brand-vibrant italic font-serif lowercase;
+    text-shadow: 0.02em 0.02em 0.02em rgba(0, 118, 255, 0.2);
   }
 }
