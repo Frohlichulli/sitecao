@@ -37,7 +37,7 @@ export default function Home() {
           <img 
             src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=2669&auto=format&fit=crop" 
             alt="Dog Training" 
-            className="w-full h-full object-cover grayscale brightness-[0.7] opacity-20"
+            className="w-full h-full object-cover grayscale brightness-[0.85] opacity-40"
           />
           {/* Large Abstract Background Text */}
           <div className="absolute inset-0 flex items-center justify-center opacity-5 select-none pointer-events-none">

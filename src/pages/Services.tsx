@@ -54,8 +54,18 @@ export default function Services() {
   ];
 
   return (
-    <div className="bg-white pt-20 md:pt-48 pb-10 md:pb-20">
-      <div className="container mx-auto">
+    <div className="bg-white pt-20 md:pt-48 pb-10 md:pb-20 relative overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0 h-[60vh] opacity-30 pointer-events-none">
+        <img 
+          src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=2669&auto=format&fit=crop" 
+          alt="Services Background" 
+          className="w-full h-full object-cover grayscale brightness-[0.9]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-100" />
+      </div>
+
+      <div className="container mx-auto relative z-10">
         <header className="mb-20 md:mb-40 px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

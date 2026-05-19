@@ -331,8 +331,18 @@ export default function Gallery() {
   const isAdmin = user?.email === 'fabianofisio@gmail.com';
 
   return (
-    <div className="bg-white pt-20 md:pt-48 pb-10 md:pb-20">
-      <div className="container mx-auto px-6">
+    <div className="bg-white pt-20 md:pt-48 pb-10 md:pb-20 relative overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0 h-[60vh] opacity-30 pointer-events-none">
+        <img 
+          src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=2574&auto=format&fit=crop" 
+          alt="Gallery Background" 
+          className="w-full h-full object-cover grayscale brightness-[0.9]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-100" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <header className="mb-16 md:mb-32 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

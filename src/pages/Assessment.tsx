@@ -170,8 +170,18 @@ export default function Assessment() {
   }
 
   return (
-    <div className="bg-white pt-24 md:pt-48 pb-12 md:pb-24 min-h-screen">
-      <div className="container mx-auto px-6">
+    <div className="bg-white pt-24 md:pt-48 pb-12 md:pb-24 min-h-screen relative overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0 h-[80vh] opacity-30 pointer-events-none">
+        <img 
+          src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=2462&auto=format&fit=crop" 
+          alt="Assessment Background" 
+          className="w-full h-full object-cover grayscale brightness-[0.9]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-100" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <header className="mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

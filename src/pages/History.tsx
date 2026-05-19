@@ -34,8 +34,18 @@ export default function History() {
   ];
 
   return (
-    <div className="bg-white pt-20 md:pt-48 pb-10 md:pb-20 overflow-hidden">
-      <div className="container mx-auto">
+    <div className="bg-white pt-20 md:pt-48 pb-10 md:pb-20 overflow-hidden relative">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0 h-[60vh] opacity-30 pointer-events-none">
+        <img 
+          src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=2671&auto=format&fit=crop" 
+          alt="History Background" 
+          className="w-full h-full object-cover grayscale brightness-[0.9]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-100" />
+      </div>
+
+      <div className="container mx-auto relative z-10">
         <header className="max-w-5xl mb-20 md:mb-40 relative px-6 md:px-0">
           <div className="absolute -left-10 md:-left-20 top-0 opacity-5 pointer-events-none select-none">
             <span className="text-[100px] md:text-[200px] font-black uppercase tracking-tighter text-brand-blue">STORY</span>
