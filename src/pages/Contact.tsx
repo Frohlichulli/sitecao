@@ -1,15 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { Send, Instagram, Phone, Mail, MapPin } from 'lucide-react';
+import { Send, Instagram, Phone, Mail, MapPin, CheckCircle2 } from 'lucide-react';
 
 export default function Contact() {
   useEffect(() => {
     document.title = "Contato | Cão Meu Amigo Adestrador de Cães";
   }, []);
 
+  const [formData, setFormData] = useState({
+    name: '',
+    contact: '',
+    petInfo: '',
+    message: ''
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Logic for form submission
+    
+    const { name, contact, petInfo, message } = formData;
+    const text = `*SOLICITAÇÃO DE CONTATO - CÃO MEU AMIGO*\n\n` +
+      `*Nome:* ${name}\n` +
+      `*E-mail ou WhatsApp:* ${contact}\n` +
+      `*Cão:* ${petInfo || 'Não informado'}\n` +
+      `*Como podemos ajudar:* ${message}`;
+
+    const whatsappUrl = `https://wa.me/5551996566493?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank');
+    setIsSubmitted(true);
   };
 
   return (
@@ -98,46 +121,87 @@ export default function Contact() {
             animate={{ opacity: 1, y: 0 }}
             className="bg-brand-soft/30 p-8 md:p-16 rounded-[40px] border border-brand-soft"
           >
-            <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
-              <div className="space-y-6 md:space-y-8">
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    placeholder="Seu Nome" 
-                    className="w-full bg-transparent border-b border-brand-vibrant/10 py-3 md:py-4 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-light placeholder:text-brand-dark/30"
-                  />
-                </div>
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    placeholder="E-mail ou WhatsApp" 
-                    className="w-full bg-transparent border-b border-brand-vibrant/10 py-3 md:py-4 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-light placeholder:text-brand-dark/30"
-                  />
-                </div>
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    placeholder="Nome e Raça do Cão" 
-                    className="w-full bg-transparent border-b border-brand-vibrant/10 py-3 md:py-4 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-light placeholder:text-brand-dark/30"
-                  />
-                </div>
-                <div className="relative">
-                  <textarea 
-                    rows={3} 
-                    placeholder="Como podemos ajudar?" 
-                    className="w-full bg-transparent border-b border-brand-vibrant/10 py-3 md:py-4 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-light resize-none placeholder:text-brand-dark/30"
-                  ></textarea>
-                </div>
-              </div>
-              <motion.button 
-                type="submit"
-                whileHover={{ scale: 1.02, boxShadow: '0 20px 40px rgba(0, 118, 255, 0.2)' }}
-                whileTap={{ scale: 0.98 }}
-                className="btn-primary w-full py-5 md:py-6 text-xs md:text-sm"
+            {isSubmitted ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center py-10"
               >
-                Enviar Solicitação
-              </motion.button>
-            </form>
+                <div className="w-20 h-20 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8">
+                  <CheckCircle2 size={40} />
+                </div>
+                <h3 className="text-brand-dark text-2xl font-bold uppercase tracking-tight mb-4">Solicitação Enviada!</h3>
+                <p className="text-brand-dark/70 text-base leading-relaxed mb-8 font-light">
+                  Sua mensagem foi formatada e enviada via WhatsApp para iniciar seu contato. Entraremos em contato com você muito em breve!
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFormData({ name: '', contact: '', petInfo: '', message: '' });
+                    setIsSubmitted(false);
+                  }}
+                  className="btn-outline"
+                >
+                  Enviar Outra Mensagem
+                </button>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
+                <div className="space-y-6 md:space-y-8">
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      required
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Seu Nome" 
+                      className="w-full bg-transparent border-b border-brand-vibrant/10 py-3 md:py-4 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-light placeholder:text-brand-dark/30"
+                    />
+                  </div>
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      required
+                      name="contact"
+                      value={formData.contact}
+                      onChange={handleInputChange}
+                      placeholder="E-mail ou WhatsApp" 
+                      className="w-full bg-transparent border-b border-brand-vibrant/10 py-3 md:py-4 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-light placeholder:text-brand-dark/30"
+                    />
+                  </div>
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      name="petInfo"
+                      value={formData.petInfo}
+                      onChange={handleInputChange}
+                      placeholder="Nome e Raça do Cão" 
+                      className="w-full bg-transparent border-b border-brand-vibrant/10 py-3 md:py-4 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-light placeholder:text-brand-dark/30"
+                    />
+                  </div>
+                  <div className="relative">
+                    <textarea 
+                      rows={3} 
+                      required
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder="Como podemos ajudar?" 
+                      className="w-full bg-transparent border-b border-brand-vibrant/10 py-3 md:py-4 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-light resize-none placeholder:text-brand-dark/30"
+                    ></textarea>
+                  </div>
+                </div>
+                <motion.button 
+                  type="submit"
+                  whileHover={{ scale: 1.02, boxShadow: '0 20px 40px rgba(0, 118, 255, 0.2)' }}
+                  whileTap={{ scale: 0.98 }}
+                  className="btn-primary w-full py-5 md:py-6 text-xs md:text-sm"
+                >
+                  Enviar Solicitação
+                </motion.button>
+              </form>
+            )}
           </motion.div>
         </div>
  

@@ -649,6 +649,90 @@ export default function Gallery() {
           </motion.a>
         </div>
       </div>
+
+      <AnimatePresence>
+        {showVideoModal && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-brand-dark/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+          >
+            <motion.div 
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              className="bg-white border border-brand-soft rounded-[32px] p-8 md:p-12 max-w-lg w-full relative shadow-2xl"
+            >
+              <button 
+                onClick={() => setShowVideoModal(false)}
+                className="absolute top-6 right-6 p-2 text-brand-dark/50 hover:text-brand-dark transition-colors"
+              >
+                <X size={20} />
+              </button>
+
+              <h2 className="text-brand-dark text-2xl md:text-3xl font-bold uppercase tracking-tighter mb-8 decoration-brand-vibrant underline underline-offset-8">
+                Adicionar Vídeo
+              </h2>
+
+              <form onSubmit={addVideo} className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-brand-dark block">Título do Vídeo</label>
+                  <input 
+                    type="text" 
+                    value={videoForm.title}
+                    onChange={(e) => setVideoForm({ ...videoForm, title: e.target.value })}
+                    placeholder="Ex: Treino de Foco do Marley"
+                    required
+                    className="w-full bg-brand-soft/50 border border-brand-soft rounded-xl p-4 text-brand-dark outline-none focus:border-brand-vibrant transition-all font-medium"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-brand-dark block">URL do Vídeo (YouTube)</label>
+                  <input 
+                    type="url" 
+                    value={videoForm.url}
+                    onChange={(e) => setVideoForm({ ...videoForm, url: e.target.value })}
+                    placeholder="Ex: https://www.youtube.com/watch?v=..."
+                    required
+                    className="w-full bg-brand-soft/50 border border-brand-soft rounded-xl p-4 text-brand-dark outline-none focus:border-brand-vibrant transition-all font-medium"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-brand-dark block">Seção</label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <button
+                      type="button"
+                      onClick={() => setVideoForm({ ...videoForm, type: 'before-after' })}
+                      className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${videoForm.type === 'before-after' ? 'bg-brand-vibrant text-white' : 'bg-white text-brand-dark border border-brand-soft'}`}
+                    >
+                      Antes & Depois
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setVideoForm({ ...videoForm, type: 'backstage' })}
+                      className={`py-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${videoForm.type === 'backstage' ? 'bg-brand-vibrant text-white' : 'bg-white text-brand-dark border border-brand-soft'}`}
+                    >
+                      Bastidores
+                    </button>
+                  </div>
+                </div>
+
+                <div className="pt-4">
+                  <button 
+                    type="submit"
+                    className="btn-primary w-full py-5 text-xs font-bold uppercase tracking-widest"
+                  >
+                    Salvar Vídeo
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
