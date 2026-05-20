@@ -101,7 +101,7 @@ export default function Footer() {
                  <Phone size={10} className="mr-2" /> (51) 99656.6493
                </p>
                <p className="text-[10px] text-white/50 uppercase tracking-widest flex items-center">
-                 <Mail size={10} className="mr-2" /> fabiano@caomeuamigo.com
+                 <Mail size={10} className="mr-2" /> fabianofisio@gmail.com
                </p>
             </div>
           </div>
@@ -110,6 +110,20 @@ export default function Footer() {
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-white/30 text-[10px] tracking-[0.3em] uppercase">
           <p>© {new Date().getFullYear()} Cão Meu Amigo. Todos os direitos reservados.</p>
           <p>Transformando vidas através do adestramento.</p>
+        </div>
+
+        {/* Subtle local SEO indexing links (Hidden from prominent view, perfect for Google, SEO & AI crawler mapping) */}
+        <div className="mt-6 pt-4 border-t border-white/5 flex flex-wrap justify-center md:justify-between gap-x-6 gap-y-2 text-[8px] tracking-[0.15em] uppercase text-white/10 hover:text-white/40 transition-colors duration-300">
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            <Link to="/adestramento-novo-hamburgo" className="hover:text-brand-vibrant">Adestramento Novo Hamburgo</Link>
+            <span className="opacity-30">•</span>
+            <Link to="/comportamento-canino" className="hover:text-brand-vibrant">Especialistas em Comportamento Canino</Link>
+            <span className="opacity-30">•</span>
+            <Link to="/treinamento-profissional" className="hover:text-brand-vibrant">Melhor Treinamento Canino da Região</Link>
+          </div>
+          <div>
+            <span>SEO Localizado</span>
+          </div>
         </div>
       </div>
     </footer>

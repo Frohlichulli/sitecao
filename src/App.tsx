@@ -13,6 +13,9 @@ import Services from './pages/Services.tsx';
 import Gallery from './pages/Gallery.tsx';
 import Contact from './pages/Contact.tsx';
 import Assessment from './pages/Assessment.tsx';
+import SeoAdestramentoNovoHamburgo from './pages/SeoAdestramentoNovoHamburgo.tsx';
+import SeoComportamentoCanino from './pages/SeoComportamentoCanino.tsx';
+import SeoTreinamentoProfissional from './pages/SeoTreinamentoProfissional.tsx';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -38,6 +41,9 @@ export default function App() {
             <Route path="/galeria" element={<Gallery />} />
             <Route path="/contato" element={<Contact />} />
             <Route path="/avaliacao" element={<Assessment />} />
+            <Route path="/adestramento-novo-hamburgo" element={<SeoAdestramentoNovoHamburgo />} />
+            <Route path="/comportamento-canino" element={<SeoComportamentoCanino />} />
+            <Route path="/treinamento-profissional" element={<SeoTreinamentoProfissional />} />
           </Routes>
         </main>
         <Footer />
