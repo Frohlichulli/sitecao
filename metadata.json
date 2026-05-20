@@ -2,5 +2,7 @@
   "name": "Cão Meu Amigo | Adestramento de Cães",
   "description": "Adestramento especializado em Novo Hamburgo, Porto Alegre e Vale do Sinos. Treinamento ético focado em comportamento e psicologia canina.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
