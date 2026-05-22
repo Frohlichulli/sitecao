@@ -19,7 +19,7 @@ export default function Header() {
   }, []);
 
   const navLinks = [
-    { name: 'INÍCIO', path: '/' },
+    { name: 'INÍCIO', path: '/inicio' },
     { name: 'HISTÓRIA', path: '/historia' },
     { name: 'SERVIÇOS', path: '/servicos' },
     { name: 'GALERIA', path: '/galeria' },
@@ -35,7 +35,7 @@ export default function Header() {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         <MotionLink 
-          to="/" 
+          to="/inicio" 
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className="flex items-center space-x-2 group"
