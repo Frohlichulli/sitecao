@@ -29,7 +29,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="bg-white">
+    <div className="bg-[#F1F4F8]">
       {/* Hero Section */}
       <section className="relative h-[80vh] md:h-screen w-full flex items-center overflow-hidden border-b border-brand-soft">
         {/* Background Image with Overlay */}
@@ -43,7 +43,7 @@ export default function Home() {
           <div className="absolute inset-0 flex items-center justify-center opacity-5 select-none pointer-events-none">
             <span className="text-[40vw] font-black uppercase tracking-tighter text-brand-blue">DOG</span>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#F1F4F8] via-transparent to-transparent opacity-90" />
         </div>
 
         <div className="container mx-auto relative z-10 pt-20 md:pt-56">
@@ -97,7 +97,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pt-16 md:pt-40 pb-12 bg-white relative border-b border-brand-soft">
+      <section className="pt-16 md:pt-40 pb-12 bg-[#F1F4F8] relative border-b border-brand-soft">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20">
             <div className="lg:col-span-5 px-6">
@@ -181,7 +181,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-32 bg-white relative overflow-hidden">
+      <section className="py-16 md:py-32 bg-[#F1F4F8] relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[800px] h-[400px] md:h-[800px] border border-brand-vibrant rounded-full" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[1200px] h-[600px] md:h-[1200px] border border-brand-vibrant rounded-full" />

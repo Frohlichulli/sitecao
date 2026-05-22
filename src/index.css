@@ -12,7 +12,7 @@
 
 @layer base {
   body {
-    @apply bg-white text-[#002D5F] antialiased selection:bg-brand-blue selection:text-white;
+    @apply bg-[#F1F4F8] text-[#002D5F] antialiased selection:bg-brand-blue selection:text-white;
   }
 
   h1, h2, h3, h4 {

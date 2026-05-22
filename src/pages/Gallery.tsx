@@ -92,6 +92,7 @@ export default function Gallery() {
   const [videoForm, setVideoForm] = useState({ url: '', title: '', type: 'backstage' as const });
 
   const [loginClicks, setLoginClicks] = useState(0);
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
 
   useEffect(() => {
     document.title = "Galeria de Treinos | Cão Meu Amigo";
@@ -331,48 +332,58 @@ export default function Gallery() {
   const isAdmin = user?.email === 'fabianofisio@gmail.com';
 
   return (
-    <div className="bg-white pt-20 md:pt-48 pb-10 md:pb-20 relative overflow-hidden">
+    <div className="bg-[#F1F4F8] pt-20 md:pt-36 pb-10 md:pb-16 relative overflow-hidden">
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0 h-[60vh] opacity-30 pointer-events-none">
+      <div className="absolute inset-0 z-0 h-[60vh] opacity-35 pointer-events-none">
         <img 
           src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=2574&auto=format&fit=crop" 
           alt="Gallery Background" 
-          className="w-full h-full object-cover grayscale brightness-[0.9]"
+          className="w-full h-full object-cover grayscale brightness-[0.85]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#F1F4F8] via-[#F1F4F8]/60 to-transparent opacity-100" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <header className="mb-16 md:mb-32 flex flex-col md:flex-row md:items-end justify-between gap-8">
+        <header className="mb-10 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex-1"
+            className="flex-1 space-y-4"
           >
-            <div className="mb-4 md:mb-6 flex items-center space-x-4">
+            <div className="mb-2 md:mb-3 flex items-center space-x-3">
               <span className="w-8 md:w-10 h-px bg-brand-vibrant/30"></span>
-              <span className="text-[10px] uppercase tracking-[0.5em] text-brand-dark/70">Visão Geral</span>
+              <span className="text-[10px] uppercase tracking-[0.5em] text-brand-dark/70 font-semibold">Visão Geral</span>
             </div>
             <h1 
               onClick={handleLoginTrigger}
-              className="text-brand-dark text-5xl md:text-8xl font-bold uppercase tracking-tighter mb-8 md:mb-12 leading-[0.85] cursor-default select-none"
+              className="text-brand-dark text-5xl md:text-7xl font-bold uppercase tracking-tighter mb-4 md:mb-6 leading-[0.85] cursor-default select-none"
             >
               Nossa <br /><span className="text-highlight">Galeria</span>
             </h1>
 
-            {/* Tabs */}
-            <div className="flex items-center space-x-8 md:space-x-12 overflow-x-auto scrollbar-hide pb-2">
+            {/* Segmented Control Index for Photos and Videos */}
+            <div className="flex p-1 bg-white/80 border border-brand-dark/5 backdrop-blur-md rounded-2xl w-full max-w-sm shadow-sm">
               <button 
                 onClick={() => setActiveTab('images')}
-                className={`text-xs md:text-sm font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeTab === 'images' ? 'text-brand-vibrant border-b-2 border-brand-vibrant pb-2' : 'text-brand-dark/40 hover:text-brand-dark/60'}`}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                  activeTab === 'images' 
+                    ? 'bg-brand-vibrant text-white shadow-md shadow-brand-vibrant/20' 
+                    : 'text-brand-dark/60 hover:text-brand-dark'
+                }`}
               >
-                Fotos
+                <ImageIcon size={14} />
+                <span>Fotos ({images.length})</span>
               </button>
               <button 
                 onClick={() => setActiveTab('videos')}
-                className={`text-xs md:text-sm font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeTab === 'videos' ? 'text-brand-vibrant border-b-2 border-brand-vibrant pb-2' : 'text-brand-dark/40 hover:text-brand-dark/60'}`}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                  activeTab === 'videos' 
+                    ? 'bg-brand-vibrant text-white shadow-md shadow-brand-vibrant/20' 
+                    : 'text-brand-dark/60 hover:text-brand-dark'
+                }`}
               >
-                Vídeos de Treino
+                <Video size={14} />
+                <span>Vídeos</span>
               </button>
             </div>
           </motion.div>
@@ -467,6 +478,11 @@ export default function Gallery() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   viewport={{ once: true }}
+                  onClick={() => {
+                    if (!isManaging) {
+                      setSelectedImage(img);
+                    }
+                  }}
                   className="relative group cursor-pointer aspect-[3/4] overflow-hidden rounded-[24px] shadow-sm hover:shadow-xl transition-shadow border border-brand-soft"
                 >
                   <img 
@@ -651,6 +667,72 @@ export default function Gallery() {
       </div>
 
       <AnimatePresence>
+        {/* Click to zoom Lightbox Modal */}
+        {selectedImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 bg-[#06080B]/95 z-50 flex flex-col items-center justify-center p-4 md:p-8 backdrop-blur-md cursor-zoom-out"
+          >
+            {/* Close Button */}
+            <motion.button 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-6 right-6 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all border border-white/15 cursor-pointer z-50 animate-bounce"
+            >
+              <X size={24} />
+            </motion.button>
+
+            {/* Maximize Image Wrapper */}
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 120 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-4xl max-h-[75vh] w-full rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.9)] cursor-default"
+            >
+              <img 
+                src={selectedImage.url} 
+                alt={selectedImage.title} 
+                className="w-full h-full max-h-[75vh] object-contain bg-black/40"
+              />
+            </motion.div>
+
+            {/* Caption & Actions below the zoomed-in image */}
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-6 text-center max-w-xl space-y-4 px-4 pointer-events-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-white mb-2 leading-none">
+                {selectedImage.title}
+              </h3>
+              
+              <div className="flex items-center justify-center gap-3">
+                <button 
+                  onClick={() => handleShare(selectedImage)}
+                  className="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-semibold text-xs uppercase tracking-wider rounded-xl transition-all border border-white/10 flex items-center gap-2 cursor-pointer"
+                >
+                  <Share2 size={14} />
+                  Compartilhar
+                </button>
+                <button 
+                  onClick={() => handleDownload(selectedImage.url, selectedImage.title)}
+                  className="px-5 py-2.5 bg-brand-vibrant hover:bg-brand-blue text-white font-semibold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer"
+                >
+                  <Download size={14} />
+                  Baixar
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
         {showVideoModal && (
           <motion.div 
             initial={{ opacity: 0 }}

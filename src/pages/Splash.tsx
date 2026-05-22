@@ -23,9 +23,13 @@ export default function Splash() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // 1. Determine if we are on a production domain or inside the Google AI Studio development environment
-    const isProd = window.location.hostname === 'caomeuamigo.com.br' || window.location.hostname === 'www.caomeuamigo.com.br';
-    setCanEditPoster(isAdmin || !isProd);
+    // Determine if we are running inside the Google AI Studio editor environment (loaded in an iframe)
+    const isInsideAIStudioIframe = window.self !== window.top;
+    
+    // The user can edit the poster ONLY under two conditions:
+    // 1. They are explicitly logged-in as the Administrator (fabianofisio@gmail.com) in any window/browser
+    // 2. They are viewing the applet inside the Google AI Studio developer workspace (iframe container)
+    setCanEditPoster(isAdmin || isInsideAIStudioIframe);
   }, [isAdmin]);
 
   useEffect(() => {
@@ -355,6 +359,7 @@ export default function Splash() {
                   referrerPolicy="no-referrer"
                   onError={handleImageError}
                   loading="eager"
+                  fetchPriority="high"
                   className="w-full h-full object-cover z-10 transition-transform duration-700 ease-out group-hover:scale-[1.005]"
                 />
                 

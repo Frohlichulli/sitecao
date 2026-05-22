@@ -36,81 +36,81 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-white pt-20 md:pt-48 pb-10 md:pb-20 relative overflow-hidden">
+    <div className="bg-[#F1F4F8] pt-20 md:pt-36 pb-10 md:pb-16 relative overflow-hidden">
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0 h-screen opacity-30 pointer-events-none">
+      <div className="absolute inset-0 z-0 h-screen opacity-35 pointer-events-none">
         <img 
           src="https://images.unsplash.com/photo-1544568100-847a948585b9?q=80&w=2574&auto=format&fit=crop" 
           alt="Contact Background" 
-          className="w-full h-full object-cover grayscale brightness-[0.9]"
+          className="w-full h-full object-cover grayscale brightness-[0.85]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/50 to-transparent opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#F1F4F8] via-[#F1F4F8]/60 to-transparent opacity-100" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
           <div>
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              <div className="mb-4 md:mb-6 flex items-center space-x-4">
+              <div className="mb-3 md:mb-4 flex items-center space-x-3">
                 <span className="w-8 md:w-10 h-px bg-brand-vibrant/30"></span>
-                <span className="text-[10px] uppercase tracking-[0.5em] text-brand-dark/70">Onde Atendemos</span>
+                <span className="text-[10px] uppercase tracking-[0.5em] text-brand-dark/70 font-semibold">Onde Atendemos</span>
               </div>
               
-              <h2 className="text-brand-dark text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-8 md:mb-10 leading-[0.85]">
+              <h2 className="text-brand-dark text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-4 md:mb-6 leading-[0.85]">
                 Cidades atendidas<br /><span className="text-highlight">no RS</span>
               </h2>
               
-              <div className="grid grid-cols-2 gap-x-2 md:gap-4 mb-12 md:mb-20">
+              <div className="grid grid-cols-2 gap-y-1.5 md:gap-x-4 md:gap-y-2.5 mb-6 md:mb-10">
                 {[
                   'Novo Hamburgo', 'Campo Bom', 'Sapiranga', 
                   'São Leopoldo', 'Porto Alegre', 'Canoas', 
                   'Ivoti', 'Estância Velha', 'Dois Irmãos', 
                   'Vale do Sinos'
                 ].map((city) => (
-                  <div key={city} className="flex items-center space-x-2 text-brand-dark text-xs md:text-sm uppercase tracking-wider font-light">
+                  <div key={city} className="flex items-center space-x-2 text-brand-dark text-xs md:text-sm uppercase tracking-wider font-semibold">
                     <span className="w-1 md:w-1.5 h-1 md:h-1.5 bg-brand-vibrant/40 rounded-full"></span>
                     <span>{city}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 <div>
-                  <p className="text-brand-dark/50 text-[9px] uppercase tracking-[0.4em] mb-4">WhatsApp / Celular</p>
+                  <p className="text-brand-dark/60 text-[9px] uppercase tracking-[0.4em] mb-1">WhatsApp / Celular</p>
                   <motion.a 
                     href="https://wa.me/5551996566493" 
-                    whileHover={{ x: 10, opacity: 1, color: '#0076FF' }}
-                    className="text-xl font-medium tracking-tight text-brand-dark transition-all block"
+                    whileHover={{ x: 6, opacity: 1, color: '#0076FF' }}
+                    className="text-lg md:text-xl font-bold tracking-tight text-brand-dark transition-all block leading-tight"
                   >
                     (51) 99656.6493
                   </motion.a>
                 </div>
                 <div>
-                  <p className="text-brand-dark/50 text-[9px] uppercase tracking-[0.4em] mb-4">Email</p>
+                  <p className="text-brand-dark/60 text-[9px] uppercase tracking-[0.4em] mb-1">Email</p>
                   <motion.a 
                     href="mailto:fabianofisio@gmail.com" 
-                    whileHover={{ x: 10, opacity: 1, color: '#0076FF' }}
-                    className="text-xl font-medium tracking-tight text-brand-dark transition-all block"
+                    whileHover={{ x: 6, opacity: 1, color: '#0076FF' }}
+                    className="text-lg md:text-xl font-bold tracking-tight text-brand-dark transition-all block leading-tight"
                   >
                     fabianofisio@gmail.com
                   </motion.a>
                 </div>
                 <div>
-                  <p className="text-brand-dark/50 text-[9px] uppercase tracking-[0.4em] mb-4">Insta</p>
+                  <p className="text-brand-dark/60 text-[9px] uppercase tracking-[0.4em] mb-1">Insta</p>
                   <motion.a 
                     href="https://instagram.com/caomeuamigo_adestramento" 
-                    whileHover={{ x: 10, opacity: 1, color: '#0076FF' }}
-                    className="text-xl font-medium tracking-tight text-brand-dark transition-all block"
+                    whileHover={{ x: 6, opacity: 1, color: '#0076FF' }}
+                    className="text-lg md:text-xl font-bold tracking-tight text-brand-dark transition-all block leading-tight"
                   >
                     @caomeuamigo_adestramento
                   </motion.a>
                 </div>
                 <div>
-                  <p className="text-brand-dark/50 text-[9px] uppercase tracking-[0.4em] mb-4">Endereço</p>
-                  <p className="text-xl font-medium tracking-tight text-brand-dark">Novo Hamburgo, RS</p>
+                  <p className="text-brand-dark/60 text-[9px] uppercase tracking-[0.4em] mb-1">Endereço</p>
+                  <p className="text-lg md:text-xl font-bold tracking-tight text-brand-dark leading-tight">Novo Hamburgo, RS</p>
                 </div>
               </div>
             </motion.div>
@@ -119,19 +119,19 @@ export default function Contact() {
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-brand-soft/30 p-8 md:p-16 rounded-[40px] border border-brand-soft"
+            className="bg-white p-6 md:p-10 rounded-[28px] border border-brand-dark/5 shadow-md"
           >
             {isSubmitted ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-10"
+                className="text-center py-6"
               >
-                <div className="w-20 h-20 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8">
-                  <CheckCircle2 size={40} />
+                <div className="w-16 h-16 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle2 size={32} />
                 </div>
-                <h3 className="text-brand-dark text-2xl font-bold uppercase tracking-tight mb-4">Solicitação Enviada!</h3>
-                <p className="text-brand-dark/70 text-base leading-relaxed mb-8 font-light">
+                <h3 className="text-brand-dark text-xl font-bold uppercase tracking-tight mb-2">Solicitação Enviada!</h3>
+                <p className="text-brand-dark/75 text-sm leading-snug mb-6 font-medium">
                   Sua mensagem foi formatada e enviada via WhatsApp para iniciar seu contato. Entraremos em contato com você muito em breve!
                 </p>
                 <button
@@ -140,14 +140,14 @@ export default function Contact() {
                     setFormData({ name: '', contact: '', petInfo: '', message: '' });
                     setIsSubmitted(false);
                   }}
-                  className="btn-outline"
+                  className="btn-outline py-3 px-6 text-xs"
                 >
                   Enviar Outra Mensagem
                 </button>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
-                <div className="space-y-6 md:space-y-8">
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+                <div className="space-y-4 md:space-y-5">
                   <div className="relative">
                     <input 
                       type="text" 
@@ -156,7 +156,7 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="Seu Nome" 
-                      className="w-full bg-transparent border-b border-brand-vibrant/10 py-3 md:py-4 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-light placeholder:text-brand-dark/30"
+                      className="w-full bg-transparent border-b border-brand-vibrant/10 py-2.5 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-semibold placeholder:text-brand-dark/30"
                     />
                   </div>
                   <div className="relative">
@@ -167,7 +167,7 @@ export default function Contact() {
                       value={formData.contact}
                       onChange={handleInputChange}
                       placeholder="E-mail ou WhatsApp" 
-                      className="w-full bg-transparent border-b border-brand-vibrant/10 py-3 md:py-4 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-light placeholder:text-brand-dark/30"
+                      className="w-full bg-transparent border-b border-brand-vibrant/10 py-2.5 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-semibold placeholder:text-brand-dark/30"
                     />
                   </div>
                   <div className="relative">
@@ -177,26 +177,26 @@ export default function Contact() {
                       value={formData.petInfo}
                       onChange={handleInputChange}
                       placeholder="Nome e Raça do Cão" 
-                      className="w-full bg-transparent border-b border-brand-vibrant/10 py-3 md:py-4 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-light placeholder:text-brand-dark/30"
+                      className="w-full bg-transparent border-b border-brand-vibrant/10 py-2.5 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-semibold placeholder:text-brand-dark/30"
                     />
                   </div>
                   <div className="relative">
                     <textarea 
-                      rows={3} 
+                      rows={2} 
                       required
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
                       placeholder="Como podemos ajudar?" 
-                      className="w-full bg-transparent border-b border-brand-vibrant/10 py-3 md:py-4 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-light resize-none placeholder:text-brand-dark/30"
+                      className="w-full bg-transparent border-b border-brand-vibrant/10 py-2.5 focus:border-brand-vibrant transition-all outline-none text-brand-dark text-sm md:text-base font-semibold resize-none placeholder:text-brand-dark/30"
                     ></textarea>
                   </div>
                 </div>
                 <motion.button 
                   type="submit"
-                  whileHover={{ scale: 1.02, boxShadow: '0 20px 40px rgba(0, 118, 255, 0.2)' }}
-                  whileTap={{ scale: 0.98 }}
-                  className="btn-primary w-full py-5 md:py-6 text-xs md:text-sm"
+                  whileHover={{ scale: 1.01, boxShadow: '0 10px 20px rgba(0, 118, 255, 0.15)' }}
+                  whileTap={{ scale: 0.99 }}
+                  className="btn-primary w-full py-4 text-xs font-bold uppercase tracking-widest mt-2"
                 >
                   Enviar Solicitação
                 </motion.button>

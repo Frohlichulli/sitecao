@@ -34,19 +34,19 @@ export default function History() {
   ];
 
   return (
-    <div className="bg-white pt-20 md:pt-48 pb-10 md:pb-20 overflow-hidden relative">
+    <div className="bg-[#F1F4F8] pt-20 md:pt-36 pb-10 md:pb-16 overflow-hidden relative">
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0 h-[60vh] opacity-30 pointer-events-none">
+      <div className="absolute inset-0 z-0 h-[60vh] opacity-35 pointer-events-none">
         <img 
           src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=2671&auto=format&fit=crop" 
           alt="History Background" 
-          className="w-full h-full object-cover grayscale brightness-[0.9]"
+          className="w-full h-full object-cover grayscale brightness-[0.85]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#F1F4F8] via-[#F1F4F8]/60 to-transparent opacity-100" />
       </div>
 
       <div className="container mx-auto relative z-10">
-        <header className="max-w-5xl mb-20 md:mb-40 relative px-6 md:px-0">
+        <header className="max-w-5xl mb-12 md:mb-16 relative px-6 md:px-0">
           <div className="absolute -left-10 md:-left-20 top-0 opacity-5 pointer-events-none select-none">
             <span className="text-[100px] md:text-[200px] font-black uppercase tracking-tighter text-brand-blue">STORY</span>
           </div>
@@ -56,30 +56,30 @@ export default function History() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <div className="mb-6 md:mb-10 flex items-center space-x-4">
-              <span className="w-8 md:w-10 h-px bg-brand-vibrant/20"></span>
-              <span className="text-[10px] uppercase tracking-[0.5em] text-brand-dark/70">Nossa Trajetória</span>
+            <div className="mb-4 md:mb-6 flex items-center space-x-3">
+              <span className="w-8 md:w-10 h-px bg-brand-vibrant/30"></span>
+              <span className="text-[10px] uppercase tracking-[0.5em] text-brand-dark/70 font-semibold">Nossa Trajetória</span>
             </div>
             
-            <h1 className="text-brand-dark text-4xl md:text-8xl font-bold uppercase tracking-tighter mb-8 md:mb-12 leading-[0.85]">
+            <h1 className="text-brand-dark text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-4 md:mb-6 leading-[0.85]">
               Uma vida <br /> dedicada <br /><span className="text-highlight">aos cães.</span>
             </h1>
             
-            <p className="text-brand-dark/80 text-base md:text-xl font-light leading-relaxed max-w-2xl px-0">
+            <p className="text-brand-dark/95 text-base md:text-lg font-medium leading-snug max-w-2xl px-0">
               O Cão Meu Amigo nasceu de uma necessidade real: adestrar com ética, paciência e embasamento científico, sem nunca perder o carinho.
             </p>
           </motion.div>
         </header>
 
         {/* Timeline - Split View */}
-        <section className="relative py-10 md:py-20 px-6 md:px-0">
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-brand-soft hidden lg:block" />
+        <section className="relative py-4 md:py-8 px-6 md:px-0">
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-brand-dark/10 hidden lg:block" />
           
-          <div className="space-y-20 md:space-y-40">
+          <div className="space-y-12 md:space-y-16">
             {timeline.map((item, idx) => (
               <motion.div 
                 key={idx}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className={`relative flex flex-col lg:flex-row items-center ${idx % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}
@@ -89,18 +89,18 @@ export default function History() {
                   {item.year === "Hoje" ? "∞" : item.year}
                 </div>
  
-                <div className={`w-full lg:w-[45%] relative z-10 ${idx % 2 === 0 ? 'lg:text-right' : 'lg:text-left'} text-left`}>
-                  <div className={`w-16 h-1 bg-brand-vibrant/10 mb-8 hidden lg:block ${idx % 2 === 0 ? 'ml-auto' : ''}`}></div>
-                  <div className="flex items-center space-x-4 mb-4 lg:hidden">
+                <div className={`w-full lg:w-[55%] relative z-10 ${idx % 2 === 0 ? 'lg:text-right' : 'lg:text-left'} text-left`}>
+                  <div className={`w-12 h-1 bg-brand-vibrant/20 mb-4 hidden lg:block ${idx % 2 === 0 ? 'ml-auto' : ''}`}></div>
+                  <div className="flex items-center space-x-4 mb-2 lg:hidden">
                     <span className="text-brand-vibrant font-bold text-xl tabular-nums">{item.year}</span>
-                    <div className="h-px flex-grow bg-brand-soft"></div>
+                    <div className="h-px flex-grow bg-brand-dark/10"></div>
                   </div>
-                  <h3 className="text-brand-dark text-2xl md:text-4xl font-bold uppercase tracking-tight mb-4">{item.title}</h3>
-                  <p className="text-brand-dark/80 text-base md:text-lg leading-relaxed font-light">{item.desc}</p>
+                  <h3 className="text-brand-dark text-xl md:text-2xl font-bold uppercase tracking-tight mb-2">{item.title}</h3>
+                  <p className="text-brand-dark/90 text-sm md:text-base leading-snug font-medium">{item.desc}</p>
                 </div>
-                <div className="lg:w-[15%]" />
-                <div className="w-full lg:w-[40%] mt-8 lg:mt-0">
-                  <div className="aspect-[3/2] bg-brand-soft border border-brand-soft rounded-[24px] md:rounded-2xl overflow-hidden group shadow-xl">
+                <div className="lg:w-[5%]" />
+                <div className="w-full lg:w-[30%] mt-4 lg:mt-0">
+                  <div className="aspect-[4/3] max-w-[280px] bg-white border border-brand-dark/5 rounded-2xl overflow-hidden group shadow-md mx-auto lg:mx-0">
                     <img 
                       src={item.image} 
                       alt={item.title}
@@ -114,19 +114,19 @@ export default function History() {
         </section>
 
         {/* Values */}
-        <section className="pt-20 md:pt-40 px-6 md:px-0 pb-20">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-20">
-            <div className="p-10 md:p-12 border border-brand-soft rounded-[32px] md:rounded-[40px] bg-brand-soft/30 hover:bg-brand-soft transition-colors shadow-sm">
-              <h4 className="text-brand-dark text-xl md:text-2xl font-bold uppercase tracking-widest mb-6 underline underline-offset-8 decoration-brand-vibrant/20">Nossa Missão</h4>
-              <p className="text-brand-dark/80 text-sm md:text-base leading-relaxed italic">"Educar tutores e cães para que vivam em harmonia, priorizando sempre o bem-estar e a comunicação clara."</p>
+        <section className="pt-12 md:pt-20 px-6 md:px-0 pb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div className="p-8 md:p-10 border border-brand-dark/5 rounded-[24px] bg-white/70 hover:bg-white transition-all shadow-sm">
+              <h4 className="text-brand-dark text-lg md:text-xl font-bold uppercase tracking-widest mb-4 underline underline-offset-4 decoration-brand-vibrant/20">Nossa Missão</h4>
+              <p className="text-brand-dark/90 text-xs md:text-sm leading-snug italic">"Educar tutores e cães para que vivam em harmonia, priorizando sempre o bem-estar e a comunicação clara."</p>
             </div>
-            <div className="p-10 md:p-12 border border-brand-soft rounded-[32px] md:rounded-[40px] bg-brand-soft/30 hover:bg-brand-soft transition-colors shadow-sm">
-              <h4 className="text-brand-dark text-xl md:text-2xl font-bold uppercase tracking-widest mb-6 underline underline-offset-8 decoration-brand-vibrant/20">Nossos Valores</h4>
-              <p className="text-brand-dark/80 text-sm md:text-base leading-relaxed italic">"Ética inegociável, respeito à individualidade de cada cão, paciência infinita e inovação constante."</p>
+            <div className="p-8 md:p-10 border border-brand-dark/5 rounded-[24px] bg-white/70 hover:bg-white transition-all shadow-sm">
+              <h4 className="text-brand-dark text-lg md:text-xl font-bold uppercase tracking-widest mb-4 underline underline-offset-4 decoration-brand-vibrant/20">Nossos Valores</h4>
+              <p className="text-brand-dark/90 text-xs md:text-sm leading-snug italic">"Ética inegociável, respeito à individualidade de cada cão, paciência infinita e inovação constante."</p>
             </div>
-            <div className="p-10 md:p-12 border border-brand-soft rounded-[32px] md:rounded-[40px] bg-brand-soft/30 hover:bg-brand-soft transition-colors shadow-sm">
-              <h4 className="text-brand-dark text-xl md:text-2xl font-bold uppercase tracking-widest mb-6 underline underline-offset-8 decoration-brand-vibrant/20">Nosso Futuro</h4>
-              <p className="text-brand-dark/80 text-sm md:text-base leading-relaxed italic">"Ser a maior referência em adestramento do Sul do Brasil, impactando milhares de vidas."</p>
+            <div className="p-8 md:p-10 border border-brand-dark/5 rounded-[24px] bg-white/70 hover:bg-white transition-all shadow-sm">
+              <h4 className="text-brand-dark text-lg md:text-xl font-bold uppercase tracking-widest mb-4 underline underline-offset-4 decoration-brand-vibrant/20">Nosso Futuro</h4>
+              <p className="text-brand-dark/90 text-xs md:text-sm leading-snug italic">"Ser a maior referência em adestramento do Sul do Brasil, impactando milhares de vidas."</p>
             </div>
           </div>
         </section>
