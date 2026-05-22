@@ -1,34 +1,148 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Film, ChevronRight, Upload, Image as ImageIcon, Sparkles } from 'lucide-react';
+import { ArrowRight, Film, ChevronRight, Upload, Image as ImageIcon, Sparkles, LogIn, LogOut, Check, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { doc, onSnapshot, setDoc, deleteDoc } from 'firebase/firestore';
+import { onAuthStateChanged, signOut, User } from 'firebase/auth';
+import { db, auth, signInWithGoogle } from '../lib/firebase';
 
 export default function Splash() {
   const [posterUrl, setPosterUrl] = useState<string>('');
   const [isDragging, setIsDragging] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     document.title = "Cão Meu Amigo nos Cinemas | Anfitriãs o Filme";
     
-    // Check if image exists in localStorage
+    // 1. Check local cache first for instant rendering
     const savedPoster = localStorage.getItem('anfitrias_poster_base64');
     if (savedPoster) {
       setPosterUrl(savedPoster);
     } else {
-      // Fallback to check if a file named anfitrias.jpg exists on the public folder
-      // We can set it as default source, but if details fail, fallback shows upload instructions.
       setPosterUrl('/anfitrias.jpg');
     }
+
+    // 2. Fetch real-time poster from Firestore to keep it synchronized globally
+    const splashDocRef = doc(db, 'gallery', 'splash_poster');
+    const unsubscribeSnapshot = onSnapshot(splashDocRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const firestoreUrl = docSnap.data().url;
+        setPosterUrl(firestoreUrl);
+        // Save to local cache so next refresh is instantaneous
+        localStorage.setItem('anfitrias_poster_base64', firestoreUrl);
+      }
+    }, (error) => {
+      console.error("Erro ao ler cartaz do Firestore:", error);
+    });
+
+    // 3. Monitor Auth State to grant admin privileges
+    const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setIsAdmin(currentUser?.email === 'fabianofisio@gmail.com');
+    });
+
+    return () => {
+      unsubscribeSnapshot();
+      unsubscribeAuth();
+    };
   }, []);
 
-  const handleFile = (file: File) => {
+  // Helper compression function (canvas resize and JPEG compression)
+  const compressImage = (base64Str: string): Promise<string> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = base64Str;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          resolve(base64Str);
+          return;
+        }
+
+        const MAX_WIDTH = 1200;
+        const MAX_HEIGHT = 1600;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height = Math.round((height * MAX_WIDTH) / width);
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width = Math.round((width * MAX_HEIGHT) / height);
+            height = MAX_HEIGHT;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Compress to JPEG with 0.72 quality (~150-250KB, well under the 900,000 bytes Firestore rule limit)
+        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.72);
+        resolve(compressedDataUrl);
+      };
+      img.onerror = () => {
+        resolve(base64Str);
+      };
+    });
+  };
+
+  const savePosterToFirestore = async (base64Url: string) => {
+    try {
+      setIsSaving(true);
+      setUploadStatus("Salvando e sincronizando cartaz no servidor para todos os navegadores...");
+      const splashDocRef = doc(db, 'gallery', 'splash_poster');
+      
+      // Delete the old document first to completely bypass Firestore "url stays same" update rule restriction
+      await deleteDoc(splashDocRef).catch(() => {});
+      
+      // Write fresh document (fits the create rule)
+      await setDoc(splashDocRef, {
+        url: base64Url,
+        title: "Splash Poster",
+        createdAt: new Date().toISOString()
+      });
+      
+      setUploadStatus("Cartaz publicado com sucesso! Agora todos os celulares e computadores verão a mesma imagem.");
+      setTimeout(() => setUploadStatus(''), 6000);
+    } catch (error) {
+      console.error("Erro ao salvar cartaz no Firestore:", error);
+      setUploadStatus("Falha ao publicar para todos: " + (error instanceof Error ? error.message : String(error)));
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleFile = async (file: File) => {
     if (file && file.type.startsWith('image/')) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        const base64 = e.target?.result as string;
-        localStorage.setItem('anfitrias_poster_base64', base64);
-        setPosterUrl(base64);
+      reader.onload = async (e) => {
+        const rawBase64 = e.target?.result as string;
+        try {
+          setUploadStatus("Processando cartaz...");
+          const compressed = await compressImage(rawBase64);
+          
+          localStorage.setItem('anfitrias_poster_base64', compressed);
+          setPosterUrl(compressed);
+          setUploadStatus("Iniciando publicação automática...");
+          
+          if (auth.currentUser?.email === 'fabianofisio@gmail.com') {
+            await savePosterToFirestore(compressed);
+          } else {
+            setUploadStatus("Salvo localmente! Entre como administrador (botão abaixo) para salvar para o resto da internet.");
+          }
+        } catch (err) {
+          console.error(err);
+          setUploadStatus("Ocorreu um erro ao otimizar a imagem.");
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -62,10 +176,34 @@ export default function Splash() {
   };
 
   const handleImageError = () => {
-    // If the image failed to load (e.g. /anfitrias.jpg is not there and no localStorage image is uploaded yet)
-    // reset to empty so we show the beautiful upload instructions
     if (posterUrl === '/anfitrias.jpg') {
       setPosterUrl('');
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      setUploadStatus("Realizando login...");
+      await signInWithGoogle();
+      setUploadStatus("Autenticado com sucesso!");
+      setTimeout(() => setUploadStatus(''), 2000);
+    } catch (error) {
+      console.error(error);
+      setUploadStatus("Erro no login.");
+    }
+  };
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    setUploadStatus("Sessão encerrada.");
+  };
+
+  const syncCurrentFromLocal = async () => {
+    const localImg = localStorage.getItem('anfitrias_poster_base64');
+    if (localImg) {
+      await savePosterToFirestore(localImg);
+    } else {
+      setUploadStatus("Não há nenhum cartaz ativo em seu navegador para sincronizar.");
     }
   };
 
@@ -79,26 +217,10 @@ export default function Splash() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f29370a_1px,transparent_1px),linear-gradient(to_bottom,#1f29370a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30" />
       </div>
 
-      {/* Header Area */}
-      <header className="relative z-10 w-full max-w-5xl mx-auto flex justify-between items-center py-4">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-brand-vibrant rounded-full flex items-center justify-center shadow-lg shadow-brand-vibrant/20">
-            <Film className="text-white" size={16} />
-          </div>
-          <span className="font-bold text-sm tracking-[0.25em] uppercase text-white/90">
-            Cão Meu Amigo
-          </span>
-        </div>
-        <Link 
-          to="/inicio" 
-          className="text-xs uppercase tracking-[0.2em] text-white/50 hover:text-[#0076FF] font-bold transition-all flex items-center gap-1 group"
-        >
-          Ir direto para o site <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-        </Link>
-      </header>
+      <div className="h-4" /> {/* Compact Spacer instead of Header Area to remove Logo & 'Ir Direto' per user instruction */}
 
       {/* Main Poster Container */}
-      <main className="relative z-10 flex-grow flex flex-col items-center justify-center py-6">
+      <main className="relative z-10 flex-grow flex flex-col items-center justify-center py-4">
         <div className="w-full max-w-md px-4">
           
           <input 
@@ -122,7 +244,7 @@ export default function Splash() {
               isDragging 
                 ? 'border-brand-vibrant bg-brand-vibrant/10 scale-[1.02]' 
                 : posterUrl 
-                  ? 'border-white/10 hover:border-white/20' 
+                  ? 'border-white/10 hover:border-[#0076FF]/40' 
                   : 'border-white/10 border-dashed hover:border-brand-vibrant/50 hover:bg-[#0f1520]'
             }`}
           >
@@ -194,6 +316,66 @@ export default function Splash() {
             <p className="text-[10px] text-white/30 tracking-wider text-center max-w-xs leading-normal">
               Clique para acessar nossa página e conferir todos os serviços profissionais de adestramento e comportamento.
             </p>
+
+            {/* Upload status messages */}
+            {uploadStatus && (
+              <motion.div 
+                initial={{ opacity: 0, y: 5 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                className="p-3 rounded-lg bg-neutral-900 border border-white/10 text-center max-w-xs w-full"
+              >
+                <p className="text-[11px] font-medium text-amber-400 leading-normal flex items-center justify-center gap-1.5 flex-wrap">
+                  <Sparkles size={12} className="shrink-0 animate-pulse" />
+                  <span>{uploadStatus}</span>
+                </p>
+              </motion.div>
+            )}
+
+            {/* Subtle administrative synchronization/login widget */}
+            <div className="pt-2 w-full flex flex-col items-center">
+              {isAdmin ? (
+                <div className="flex flex-col items-center space-y-2 p-2 bg-blue-950/20 border border-blue-500/20 rounded-xl w-full max-w-xs">
+                  <div className="flex items-center justify-between w-full px-1">
+                    <span className="text-[9px] text-blue-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping" />
+                      Painel do Administrador
+                    </span>
+                    <button 
+                      onClick={handleLogout}
+                      className="text-[9px] text-white/40 hover:text-white transition-colors flex items-center gap-1"
+                    >
+                      <LogOut size={10} /> Sair
+                    </button>
+                  </div>
+                  
+                  <button 
+                    onClick={syncCurrentFromLocal}
+                    disabled={isSaving}
+                    className="w-full py-1.5 px-3 rounded-md bg-blue-600 hover:bg-blue-500 disabled:bg-blue-800 text-white font-bold text-[10px] uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    {isSaving ? (
+                      <>
+                        <Loader2 size={11} className="animate-spin" />
+                        <span>Fazendo Upload...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Upload size={11} />
+                        <span>Publicar Cartaz na Web</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              ) : (
+                /* Tiny secret key in footer or discrete admin trigger */
+                <button 
+                  onClick={handleLogin}
+                  className="text-[8px] text-white/5 hover:text-white/20 transition-all font-mono uppercase tracking-widest mt-1 cursor-pointer"
+                >
+                  [ painel de controle ]
+                </button>
+              )}
+            </div>
           </motion.div>
         </div>
       </main>
