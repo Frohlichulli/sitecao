@@ -16,8 +16,6 @@ export default function Splash() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    document.title = "Cão Meu Amigo nos Cinemas | Anfitriãs o Filme";
-    
     // 1. Check local cache first for instant rendering
     const savedPoster = localStorage.getItem('anfitrias_poster_base64');
     if (savedPoster) {
@@ -50,6 +48,33 @@ export default function Splash() {
       unsubscribeAuth();
     };
   }, []);
+
+  // SEO dynamic updates
+  useEffect(() => {
+    document.title = "Cão Meu Amigo nos Cinemas | Anfitriãs o Filme - Adestramento de Cães no Vale do Sinos";
+    
+    const updateMetaTag = (name: string, content: string, isProperty = false) => {
+      const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+      let el = document.querySelector(selector);
+      if (!el) {
+        el = document.createElement('meta');
+        if (isProperty) el.setAttribute('property', name);
+        else el.setAttribute('name', name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
+    };
+
+    updateMetaTag('description', 'Cão Meu Amigo apresenta Anfitriãs o Filme nos Cinemas. Líder em adestramento canino profissional, psicologia e comportamento canino no Vale do Sinos.');
+    updateMetaTag('keywords', 'cão meu amigo, adestramento de cães, adestrador novo hamburgo, anfitrias o filme, adestramento são leopoldo, comportamento canino de cães');
+    updateMetaTag('og:title', 'Cão Meu Amigo nos Cinemas | Anfitriãs o Filme', true);
+    updateMetaTag('og:description', 'Assista ao cartaz oficial de Anfitriãs o Filme pela Cão Meu Amigo Adestramento, referência em reabilitação de comportamento animal no Vale do Sinos.', true);
+    updateMetaTag('robots', 'index, follow');
+
+    if (posterUrl) {
+      updateMetaTag('og:image', posterUrl, true);
+    }
+  }, [posterUrl]);
 
   // Helper compression function (canvas resize and JPEG compression)
   const compressImage = (base64Str: string): Promise<string> => {
@@ -207,8 +232,74 @@ export default function Splash() {
     }
   };
 
+  const schemaMarkup = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "DogTrainer",
+        "@id": "https://caomeuamigo.com.br/#trainer",
+        "name": "Cão Meu Amigo Adestramento",
+        "url": "https://caomeuamigo.com.br",
+        "telephone": "+5551996566493",
+        "email": "fabianofisio@gmail.com",
+        "description": "Serviços especializados de adestramento de cães, adestramento de obediência profissional e psicologia comportamental canina com 18 anos de experiência no Rio Grande do Sul.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Novo Hamburgo",
+          "addressRegion": "RS",
+          "postalCode": "93510-000",
+          "addressCountry": "BR"
+        }
+      },
+      {
+        "@type": "Movie",
+        "@id": "https://caomeuamigo.com.br/#movie",
+        "name": "Anfitriãs o Filme",
+        "alternativeHeadline": "Anfitriãs o Filme nos Cinemas - Cão Meu Amigo",
+        "description": "Uma realização cultural evidenciando o preparo e a inteligência de cães atores adestrados pela equipe Cão Meu Amigo.",
+        "image": posterUrl || "https://caomeuamigo.com.br/anfitrias.jpg",
+        "dateCreated": "2027",
+        "productionCompany": {
+          "@type": "Organization",
+          "name": "Cão Meu Amigo Adestramento"
+        }
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-[#06080B] text-white flex flex-col justify-between p-6 overflow-x-hidden relative selection:bg-brand-vibrant selection:text-white-80">
+      <script type="application/ld+json">
+        {JSON.stringify(schemaMarkup)}
+      </script>
+
+      {/* Hidden Semantically Rich Content for Search Engine Optimization, Indexers, and AI Grids */}
+      <section className="sr-only">
+        <h1>Cão Meu Amigo nos Cinemas | Anfitriãs o Filme</h1>
+        <h2>Adestramento de Cães e Comportamento Canino Profissional</h2>
+        <p>
+          A empresa <strong>Cão Meu Amigo Adestramento</strong> é liderada por especialistas com mais de 18 anos de experiência prática, atuando em Novo Hamburgo, São Leopoldo, Campo Bom, Sapiranga, Estância Velha, Canoas e em todo o Vale do Sinos e região de Porto Alegre, RS.
+        </p>
+        <p>
+          Nossa atuação estende-se desde o adestramento básico de obediência e filhotes, adestramento sanitário higiênico personalizado, socialização de cães agressivos ou inseguros, reabilitação comportamental, treinamento avançado de guarda e proteção, até o preparo e assessoria de cães atores de alta performance para publicações digitais, comerciais, teatros, estúdios e grandes produções de cinema.
+        </p>
+        <div>
+          <h3>Anfitriãs o Filme (Estreia em 2027)</h3>
+          <p>
+            O projeto cinematográfico <strong>Anfitriãs</strong> é uma inovadora obra que destaca o potencial intelectual e artístico dos cães de alto nível adestrados pelo Cão Meu Amigo. Com técnicas de reforço positivo, paciência e profundo respeito psicológico, preparamos animais capazes de focar em ambientes barulhentos e desafiadores como palcos e estúdios de cinema.
+          </p>
+          <p>
+            Navegue pelo nosso site oficial para obter informações de contato, solicitar orçamentos de adestramento particular em domicílio no Vale do Sinos, ou preencher sua fila de solicitação.
+          </p>
+        </div>
+        <nav>
+          <Link to="/inicio">Acesse nosso site oficial de adestramento</Link>
+          <Link to="/adestramento-novo-hamburgo">Serviço de Adestramento em Novo Hamburgo</Link>
+          <Link to="/comportamento-canino">Dificuldades de Comportamento Canino</Link>
+          <Link to="/treinamento-profissional">Adestramento de Cães Profissional</Link>
+        </nav>
+      </section>
+
       {/* Cinematic Ambient Background Blur */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] bg-[#0076FF]/10 rounded-full blur-[120px] opacity-70" />
