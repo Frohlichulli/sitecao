@@ -72,13 +72,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-[0.3em] mb-6 text-white/50">Menu</h4>
-            <ul className="space-y-4">
-              <li><MotionLink to="/historia" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 hover:text-white transition-all block text-base uppercase tracking-widest font-light">História</MotionLink></li>
-              <li><MotionLink to="/servicos" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 hover:text-white transition-all block text-base uppercase tracking-widest font-light">Serviços</MotionLink></li>
-              <li><MotionLink to="/galeria" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 hover:text-white transition-all block text-base uppercase tracking-widest font-light">Galeria</MotionLink></li>
-              <li><MotionLink to="/avaliacao" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 hover:text-white transition-all block text-base uppercase tracking-widest font-light">Avaliação</MotionLink></li>
-              <li><MotionLink to="/contato" whileHover={{ x: 10, color: '#fff' }} className="text-white/60 hover:text-white transition-all block text-base uppercase tracking-widest font-light">Contato</MotionLink></li>
+            <h4 className="text-xs font-bold uppercase tracking-[0.3em] mb-4 text-white/50">Menu</h4>
+            <ul className="space-y-1.5">
+              <li><MotionLink to="/historia" whileHover={{ x: 6, color: '#fff' }} className="text-white/65 hover:text-white transition-all block text-xs uppercase tracking-widest font-semibold leading-none">História</MotionLink></li>
+              <li><MotionLink to="/servicos" whileHover={{ x: 6, color: '#fff' }} className="text-white/65 hover:text-white transition-all block text-xs uppercase tracking-widest font-semibold leading-none">Serviços</MotionLink></li>
+              <li><MotionLink to="/galeria" whileHover={{ x: 6, color: '#fff' }} className="text-white/65 hover:text-white transition-all block text-xs uppercase tracking-widest font-semibold leading-none">Galeria</MotionLink></li>
+              <li><MotionLink to="/avaliacao" whileHover={{ x: 6, color: '#fff' }} className="text-white/65 hover:text-white transition-all block text-xs uppercase tracking-widest font-semibold leading-none">Avaliação</MotionLink></li>
+              <li><MotionLink to="/contato" whileHover={{ x: 6, color: '#fff' }} className="text-white/65 hover:text-white transition-all block text-xs uppercase tracking-widest font-semibold leading-none">Contato</MotionLink></li>
             </ul>
           </div>
 
