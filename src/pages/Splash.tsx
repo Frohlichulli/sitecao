@@ -7,23 +7,28 @@ import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { db, auth, signInWithGoogle } from '../lib/firebase';
 
 export default function Splash() {
-  const [posterUrl, setPosterUrl] = useState<string>('');
+  const [posterUrl, setPosterUrl] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const cached = localStorage.getItem('anfitrias_poster_base64');
+      if (cached) return cached;
+    }
+    return '/anfitrias.jpg';
+  });
   const [isDragging, setIsDragging] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [canEditPoster, setCanEditPoster] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // 1. Check local cache first for instant rendering
-    const savedPoster = localStorage.getItem('anfitrias_poster_base64');
-    if (savedPoster) {
-      setPosterUrl(savedPoster);
-    } else {
-      setPosterUrl('/anfitrias.jpg');
-    }
+    // 1. Determine if we are on a production domain or inside the Google AI Studio development environment
+    const isProd = window.location.hostname === 'caomeuamigo.com.br' || window.location.hostname === 'www.caomeuamigo.com.br';
+    setCanEditPoster(isAdmin || !isProd);
+  }, [isAdmin]);
 
+  useEffect(() => {
     // 2. Fetch real-time poster from Firestore to keep it synchronized globally
     const splashDocRef = doc(db, 'gallery', 'splash_poster');
     const unsubscribeSnapshot = onSnapshot(splashDocRef, (docSnap) => {
@@ -327,16 +332,18 @@ export default function Splash() {
             initial={{ opacity: 0, scale: 0.95, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-            onClick={triggerFileInput}
-            className={`relative aspect-[9/16] w-full rounded-[20px] overflow-hidden bg-[#0d1117] border-2 cursor-pointer transition-all duration-300 shadow-[0_0_80px_rgba(0,0,0,0.85)] flex flex-col items-center justify-center group ${
-              isDragging 
+            onDragOver={canEditPoster ? handleDragOver : undefined}
+            onDragLeave={canEditPoster ? handleDragLeave : undefined}
+            onDrop={canEditPoster ? handleDrop : undefined}
+            onClick={canEditPoster ? triggerFileInput : undefined}
+            className={`relative aspect-[9/16] w-full rounded-[20px] overflow-hidden bg-[#0d1117] border-2 transition-all duration-300 shadow-[0_0_80px_rgba(0,0,0,0.85)] flex flex-col items-center justify-center group ${
+              canEditPoster 
+                ? 'cursor-pointer border-white/15 hover:border-[#0076FF]/40' 
+                : 'cursor-default border-white/5'
+            } ${
+              isDragging && canEditPoster 
                 ? 'border-brand-vibrant bg-brand-vibrant/10 scale-[1.02]' 
-                : posterUrl 
-                  ? 'border-white/10 hover:border-[#0076FF]/40' 
-                  : 'border-white/10 border-dashed hover:border-brand-vibrant/50 hover:bg-[#0f1520]'
+                : ''
             }`}
           >
             {posterUrl ? (
@@ -347,44 +354,62 @@ export default function Splash() {
                   alt="Anfitriãs o Filme - Cartaz Oficial" 
                   referrerPolicy="no-referrer"
                   onError={handleImageError}
-                  className="w-full h-full object-cover z-10 transition-transform duration-700 ease-out group-hover:scale-[1.01]"
+                  loading="eager"
+                  className="w-full h-full object-cover z-10 transition-transform duration-700 ease-out group-hover:scale-[1.005]"
                 />
                 
-                {/* Subtle overlay on hover to easily change it */}
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex flex-col items-center justify-center gap-2 backdrop-blur-sm">
-                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
-                    <Upload size={20} className="text-white" />
+                {/* Subtle overlay on hover to easily change it - ONLY shown to administrators or Google Studio developers */}
+                {canEditPoster && (
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex flex-col items-center justify-center gap-2 backdrop-blur-sm">
+                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+                      <Upload size={20} className="text-white" />
+                    </div>
+                    <p className="text-xs tracking-wider uppercase font-bold text-white text-center">
+                      Substituir Cartaz
+                    </p>
+                    <p className="text-[10px] text-white/50 text-center px-4">
+                      Arraste a nova imagem ou clique para selecionar
+                    </p>
                   </div>
-                  <p className="text-xs tracking-wider uppercase font-bold text-white text-center">
-                    Substituir Cartaz
-                  </p>
-                  <p className="text-[10px] text-white/50 text-center px-4">
-                    Arraste a nova imagem ou clique para selecionar
-                  </p>
-                </div>
+                )}
               </>
             ) : (
-              /* Beautiful Cinematic Placeholder explaining how to put their exact poster */
+              /* Beautiful Cinematic Placeholder - dynamically responsive */
               <div className="relative p-8 text-center flex flex-col items-center justify-center space-y-6 z-10 select-none pointer-events-none">
-                <div className="w-16 h-16 rounded-full bg-brand-vibrant/10 border border-brand-vibrant/30 flex items-center justify-center animate-pulse">
-                  <Upload size={28} className="text-brand-vibrant" />
-                </div>
-                
-                <div className="space-y-2">
-                  <h3 className="text-lg font-bold tracking-wider uppercase text-white/95">
-                    Adicione Seu Cartaz
-                  </h3>
-                  <p className="text-xs text-white/60 leading-relaxed max-w-xs">
-                    Arraste o arquivo de imagem anexado do cartaz e solte-o aqui, ou clique para selecionar do computador.
-                  </p>
-                </div>
+                {canEditPoster ? (
+                  <>
+                    <div className="w-16 h-16 rounded-full bg-brand-vibrant/10 border border-brand-vibrant/30 flex items-center justify-center animate-pulse">
+                      <Upload size={28} className="text-brand-vibrant" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-bold tracking-wider uppercase text-white/95">
+                        Adicione Seu Cartaz
+                      </h3>
+                      <p className="text-xs text-white/60 leading-relaxed max-w-xs">
+                        Arraste o arquivo de imagem anexado do cartaz e solte-o aqui, ou clique para selecionar do computador.
+                      </p>
+                    </div>
 
-                <div className="bg-white/5 border border-white/10 rounded-xl p-3 max-w-[280px]">
-                  <p className="text-[11px] text-neutral-400 font-mono leading-relaxed">
-                    <Sparkles size={12} className="inline mr-1 text-[#0076FF]" /> 
-                    Dica: Você também pode simplesmente salvar a imagem de impacto na pasta <span className="text-[#0076FF] font-semibold">/public</span> com o nome <span className="text-[#0076FF] font-semibold">anfitrias.jpg</span>.
-                  </p>
-                </div>
+                    <div className="bg-white/5 border border-white/10 rounded-xl p-3 max-w-[280px]">
+                      <p className="text-[11px] text-neutral-400 font-mono leading-relaxed">
+                        <Sparkles size={12} className="inline mr-1 text-[#0076FF]" /> 
+                        Dica: Você também pode simplesmente salvar a imagem de impacto na pasta <span className="text-[#0076FF] font-semibold">/public</span> com o nome <span className="text-[#0076FF] font-semibold">anfitrias.jpg</span>.
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-16 h-16 rounded-full bg-blue-950/40 border border-blue-500/10 flex items-center justify-center">
+                      <Loader2 size={24} className="text-[#0076FF] animate-spin" />
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="text-xs font-bold tracking-wider uppercase text-white/60">
+                        Carregando Cartaz...
+                      </h3>
+                    </div>
+                  </>
+                )}
               </div>
             )}
           </motion.div>
