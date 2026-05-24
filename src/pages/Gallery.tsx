@@ -332,7 +332,7 @@ export default function Gallery() {
   const isAdmin = user?.email === 'fabianofisio@gmail.com';
 
   return (
-    <div className="bg-[#F1F4F8] pt-20 md:pt-36 pb-10 md:pb-16 relative overflow-hidden">
+    <div className="bg-brand-bg pt-20 md:pt-36 pb-10 md:pb-16 relative overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0 h-[60vh] opacity-35 pointer-events-none">
         <img 
@@ -340,7 +340,7 @@ export default function Gallery() {
           alt="Gallery Background" 
           className="w-full h-full object-cover grayscale brightness-[0.85]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#F1F4F8] via-[#F1F4F8]/60 to-transparent opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/60 to-transparent opacity-100" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -352,37 +352,37 @@ export default function Gallery() {
           >
             <div className="mb-2 md:mb-3 flex items-center space-x-3">
               <span className="w-8 md:w-10 h-px bg-brand-vibrant/30"></span>
-              <span className="text-[10px] uppercase tracking-[0.5em] text-brand-dark/70 font-semibold">Visão Geral</span>
+              <span className="text-[10px] uppercase tracking-[0.5em] text-brand-dark/70 font-bold">Visão Geral</span>
             </div>
             <h1 
               onClick={handleLoginTrigger}
-              className="text-brand-dark text-5xl md:text-7xl font-bold uppercase tracking-tighter mb-4 md:mb-6 leading-[0.85] cursor-default select-none"
+              className="text-brand-dark text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4 md:mb-6 leading-[0.85] cursor-default select-none"
             >
               Nossa <br /><span className="text-highlight">Galeria</span>
             </h1>
 
-            {/* Segmented Control Index for Photos and Videos */}
-            <div className="flex p-1 bg-white/80 border border-brand-dark/5 backdrop-blur-md rounded-2xl w-full max-w-sm shadow-sm">
+            {/* Segmented Control Index for Photos and Videos - Highly Prominent with Glassmorphism, elevated shadows, and vibrant borders */}
+            <div className="flex p-1.5 bg-white border-2 border-brand-vibrant/20 backdrop-blur-md rounded-2xl w-full max-w-md shadow-lg">
               <button 
                 onClick={() => setActiveTab('images')}
-                className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                className={`flex-1 flex items-center justify-center gap-2.5 py-3.5 px-5 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
                   activeTab === 'images' 
-                    ? 'bg-brand-vibrant text-white shadow-md shadow-brand-vibrant/20' 
-                    : 'text-brand-dark/60 hover:text-brand-dark'
+                    ? 'bg-brand-vibrant text-white shadow-lg shadow-brand-vibrant/40 scale-[1.02]' 
+                    : 'text-brand-dark/70 hover:text-brand-dark hover:bg-brand-soft/50'
                 }`}
               >
-                <ImageIcon size={14} />
+                <ImageIcon size={15} />
                 <span>Fotos ({images.length})</span>
               </button>
               <button 
                 onClick={() => setActiveTab('videos')}
-                className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+                className={`flex-1 flex items-center justify-center gap-2.5 py-3.5 px-5 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
                   activeTab === 'videos' 
-                    ? 'bg-brand-vibrant text-white shadow-md shadow-brand-vibrant/20' 
-                    : 'text-brand-dark/60 hover:text-brand-dark'
+                    ? 'bg-brand-vibrant text-white shadow-lg shadow-brand-vibrant/40 scale-[1.02]' 
+                    : 'text-brand-dark/70 hover:text-brand-dark hover:bg-brand-soft/50'
                 }`}
               >
-                <Video size={14} />
+                <Video size={15} />
                 <span>Vídeos</span>
               </button>
             </div>

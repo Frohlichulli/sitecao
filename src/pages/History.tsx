@@ -34,7 +34,7 @@ export default function History() {
   ];
 
   return (
-    <div className="bg-[#F1F4F8] pt-20 md:pt-36 pb-10 md:pb-16 overflow-hidden relative">
+    <div className="bg-brand-bg pt-20 md:pt-36 pb-10 md:pb-16 overflow-hidden relative">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0 h-[60vh] opacity-35 pointer-events-none">
         <img 
@@ -42,7 +42,7 @@ export default function History() {
           alt="History Background" 
           className="w-full h-full object-cover grayscale brightness-[0.85]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#F1F4F8] via-[#F1F4F8]/60 to-transparent opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/60 to-transparent opacity-100" />
       </div>
 
       <div className="container mx-auto relative z-10">
@@ -58,14 +58,14 @@ export default function History() {
           >
             <div className="mb-4 md:mb-6 flex items-center space-x-3">
               <span className="w-8 md:w-10 h-px bg-brand-vibrant/30"></span>
-              <span className="text-[10px] uppercase tracking-[0.5em] text-brand-dark/70 font-semibold">Nossa Trajetória</span>
+              <span className="text-[10px] uppercase tracking-[0.5em] text-brand-dark/70 font-bold">Nossa Trajetória</span>
             </div>
             
-            <h1 className="text-brand-dark text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-4 md:mb-6 leading-[0.85]">
+            <h1 className="text-brand-dark text-4xl md:text-7xl font-black uppercase tracking-tighter mb-4 md:mb-6 leading-[0.85]">
               Uma vida <br /> dedicada <br /><span className="text-highlight">aos cães.</span>
             </h1>
             
-            <p className="text-brand-dark/95 text-base md:text-lg font-medium leading-snug max-w-2xl px-0">
+            <p className="text-brand-dark/95 text-base md:text-lg font-bold leading-snug max-w-2xl px-0">
               O Cão Meu Amigo nasceu de uma necessidade real: adestrar com ética, paciência e embasamento científico, sem nunca perder o carinho.
             </p>
           </motion.div>
@@ -92,19 +92,19 @@ export default function History() {
                 <div className={`w-full lg:w-[55%] relative z-10 ${idx % 2 === 0 ? 'lg:text-right' : 'lg:text-left'} text-left`}>
                   <div className={`w-12 h-1 bg-brand-vibrant/20 mb-4 hidden lg:block ${idx % 2 === 0 ? 'ml-auto' : ''}`}></div>
                   <div className="flex items-center space-x-4 mb-2 lg:hidden">
-                    <span className="text-brand-vibrant font-bold text-xl tabular-nums">{item.year}</span>
+                    <span className="text-brand-vibrant font-extrabold text-xl tabular-nums">{item.year}</span>
                     <div className="h-px flex-grow bg-brand-dark/10"></div>
                   </div>
-                  <h3 className="text-brand-dark text-xl md:text-2xl font-bold uppercase tracking-tight mb-2">{item.title}</h3>
+                  <h3 className="text-brand-dark text-xl md:text-2xl font-black uppercase tracking-tight mb-2">{item.title}</h3>
                   <p className="text-brand-dark/90 text-sm md:text-base leading-snug font-medium">{item.desc}</p>
                 </div>
                 <div className="lg:w-[5%]" />
                 <div className="w-full lg:w-[30%] mt-4 lg:mt-0">
-                  <div className="aspect-[4/3] max-w-[280px] bg-white border border-brand-dark/5 rounded-2xl overflow-hidden group shadow-md mx-auto lg:mx-0">
+                  <div className="aspect-[4/3] max-w-[280px] bg-white border border-brand-dark/5 rounded-2xl overflow-hidden group shadow-md hover:shadow-xl transition-all duration-300 mx-auto lg:mx-0">
                     <img 
                       src={item.image} 
                       alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
                     />
                   </div>
                 </div>
@@ -116,17 +116,17 @@ export default function History() {
         {/* Values */}
         <section className="pt-12 md:pt-20 px-6 md:px-0 pb-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            <div className="p-8 md:p-10 border border-brand-dark/5 rounded-[24px] bg-white/70 hover:bg-white transition-all shadow-sm">
-              <h4 className="text-brand-dark text-lg md:text-xl font-bold uppercase tracking-widest mb-4 underline underline-offset-4 decoration-brand-vibrant/20">Nossa Missão</h4>
-              <p className="text-brand-dark/90 text-xs md:text-sm leading-snug italic">"Educar tutores e cães para que vivam em harmonia, priorizando sempre o bem-estar e a comunicação clara."</p>
+            <div className="p-8 md:p-10 border border-brand-dark/5 rounded-[24px] bg-white/70 hover:bg-white hover:-translate-y-1 transition-all shadow-md">
+              <h4 className="text-brand-dark text-lg md:text-xl font-black uppercase tracking-widest mb-4 underline underline-offset-4 decoration-brand-vibrant/25">Nossa Missão</h4>
+              <p className="text-brand-dark/95 text-xs md:text-sm leading-snug italic font-medium">"Educar tutores e cães para que vivam em harmonia, priorizando sempre o bem-estar e a comunicação clara."</p>
             </div>
-            <div className="p-8 md:p-10 border border-brand-dark/5 rounded-[24px] bg-white/70 hover:bg-white transition-all shadow-sm">
-              <h4 className="text-brand-dark text-lg md:text-xl font-bold uppercase tracking-widest mb-4 underline underline-offset-4 decoration-brand-vibrant/20">Nossos Valores</h4>
-              <p className="text-brand-dark/90 text-xs md:text-sm leading-snug italic">"Ética inegociável, respeito à individualidade de cada cão, paciência infinita e inovação constante."</p>
+            <div className="p-8 md:p-10 border border-brand-dark/5 rounded-[24px] bg-white/70 hover:bg-white hover:-translate-y-1 transition-all shadow-md">
+              <h4 className="text-brand-dark text-lg md:text-xl font-black uppercase tracking-widest mb-4 underline underline-offset-4 decoration-brand-vibrant/25">Nossos Valores</h4>
+              <p className="text-brand-dark/95 text-xs md:text-sm leading-snug italic font-medium">"Ética inegociável, respeito à individualidade de cada cão, paciência infinita e inovação constante."</p>
             </div>
-            <div className="p-8 md:p-10 border border-brand-dark/5 rounded-[24px] bg-white/70 hover:bg-white transition-all shadow-sm">
-              <h4 className="text-brand-dark text-lg md:text-xl font-bold uppercase tracking-widest mb-4 underline underline-offset-4 decoration-brand-vibrant/20">Nosso Futuro</h4>
-              <p className="text-brand-dark/90 text-xs md:text-sm leading-snug italic">"Ser a maior referência em adestramento do Sul do Brasil, impactando milhares de vidas."</p>
+            <div className="p-8 md:p-10 border border-brand-dark/5 rounded-[24px] bg-white/70 hover:bg-white hover:-translate-y-1 transition-all shadow-md">
+              <h4 className="text-brand-dark text-lg md:text-xl font-black uppercase tracking-widest mb-4 underline underline-offset-4 decoration-brand-vibrant/25">Nosso Futuro</h4>
+              <p className="text-brand-dark/95 text-xs md:text-sm leading-snug italic font-medium">"Ser a maior referência em adestramento do Sul do Brasil, impactando milhares de vidas."</p>
             </div>
           </div>
         </section>
