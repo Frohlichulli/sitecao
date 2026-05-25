@@ -76,6 +76,12 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
+    // --- History Rules ---
+    match /history/{historyId} {
+      allow list, get: if true; // Publicly readable
+      allow create, update, delete: if isAdmin(); // Writable only by admins
+    }
+
     // Admins collection - System only
     match /admins/{adminId} {
       allow read: if isSignedIn();

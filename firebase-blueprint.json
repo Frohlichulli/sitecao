@@ -56,6 +56,10 @@
     "videos": {
       "schema": "TrainingVideo",
       "description": "Collection of training videos"
+    },
+    "history": {
+      "schema": "HistoryConfig",
+      "description": "Collection of customized history timeline card configurations"
     }
   }
 }
