@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <div className="bg-brand-bg">
       {/* Hero Section */}
-      <section className="relative h-[85vh] md:h-screen w-full flex items-center overflow-hidden border-b border-brand-dark/10 bg-brand-dark">
+      <section className="relative h-[85vh] md:h-screen w-full flex items-center overflow-hidden border-b-0 md:border-b border-brand-dark/10 bg-brand-dark">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
           <img 
@@ -100,7 +100,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pt-16 md:pt-24 pb-12 bg-brand-bg relative border-b border-brand-dark/5">
+      {/* Mobile-only gradient transition to break the sharp dark-to-light threshold and solve contrast transition */}
+      <div className="h-28 bg-gradient-to-b from-brand-dark to-brand-bg md:hidden relative z-10" />
+
+      <section className="pt-8 md:pt-24 pb-12 bg-brand-bg relative border-b border-brand-dark/5">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
             <div className="lg:col-span-5 px-6 space-y-4">
