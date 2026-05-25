@@ -8,15 +8,13 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Servir arquivos estáticos do diretório dist com Cache-Control customizado
+// Servir arquivos estáticos do diretório dist com Cache-Control desativado para atualizações imediatas no navegador
 app.use(express.static(path.join(__dirname, 'dist'), {
-  maxAge: '1y',
+  maxAge: 0,
   setHeaders: (res, filePath) => {
-    if (filePath.endsWith('.html')) {
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-      res.setHeader('Pragma', 'no-cache');
-      res.setHeader('Expires', '0');
-    }
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
   }
 }));
 
