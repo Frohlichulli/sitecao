@@ -91,9 +91,10 @@ export default function Services() {
           {services.map((service, idx) => (
             <motion.div 
                key={idx}
-               initial={{ opacity: 0, y: 20 }}
+               initial={{ opacity: 0, y: 24 }}
                whileInView={{ opacity: 1, y: 0 }}
-               viewport={{ once: true }}
+               viewport={{ once: true, margin: "-10px" }}
+               transition={{ duration: 0.8, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
                whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(3, 27, 78, 0.08)" }}
                className="p-8 md:p-10 bg-white border border-brand-dark/5 rounded-[24px] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             >
