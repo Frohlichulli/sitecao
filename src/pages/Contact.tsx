@@ -280,7 +280,7 @@ export default function Contact() {
               <div className="bg-white p-6 flex flex-col items-center">
                 <div className="aspect-square w-full max-w-[200px] border-4 border-white shadow-inner bg-white rounded-lg flex items-center justify-center overflow-hidden">
                   <img 
-                    src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.google.com/maps/place/C%25C3%25A3o%2BMeu%2BAmigo%2B-%2BAdestramento%2Bde%2BC%25C3%25A3es/@-29.6914755,-51.1278144,15z" 
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://avaliacaocma.netlify.app/" 
                     alt="Avaliação Cão Meu Amigo - QR Code"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-contain"
